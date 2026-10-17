@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Portafolio de Alexander Liang">
+<meta property="og:description" content="Portafolio de videojuegos: Metal Revenant, Monkey on the Loose y un blockout en Unreal Engine.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Portafolio de Alexander Liang</title>
+<meta name="description" content="Portafolio de videojuegos de Alexander Liang: Metal Revenant y Monkey on the Loose.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Martian+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a name plate under a factory spotlight, then one dossier per game:
+   spec rail (ficha, rol, controles) beside the media column; art sits on dark "night" plates. */
+:root {
+  --paper: #edf0f4;
+  --plate: #ffffff;
+  --ink: #171f2e;
+  --muted: #566074;
+  --rule: #cbd2dc;
+  --signal: #e0532c;
+  --signal-ink: #b13f1d;
+  --steel: #3d5a80;
+  --night: #10151f;
+  --night-ink: #e8edf4;
+  --night-muted: #a4afc0;
+  --spot: rgba(224, 83, 44, 0.20);
+  --bar: #3d5a80;
+
+  --f-display: "Big Shoulders Display", "Oswald", "Arial Narrow", Impact, sans-serif;
+  --f-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  --f-mono: "Martian Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step--1: 0.8125rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.25rem;
+  --step-2: clamp(2rem, 5.5vw, 3rem);
+  --step-3: clamp(2.5rem, 8vw, 4.25rem);
+  --step-4: clamp(3.4rem, 13vw, 7.75rem);
+  --gap: clamp(1rem, 3vw, 1.75rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d1219; --plate: #151c27; --ink: #e5eaf1; --muted: #9aa5b7; --rule: #263042;
+    --signal: #ff6f43; --signal-ink: #ff9b78; --steel: #8db0db; --night: #070a0f;
+    --night-ink: #e8edf4; --night-muted: #a4afc0; --spot: rgba(255, 111, 67, 0.16); --bar: #8db0db;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1219; --plate: #151c27; --ink: #e5eaf1; --muted: #9aa5b7; --rule: #263042;
+  --signal: #ff6f43; --signal-ink: #ff9b78; --steel: #8db0db; --night: #070a0f;
+  --night-ink: #e8edf4; --night-muted: #a4afc0; --spot: rgba(255, 111, 67, 0.16); --bar: #8db0db;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+}
+.wrap {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--steel); outline-offset: 2px; border-radius: 4px; }
+
+h1, h2, h3 {
+  font-family: var(--f-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: 0.005em;
+  text-wrap: balance;
+  margin: 0;
+}
+p { margin: 0; max-width: 65ch; }
+ul, ol { margin: 0; padding: 0; }
+
+.label {
+  font-family: var(--f-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- top bar ---------- */
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding-block: 1.25rem;
+  border-bottom: 1px solid var(--rule);
+}
+.topbar nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+.topbar nav a {
+  font-family: var(--f-mono);
+  font-size: var(--step--1);
+  text-decoration: none;
+  color: var(--muted);
+}
+.topbar nav a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---------- hero ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--gap);
+  padding-block: clamp(2rem, 6vw, 4rem) clamp(2rem, 5vw, 3.5rem);
+  align-items: end;
+}
+@media (min-width: 760px) {
+  .hero { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); }
+}
+.hero-copy { display: grid; gap: 1.25rem; min-width: 0; }
+.hero h1 { font-size: var(--step-4); }
+.hero h1 span { display: block; color: var(--signal); }
+.lead { font-size: var(--step-1); line-height: 1.5; }
+.status {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+}
+.status::before {
+  content: "";
+  width: 0.7rem;
+  height: 0.7rem;
+  background: var(--signal);
+  flex: none;
+}
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+.btn {
+  font-family: var(--f-mono);
+  font-size: var(--step--1);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.1rem;
+  border: 2px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 0;
+}
+.btn.primary { background: var(--ink); color: var(--paper); }
+.btn:hover { background: var(--signal); border-color: var(--signal); color: #fff; }
+.contact-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  font-family: var(--f-mono);
+  font-size: var(--step--1);
+}
+.email { user-select: all; overflow-wrap: anywhere; }
+.copy {
+  font: inherit;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--rule);
+  background: var(--plate);
+  color: var(--ink);
+  cursor: pointer;
+}
+.copy:hover { border-color: var(--ink); }
+.contact-line a { text-underline-offset: 4px; }
+.notice { font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); min-height: 1.2em; }
+
+.echo-stage {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: end;
+  gap: 0.75rem;
+  min-width: 0;
+  padding-top: 1rem;
+}
+.echo-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0 12% 2.4rem;
+  background: linear-gradient(to bottom, var(--spot), transparent 90%);
+  clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
+  pointer-events: none;
+}
+.echo-stage img {
+  position: relative;
+  width: min(210px, 40vw);
+  filter: drop-shadow(0 18px 14px rgba(0, 0, 0, 0.18));
+}
+.ledge {
+  position: relative;
+  width: 78%;
+  height: 10px;
+  border-top: 3px solid var(--ink);
+  background: repeating-linear-gradient(90deg, var(--rule) 0 14px, transparent 14px 22px);
+}
+.echo-stage figcaption { position: relative; text-align: center; }
+
+/* ---------- sections ---------- */
+section { padding-block: clamp(2.5rem, 6vw, 4.5rem); border-top: 1px solid var(--rule); }
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+}
+.section-head h2 { font-size: var(--step-2); }
+
+/* ---------- game dossier ---------- */
+.game { display: grid; gap: clamp(1.25rem, 3vw, 2rem); }
+.game + .game { margin-top: clamp(3rem, 8vw, 5.5rem); padding-top: clamp(2.5rem, 6vw, 4rem); border-top: 2px solid var(--ink); }
+.game-head { display: grid; gap: 0.75rem; }
+.game-head h3 { font-size: var(--step-3); }
+.hook { font-size: var(--step-1); line-height: 1.5; }
+.game-head .actions { padding-top: 0.35rem; }
+
+.plate {
+  background: var(--night);
+  color: var(--night-ink);
+  margin: 0;
+}
+.plate .label { color: var(--night-muted); }
+.keyart img { width: 100%; }
+.keyart figcaption { padding: 0.7rem 1rem; }
+.logo-strip { padding: 1.25rem 1rem 0.25rem; }
+.logo-strip img { width: min(560px, 100%); margin-inline: auto; }
+
+.dossier { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 2.75rem); }
+@media (min-width: 900px) {
+  .dossier { grid-template-columns: 300px minmax(0, 1fr); align-items: start; }
+}
+.rail { display: grid; gap: 1.75rem; min-width: 0; }
+.block { display: grid; gap: 0.75rem; min-width: 0; }
+.block h4 { margin: 0; }
+
+.spec { display: grid; gap: 0; margin: 0; }
+.spec div {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.75rem;
+  padding-block: 0.55rem;
+  border-bottom: 1px solid var(--rule);
+}
+.spec div:first-child { border-top: 1px solid var(--rule); }
+.spec dt { font-family: var(--f-mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 0.2rem; }
+.spec dd { margin: 0; }
+
+.role { list-style: none; display: grid; gap: 0.6rem; }
+.role li { padding-left: 1.1rem; position: relative; }
+.role li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 0.45rem; height: 0.45rem; background: var(--signal); }
+
+.keys { list-style: none; display: grid; gap: 0.55rem; }
+.keys li { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; }
+kbd {
+  font-family: var(--f-mono);
+  font-size: 0.75rem;
+  line-height: 1;
+  padding: 0.35rem 0.5rem;
+  min-width: 1.9rem;
+  text-align: center;
+  background: var(--plate);
+  border: 1px solid var(--rule);
+  border-bottom-width: 3px;
+  border-radius: 5px;
+  color: var(--ink);
+}
+.keys .does { color: var(--muted); font-size: 0.95rem; }
+
+.main-col { display: grid; gap: clamp(1.75rem, 4vw, 2.5rem); min-width: 0; }
+.plays { list-style: none; display: grid; gap: 0.55rem; max-width: 65ch; }
+.plays li { padding-left: 1.1rem; position: relative; }
+.plays li::before { content: "›"; position: absolute; left: 0; color: var(--signal-ink); font-weight: 700; }
+
+/* level select, 4 screens of 5 levels like the game's own menu */
+.levels { display: grid; grid-template-columns: repeat(2, max-content); gap: 0.9rem 1rem; list-style: none; }
+@media (min-width: 1180px) { .levels { grid-template-columns: repeat(4, max-content); } }
+.lv-screen { display: grid; gap: 0.35rem; }
+.lv-row { display: flex; gap: 4px; }
+.lv {
+  width: clamp(1.5rem, 7vw, 1.875rem);
+  height: clamp(1.5rem, 7vw, 1.875rem);
+  display: grid;
+  place-items: center;
+  font-family: var(--f-mono);
+  font-size: 0.6875rem;
+  border: 1px solid var(--rule);
+  background: var(--plate);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.lv.on { background: var(--signal); border-color: var(--signal); color: #fff; font-weight: 500; }
+.milestones { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(11.5rem, 1fr)); gap: 0.4rem 1rem; }
+.milestones li { display: flex; gap: 0.6rem; align-items: baseline; }
+.milestones b { font-family: var(--f-mono); font-size: 0.75rem; font-weight: 500; color: var(--signal-ink); font-variant-numeric: tabular-nums; min-width: 3.6rem; }
+
+/* balance table */
+.table-scroll { overflow-x: auto; border: 1px solid var(--rule); background: var(--plate); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.9375rem; }
+th, td { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+thead th { font-family: var(--f-mono); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+tbody th { font-weight: 700; white-space: nowrap; }
+.hp { display: grid; gap: 0.3rem; font-variant-numeric: tabular-nums; }
+.hp i { display: block; height: 6px; background: var(--bar); width: calc(var(--v) / 80 * 100%); }
+.source { font-size: 0.875rem; color: var(--muted); }
+
+/* galleries */
+.gallery { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap); }
+@media (min-width: 700px) { .gallery.two { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.gallery figure { margin: 0; display: grid; gap: 0.6rem; align-content: start; min-width: 0; }
+.gallery figcaption { font-size: 0.9rem; color: var(--muted); }
+.art {
+  background: var(--night);
+  display: grid;
+  place-items: center;
+  padding: clamp(0.75rem, 3vw, 1.5rem);
+  gap: 1rem;
+}
+.art.weapons { grid-template-columns: minmax(0, 1fr); }
+.art.weapons img { width: min(100%, 360px); }
+.art.cast { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; }
+.art.cast img { max-height: 210px; width: auto; }
+.shot { border: 1px solid var(--rule); background: var(--plate); }
+.shot img { width: 100%; }
+
+/* wave cycle */
+.cycle { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; }
+.cycle li {
+  font-family: var(--f-mono);
+  font-size: 0.75rem;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--rule);
+  background: var(--plate);
+}
+.cycle li.shop { border-style: dashed; color: var(--muted); background: transparent; }
+.cycle li.boss { background: var(--signal); border-color: var(--signal); color: #fff; font-weight: 500; }
+
+/* wireframe → final */
+.evolution { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+.pair { margin: 0; display: grid; gap: 0.5rem; }
+.pair-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.5rem; }
+.pair-row div { display: grid; gap: 0.3rem; min-width: 0; }
+.pair-row img { width: 100%; border: 1px solid var(--rule); }
+.pair figcaption { font-weight: 700; }
+
+.learned { list-style: none; display: grid; gap: 0.9rem; counter-reset: none; }
+.learned li { border-left: 3px solid var(--signal); padding-left: 0.9rem; max-width: 65ch; }
+
+/* ---------- tools & contact ---------- */
+.tools { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem 2.5rem; }
+@media (min-width: 760px) { .tools { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.tools div { display: grid; gap: 0.5rem; align-content: start; }
+.tools ul { list-style: none; display: grid; gap: 0.25rem; }
+.tools li { font-size: 1.05rem; }
+.tools li small { color: var(--muted); font-size: 0.875rem; }
+
+.contact { display: grid; gap: 1.25rem; }
+.contact h2 { font-size: var(--step-3); }
+footer { padding-block: 1.5rem 2.5rem; border-top: 1px solid var(--rule); }
+
+/* ---------- level design: annotated map ---------- */
+:root {
+  --map-route: #f0612f;
+  --map-light: #ffd36b;
+  --map-fire: #ff8a4c;
+  --map-tree: #3f6f52;
+}
+.video-plate video { display: block; width: 100%; height: auto; aspect-ratio: 1280 / 744; max-width: 100%; background: var(--night); }
+.video-plate figcaption { padding: 0.7rem 1rem; }
+.map-plate { display: grid; gap: 1.1rem; padding: clamp(0.9rem, 3vw, 1.75rem); }
+.map-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.25rem, 3vw, 2.25rem); align-items: start; }
+@media (min-width: 860px) { .map-layout { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); } }
+.lvl-map { width: 100%; height: auto; }
+.beats-col { display: grid; gap: 1.1rem; align-content: start; min-width: 0; }
+.beats-col h4 { margin: 0; }
+.beats { list-style: none; counter-reset: beat; display: grid; gap: 0.6rem; }
+.beats li {
+  counter-increment: beat;
+  display: grid;
+  grid-template-columns: 1.75rem minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+  font-size: 0.97rem;
+  line-height: 1.45;
+  color: var(--night-ink);
+}
+.beats li::before {
+  content: counter(beat);
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-top: -0.12rem;
+  border-radius: 50%;
+  background: var(--map-route);
+  color: #fff;
+  font-family: var(--f-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+.map-key {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.1rem;
+  font-family: var(--f-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--night-muted);
+}
+.map-key li { display: inline-flex; align-items: center; gap: 0.45rem; }
+.map-key i { display: inline-block; width: 0.6rem; height: 0.6rem; border-radius: 50%; }
+.map-key .k-light { background: var(--map-light); }
+.map-key .k-fire { background: var(--map-fire); }
+.map-key .k-tree { background: var(--map-tree); }
+.map-key .k-route { width: 1.4rem; height: 0; border-radius: 0; border-top: 3px dashed var(--map-route); }
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn, .copy { transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="topbar">
+    <span class="label">Portafolio · Desarrollo de videojuegos</span>
+    <nav aria-label="Secciones">
+      <a href="#juegos">Juegos</a>
+      <a href="#niveles">Niveles</a>
+      <a href="#herramientas">Herramientas</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-copy">
+      <h1>Alexander <span>Liang</span></h1>
+      <p class="lead">Estudio la Licenciatura en Desarrollo de Videojuegos y la Ingeniería en Informática en UADE, en Buenos Aires. Me interesan todas las áreas del desarrollo de videojuegos, pero principalmente el diseño de niveles.</p>
+      <p class="status">Busco una pasantía o mi primer trabajo en la industria de los videojuegos.</p>
+      <div class="actions">
+        <a class="btn primary" href="#juegos">Ver juegos</a>
+        <a class="btn" href="cv.pdf" download="CV_Alexander_Liang_Videojuegos.pdf">Descargar CV (PDF)</a>
+      </div>
+      <div class="contact-line">
+        <span class="email" id="email-hero">liangmaximo2@gmail.com</span>
+        <button class="copy" type="button" data-copy="liangmaximo2@gmail.com" id="copy-hero">Copiar mail</button>
+        <a href="https://www.linkedin.com/in/alexandermaximoliang" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+      <p class="notice" aria-live="polite" data-notice></p>
+    </div>
+    <figure class="echo-stage">
+      <img src="assets/mr-echo.webp" width="435" height="900" alt="Echo, robot azul de ojos naranjas, protagonista de Metal Revenant">
+      <div class="ledge" aria-hidden="true"></div>
+      <figcaption class="label">Echo · diseño de personaje · Metal Revenant</figcaption>
+    </figure>
+  </div>
+</div>
+
+<main>
+  <section id="juegos">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Juegos</h2>
+        <span class="label">2 proyectos en equipo · UADE · Unity</span>
+      </div>
+
+      <!-- ================= METAL REVENANT ================= -->
+      <article class="game" aria-labelledby="mr-title">
+        <header class="game-head">
+          <span class="label">Run and gun · Plataformas 2D</span>
+          <h3 id="mr-title">Metal Revenant</h3>
+          <p class="hook">Echo es un robot que iba a ser desechado y recobra la conciencia en una fábrica. En un mundo de máquinas donde ya no quedan humanos, se abre paso a los tiros hasta vengarse de El Centinela.</p>
+          <div class="actions">
+            <a class="btn primary" href="https://yukiliang.itch.io/metal-revenant" target="_blank" rel="noopener">Descargar en itch.io ↗</a>
+            <span class="label">Windows · gratis · hasta el nivel 3</span>
+          </div>
+        </header>
+
+        <figure class="plate keyart">
+          <div class="logo-strip"><img src="assets/mr-logo.webp" width="1200" height="159" alt="Logo de Metal Revenant"></div>
+          <img src="assets/mr-gameplay.webp" width="1600" height="1000" alt="Captura del juego: Echo apunta con su pistola sobre una plataforma de la fábrica, iluminado por reflectores, frente a un robot enemigo">
+          <figcaption class="label">Captura del juego · nivel de la fábrica</figcaption>
+        </figure>
+
+        <div class="dossier">
+          <aside class="rail">
+            <div class="block">
+              <h4 class="label">Ficha</h4>
+              <dl class="spec">
+                <div><dt>Motor</dt><dd>Unity</dd></div>
+                <div><dt>Plataforma</dt><dd>PC (Windows)</dd></div>
+                <div><dt>Build</dt><dd>Jugable hasta el nivel 3</dd></div>
+                <div><dt>Equipo</dt><dd>3 personas</dd></div>
+              </dl>
+            </div>
+            <div class="block">
+              <h4 class="label">Mi rol</h4>
+              <ul class="role">
+                <li>Escribí partes del GDD: high concept, público objetivo, género, UX/UI, UX flow y diseño de gameplay.</li>
+                <li>Diseñé los personajes, las armas, el HUD y los niveles.</li>
+                <li>Armé las imágenes y el diseño del pitch.</li>
+              </ul>
+            </div>
+          </aside>
+
+          <div class="main-col">
+            <div class="block">
+              <h4 class="label">Cómo se juega</h4>
+              <ul class="plays">
+                <li>El diseño tiene 20 niveles y la build jugable llega hasta el nivel 3. Los dos primeros son de tutorial: moverse y usar el dash.</li>
+                <li>Cada zona suma un arma nueva: pistola, pistola pesada, fusil de asalto y arma láser.</li>
+                <li>Los chips de memoria suman puntaje.</li>
+                <li>Cada zona cierra con una oleada grande, un mini jefe o el jefe final.</li>
+              </ul>
+            </div>
+
+            <div class="block">
+              <h4 class="label">Arte y diseño</h4>
+              <div class="gallery two">
+                <figure>
+                  <div class="art weapons">
+                    <img src="assets/mr-pistol.webp" width="900" height="608" alt="Pistola gris con empuñadura naranja" loading="lazy">
+                    <img src="assets/mr-rifle.webp" width="900" height="357" alt="Fusil gris con mira y empuñadura naranja" loading="lazy">
+                    <img src="assets/mr-laser.webp" width="900" height="318" alt="Arma láser con una franja naranja luminosa" loading="lazy">
+                  </div>
+                  <figcaption>Diseño de armas.</figcaption>
+                </figure>
+                <figure>
+                  <div class="art cast">
+                    <img src="assets/mr-boss-dark.webp" width="214" height="431" alt="Robot negro de ojos rojos, versión oscura de Echo" loading="lazy">
+                    <img src="assets/mr-boss-eye.webp" width="327" height="640" alt="Robot amarillo de una sola rueda con un ojo rojo" loading="lazy">
+                    <img src="assets/mr-turret.webp" width="165" height="159" alt="Torreta gris con dos cañones" loading="lazy">
+                  </div>
+                  <figcaption>Mini jefes: una versión oscura de Echo, un robot de una rueda y una torreta.</figcaption>
+                </figure>
+              </div>
+            </div>
+
+            <div class="block">
+              <h4 class="label">Lo que aprendí</h4>
+              <ul class="learned">
+                <li>A definir un alcance realista desde el principio. La idea original era más grande que el tiempo del equipo y hubo que recortar a mitad del desarrollo.</li>
+                <li>A organizar las tareas en un tablero desde el primer día. Empezamos a usar Trello tarde y se notó en el código.</li>
+                <li>A coordinar diseño, programación y arte desde el comienzo para no perder tiempo.</li>
+                <li>Que la documentación es el esqueleto de un juego.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ================= MONKEY ON THE LOOSE ================= -->
+      <article class="game" aria-labelledby="motl-title">
+        <header class="game-head">
+          <span class="label">Top-down shooter · Supervivencia por oleadas</span>
+          <h3 id="motl-title">Monkey on the Loose</h3>
+          <p class="hook">Un mono se escapa de un zoológico que esconde un laboratorio secreto. Las oleadas de guardias y máquinas no paran, y cada cinco aparece un jefe mecánico.</p>
+          <div class="actions">
+            <a class="btn primary" href="https://yukiliang.itch.io/monkey-on-the-loose" target="_blank" rel="noopener">Descargar en itch.io ↗</a>
+            <span class="label">Windows · gratis</span>
+          </div>
+        </header>
+
+        <figure class="plate keyart">
+          <img src="assets/motl-menu.webp" width="821" height="462" alt="Menú principal en pixel art: un árbol con los botones Jugar, High score, Opciones y Salir sobre un cielo con nubes">
+          <figcaption class="label">Menú principal · pixel art</figcaption>
+        </figure>
+
+        <div class="dossier">
+          <aside class="rail">
+            <div class="block">
+              <h4 class="label">Ficha</h4>
+              <dl class="spec">
+                <div><dt>Motor</dt><dd>Unity</dd></div>
+                <div><dt>Plataforma</dt><dd>PC (Windows)</dd></div>
+                <div><dt>Equipo</dt><dd>4 personas</dd></div>
+                <div><dt>Arte</dt><dd>Pixel art chibi</dd></div>
+              </dl>
+            </div>
+          </aside>
+
+          <div class="main-col">
+            <div class="block">
+              <h4 class="label">Cómo se juega</h4>
+              <ul class="plays">
+                <li>Partidas infinitas en ciclos de cinco oleadas: cuatro de combate y una con jefe.</li>
+                <li>Después de cada oleada de combate se abre un mercado para mejorar vida, velocidad, cadencia, daño y dash con monedas.</li>
+                <li>El arma sube de nivel, de pistola a subfusil y a AK-47, cuando la cadencia y el daño llegan al máximo.</li>
+                <li>Cada jefe deja un poder permanente, como bala perforante o doble dash.</li>
+                <li>Acertar disparos carga una habilidad especial que sube por unos segundos la cadencia y el daño.</li>
+                <li>Biomas de selva, nieve y bosque hasta la salida del zoológico, con ranking de high score global.</li>
+              </ul>
+            </div>
+
+            <div class="block">
+              <h4 class="label">Un ciclo de juego</h4>
+              <ol class="cycle">
+                <li>Oleada 1</li><li class="shop">Mercado</li>
+                <li>Oleada 2</li><li class="shop">Mercado</li>
+                <li>Oleada 3</li><li class="shop">Mercado</li>
+                <li>Oleada 4</li><li class="shop">Mercado</li>
+                <li class="boss">Jefe</li>
+              </ol>
+              <p class="source">Al vencer al jefe se abre la puerta al siguiente mapa y empieza otro ciclo, con enemigos más fuertes.</p>
+            </div>
+
+            <div class="block">
+              <h4 class="label">Del wireframe a la versión final</h4>
+              <div class="evolution">
+                <figure class="pair">
+                  <figcaption>Menú principal</figcaption>
+                  <div class="pair-row">
+                    <div><span class="label">Wireframe</span><img src="assets/motl-wf-menu.webp" width="760" height="427" alt="Wireframe en gris del menú principal" loading="lazy"></div>
+                    <div><span class="label">Final</span><img src="assets/motl-menu.webp" width="821" height="462" alt="Menú principal final en pixel art" loading="lazy"></div>
+                  </div>
+                </figure>
+                <figure class="pair">
+                  <figcaption>Pausa</figcaption>
+                  <div class="pair-row">
+                    <div><span class="label">Wireframe</span><img src="assets/motl-wf-pause.webp" width="763" height="426" alt="Wireframe en gris del menú de pausa" loading="lazy"></div>
+                    <div><span class="label">Final</span><img src="assets/motl-pause.webp" width="825" height="455" alt="Menú de pausa final con carteles de madera" loading="lazy"></div>
+                  </div>
+                </figure>
+                <figure class="pair">
+                  <figcaption>High score</figcaption>
+                  <div class="pair-row">
+                    <div><span class="label">Wireframe</span><img src="assets/motl-wf-highscore.webp" width="765" height="427" alt="Wireframe en gris de la tabla de high score" loading="lazy"></div>
+                    <div><span class="label">Final</span><img src="assets/motl-highscore.webp" width="818" height="438" alt="Tabla de high score global final, de madera sobre un cielo con nubes" loading="lazy"></div>
+                  </div>
+                </figure>
+              </div>
+            </div>
+
+            <div class="block">
+              <h4 class="label">Pantallas del juego</h4>
+              <div class="gallery two">
+                <figure>
+                  <div class="shot"><img src="assets/motl-market.webp" width="971" height="508" alt="Pantalla del mercado con barras de mejora de vida, velocidad, cadencia y daño" loading="lazy"></div>
+                  <figcaption>Mercado de mejoras entre oleadas.</figcaption>
+                </figure>
+                <figure>
+                  <div class="shot"><img src="assets/motl-options.webp" width="816" height="431" alt="Menú de opciones con sliders de música y efectos y la lista de controles" loading="lazy"></div>
+                  <figcaption>Menú de opciones.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="niveles">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Diseño de niveles</h2>
+        <span class="label">Blockout · Unreal Engine 5.8</span>
+      </div>
+
+      <article class="game" aria-labelledby="lvl-title">
+        <header class="game-head">
+          <span class="label">Blockout · Primera persona · Terror</span>
+          <h3 id="lvl-title">Casa, bosque y cueva</h3>
+          <p class="hook">Un blockout de terror en primera persona: el jugador sale de una casa de noche, cruza un bosque con la linterna y baja a una cueva con trampas y obstáculos.</p>
+        </header>
+
+        <figure class="plate video-plate">
+          <video controls preload="none" playsinline poster="assets/lvl-bosque.webp" width="1280" height="744">
+            <source src="assets/blockout.mp4" type="video/mp4">
+          </video>
+          <figcaption class="label">Video del blockout en Unreal Engine · 2:38</figcaption>
+        </figure>
+
+        <figure class="plate map-plate">
+          <div class="map-layout">
+            <img class="lvl-map" src="assets/blockout-map-v2.svg" width="1160" height="1330" alt="Plano del blockout visto desde arriba. La casa está arriba a la izquierda; el bosque baja hacia el sur y gira al este hasta la entrada de la cueva. La cueva forma un anillo: el recorrido lo rodea, vuelve por el punto 7 y termina en una puerta que se abre con C4. Once números marcan el recorrido.">
+            <div class="beats-col">
+              <h4 class="label">Recorrido</h4>
+              <ol class="beats">
+                <li>Inicio en la casa.</li>
+                <li>Fogata a la salida.</li>
+                <li>Zonas de audio: hojas y música.</li>
+                <li>Dos jumpscares con sacudida de cámara.</li>
+                <li>Sonido de lobo, un cuerpo y un botiquín.</li>
+                <li>Entrada a la cueva: un túnel que se derrumba.</li>
+                <li>Cuerda de 4 m y un paso estrecho.</li>
+                <li>Pozos con pinchos.</li>
+                <li>Estalactitas que caen.</li>
+                <li>Correr por la pared, saltar un obstáculo y subir una cuerda de 6 m.</li>
+                <li>Se vuelve por el 7 hasta la puerta bloqueada que se abre con C4.</li>
+              </ol>
+              <ul class="map-key" aria-label="Referencias del plano">
+                <li><i class="k-route"></i>Recorrido</li>
+                <li><i class="k-light"></i>Luz</li>
+                <li><i class="k-fire"></i>Fuego</li>
+                <li><i class="k-tree"></i>Árbol</li>
+              </ul>
+            </div>
+          </div>
+          <figcaption class="label">Plano armado con la posición y el tamaño de cada pieza del archivo del nivel · cuadrícula de 10 m</figcaption>
+        </figure>
+
+        <div class="dossier">
+          <aside class="rail">
+            <div class="block">
+              <h4 class="label">Ficha</h4>
+              <dl class="spec">
+                <div><dt>Motor</dt><dd>Unreal Engine 5.8</dd></div>
+                <div><dt>Vista</dt><dd>Primera persona</dd></div>
+              </dl>
+            </div>
+          </aside>
+
+          <div class="main-col">
+            <div class="block">
+              <h4 class="label">Cómo lo trabajé</h4>
+              <ul class="plays">
+                <li>Camino semilineal: el recorrido principal está claro, pero el jugador tiene espacio para moverse y explorar.</li>
+                <li>Iluminación para guiar: en la oscuridad, las luces y los fuegos marcan por dónde seguir.</li>
+                <li>Sonido por zonas: la música y los ambientes cambian al pasar del bosque a la cueva.</li>
+                <li>Ritmo: los sustos del bosque dan paso a los obstáculos de la cueva.</li>
+                <li>Verticalidad: en la cueva se sube con cuerdas de 4 y 6 m y abajo hay pozos con pinchos.</li>
+              </ul>
+            </div>
+            <div class="block">
+              <h4 class="label">Capturas</h4>
+              <div class="gallery two">
+                <figure>
+                  <div class="shot"><img src="assets/lvl-casa.webp" width="1280" height="744" alt="Interior de la casa con paredes de cuadrícula, vigas rosadas y un escritorio naranja" loading="lazy"></div>
+                  <figcaption>La casa, donde empieza el recorrido.</figcaption>
+                </figure>
+                <figure>
+                  <div class="shot"><img src="assets/lvl-bosque.webp" width="1280" height="744" alt="Bosque de noche con pinos iluminados de verde y pasto que brilla en el camino" loading="lazy"></div>
+                  <figcaption>El bosque de noche.</figcaption>
+                </figure>
+                <figure>
+                  <div class="shot"><img src="assets/lvl-cuerda.webp" width="1280" height="744" alt="Pared de la cueva iluminada por la linterna, con una cuerda colgando y una antorcha" loading="lazy"></div>
+                  <figcaption>En la cueva, una cuerda para subir.</figcaption>
+                </figure>
+                <figure>
+                  <div class="shot"><img src="assets/lvl-c4.webp" width="1280" height="744" alt="Cueva con luz violeta y fuego, y una carga de C4 roja pegada a una roca" loading="lazy"></div>
+                  <figcaption>La carga de C4 al final de la cueva.</figcaption>
+                </figure>
+              </div>
+            </div>          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="herramientas">
+    <div class="wrap">
+      <div class="section-head"><h2>Herramientas</h2></div>
+      <div class="tools">
+        <div>
+          <span class="label">Motores y arte</span>
+          <ul><li>Unity</li><li>Unreal Engine</li><li>Adobe Photoshop</li><li>Adobe Illustrator</li><li>Blender</li></ul>
+        </div>
+        <div>
+          <span class="label">Programación</span>
+          <ul><li>Java <small>(POO)</small></li><li>Python</li><li>C++</li><li>HTML y CSS</li></ul>
+        </div>
+        <div>
+          <span class="label">Idiomas</span>
+          <ul><li>Español <small>(nativo)</small></li><li>Inglés <small>(avanzado)</small></li><li>Chino <small>(intermedio)</small></li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="wrap contact">
+      <h2>Hablemos</h2>
+      <p class="lead">Escribime por mail o por LinkedIn.</p>
+      <div class="contact-line">
+        <span class="email" id="email-foot">liangmaximo2@gmail.com</span>
+        <button class="copy" type="button" data-copy="liangmaximo2@gmail.com" id="copy-foot">Copiar mail</button>
+        <a href="https://www.linkedin.com/in/alexandermaximoliang" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="cv.pdf" download="CV_Alexander_Liang_Videojuegos.pdf">Descargar CV (PDF)</a>
+      </div>
+      <p class="notice" aria-live="polite" data-notice></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span class="label">Alexander Liang · Buenos Aires · 2026</span></div>
+</footer>
+
+<script>
+(function () {
+  var notices = document.querySelectorAll("[data-notice]");
+  function say(msg) { notices.forEach(function (n) { n.textContent = msg; }); }
+
+  // Copy e-mail (falls back to selecting the address when the clipboard is refused)
+  document.querySelectorAll("[data-copy]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var text = btn.getAttribute("data-copy");
+      var target = btn.previousElementSibling;
+      function selectIt() {
+        try {
+          var r = document.createRange(); r.selectNodeContents(target);
+          var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        } catch (e) {}
+        say("Mail seleccionado: copialo con Ctrl+C o mantené apretado.");
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { say("Mail copiado."); }, selectIt);
+      } else { selectIt(); }
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>
