@@ -1,18 +1,20 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alexander Liang · Portfolio</title>
+<meta name="description" content="Game development portfolio of Alexander Liang: Metal Revenant, Monkey on the Loose and a level blockout in Unreal Engine.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Portafolio de Alexander Liang">
-<meta property="og:description" content="Portafolio de videojuegos: Metal Revenant, Monkey on the Loose y un blockout en Unreal Engine.">
+<meta property="og:title" content="Alexander Liang · Game Development Portfolio">
+<meta property="og:description" content="Metal Revenant, Monkey on the Loose and a level blockout in Unreal Engine. In English and Spanish.">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_AR">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>Portafolio de Alexander Liang</title>
-<meta name="description" content="Portafolio de videojuegos de Alexander Liang: Metal Revenant y Monkey on the Loose.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Martian+Mono:wght@400;500&display=swap">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <style>
 /* Layout: a name plate under a factory spotlight, then one dossier per game:
    spec rail (ficha, rol, controles) beside the media column; art sits on dark "night" plates. */
@@ -97,17 +99,43 @@ ul, ol { margin: 0; padding: 0; }
   color: var(--muted);
 }
 
+/* ---------- language: every text comes as an .en/.es pair; the page opens in English ---------- */
+:root:not([data-lang="es"]) .es { display: none !important; }
+:root[data-lang="es"] .en { display: none !important; }
+
 /* ---------- top bar ---------- */
 .topbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem 1.5rem;
-  padding-block: 1.25rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  padding-block: 1.1rem;
   border-bottom: 1px solid var(--rule);
 }
-.topbar nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+.topbar nav { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+@media (min-width: 760px) {
+  .topbar { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .topbar nav { grid-column: 2; grid-row: 1; justify-content: flex-end; }
+  .lang { grid-column: 3; grid-row: 1; }
+}
+.lang { display: inline-flex; border: 2px solid var(--ink); }
+.lang button {
+  font-family: var(--f-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  min-width: 2.75rem;
+  min-height: 2.25rem;
+  padding: 0.35rem 0.7rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+.lang button + button { border-left: 2px solid var(--ink); }
+.lang button[aria-pressed="true"] { background: var(--ink); color: var(--paper); cursor: default; }
+.lang button[aria-pressed="false"]:hover { background: var(--signal); color: #fff; }
 .topbar nav a {
   font-family: var(--f-mono);
   font-size: var(--step--1);
@@ -439,133 +467,143 @@ footer { padding-block: 1.5rem 2.5rem; border-top: 1px solid var(--rule); }
 
 
 @media (prefers-reduced-motion: no-preference) {
-  .btn, .copy { transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+  .btn, .copy, .lang button { transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
 }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="topbar">
-    <span class="label">Portafolio · Desarrollo de videojuegos</span>
-    <nav aria-label="Secciones">
-      <a href="#juegos">Juegos</a>
-      <a href="#niveles">Niveles</a>
-      <a href="#herramientas">Herramientas</a>
-      <a href="#contacto">Contacto</a>
+    <span class="label"><span class="en">Portfolio · Game development</span><span class="es">Portafolio · Desarrollo de videojuegos</span></span>
+    <div class="lang" role="group" aria-label="Language · Idioma">
+      <button type="button" data-set-lang="en" aria-pressed="true" lang="en" title="English">EN</button>
+      <button type="button" data-set-lang="es" aria-pressed="false" lang="es" title="Español">ES</button>
+    </div>
+    <nav aria-label="Sections" data-es-aria-label="Secciones">
+      <a href="#games"><span class="en">Games</span><span class="es">Juegos</span></a>
+      <a href="#levels"><span class="en">Levels</span><span class="es">Niveles</span></a>
+      <a href="#tools"><span class="en">Tools</span><span class="es">Herramientas</span></a>
+      <a href="#contact"><span class="en">Contact</span><span class="es">Contacto</span></a>
     </nav>
   </header>
 
   <div class="hero">
     <div class="hero-copy">
       <h1>Alexander <span>Liang</span></h1>
-      <p class="lead">Estudio la Licenciatura en Desarrollo de Videojuegos y la Ingeniería en Informática en UADE, en Buenos Aires. Me interesan todas las áreas del desarrollo de videojuegos, pero principalmente el diseño de niveles.</p>
-      <p class="status">Busco una pasantía o mi primer trabajo en la industria de los videojuegos.</p>
+      <p class="lead">
+        <span class="en">I’m a Video Game Development and Computer Engineering student at UADE in Buenos Aires. I’m interested in every area of game development, especially level design.</span>
+        <span class="es">Estudio la Licenciatura en Desarrollo de Videojuegos y la Ingeniería en Informática en UADE, en Buenos Aires. Me interesan todas las áreas del desarrollo de videojuegos, pero principalmente el diseño de niveles.</span>
+      </p>
+      <p class="status"><span class="en">Looking for an internship or my first job in the games industry.</span><span class="es">Busco una pasantía o mi primer trabajo en la industria de los videojuegos.</span></p>
       <div class="actions">
-        <a class="btn primary" href="#juegos">Ver juegos</a>
-        <a class="btn" href="cv.pdf" download="CV_Alexander_Liang_Videojuegos.pdf">Descargar CV (PDF)</a>
+        <a class="btn primary" href="#games"><span class="en">See the games</span><span class="es">Ver juegos</span></a>
+        <a class="btn" href="cv-en.pdf" data-es-href="cv.pdf" download="CV_Alexander_Liang_Game_Development.pdf" data-es-download="CV_Alexander_Liang_Videojuegos.pdf" id="cv-link" data-cv-link><span class="en">Download CV (PDF)</span><span class="es">Descargar CV (PDF)</span></a>
       </div>
       <div class="contact-line">
         <span class="email" id="email-hero">liangmaximo2@gmail.com</span>
-        <button class="copy" type="button" data-copy="liangmaximo2@gmail.com" id="copy-hero">Copiar mail</button>
+        <button class="copy" type="button" data-copy="liangmaximo2@gmail.com" id="copy-hero"><span class="en">Copy email</span><span class="es">Copiar mail</span></button>
         <a href="https://www.linkedin.com/in/alexandermaximoliang" target="_blank" rel="noopener">LinkedIn ↗</a>
       </div>
       <p class="notice" aria-live="polite" data-notice></p>
     </div>
     <figure class="echo-stage">
-      <img src="assets/mr-echo.webp" width="435" height="900" alt="Echo, robot azul de ojos naranjas, protagonista de Metal Revenant">
+      <img src="assets/mr-echo.webp" width="435" height="900" alt="Echo, a blue robot with orange eyes, the main character of Metal Revenant" data-es-alt="Echo, robot azul de ojos naranjas, protagonista de Metal Revenant">
       <div class="ledge" aria-hidden="true"></div>
-      <figcaption class="label">Echo · diseño de personaje · Metal Revenant</figcaption>
+      <figcaption class="label"><span class="en">Echo · character design · Metal Revenant</span><span class="es">Echo · diseño de personaje · Metal Revenant</span></figcaption>
     </figure>
   </div>
 </div>
 
 <main>
-  <section id="juegos">
+  <section id="games">
     <div class="wrap">
       <div class="section-head">
-        <h2>Juegos</h2>
-        <span class="label">2 proyectos en equipo · UADE · Unity</span>
+        <h2><span class="en">Games</span><span class="es">Juegos</span></h2>
+        <span class="label"><span class="en">2 team projects · UADE · Unity</span><span class="es">2 proyectos en equipo · UADE · Unity</span></span>
       </div>
 
       <!-- ================= METAL REVENANT ================= -->
       <article class="game" aria-labelledby="mr-title">
         <header class="game-head">
-          <span class="label">Run and gun · Plataformas 2D</span>
+          <span class="label"><span class="en">Run and gun · 2D platformer</span><span class="es">Run and gun · Plataformas 2D</span></span>
           <h3 id="mr-title">Metal Revenant</h3>
-          <p class="hook">Echo es un robot que iba a ser desechado y recobra la conciencia en una fábrica. En un mundo de máquinas donde ya no quedan humanos, se abre paso a los tiros hasta vengarse de El Centinela.</p>
+          <p class="hook">
+            <span class="en">Echo, a robot that was about to be scrapped, regains consciousness in a factory. In a world of machines with no humans left, it shoots its way through to take revenge on the Sentinel.</span>
+            <span class="es">Echo es un robot que iba a ser desechado y recobra la conciencia en una fábrica. En un mundo de máquinas donde ya no quedan humanos, se abre paso a los tiros hasta vengarse de El Centinela.</span>
+          </p>
           <div class="actions">
-            <a class="btn primary" href="https://yukiliang.itch.io/metal-revenant" target="_blank" rel="noopener">Descargar en itch.io ↗</a>
-            <span class="label">Windows · gratis · hasta el nivel 3</span>
+            <a class="btn primary" href="https://yukiliang.itch.io/metal-revenant" target="_blank" rel="noopener"><span class="en">Download on itch.io ↗</span><span class="es">Descargar en itch.io ↗</span></a>
+            <span class="label"><span class="en">Windows · free · up to level 3</span><span class="es">Windows · gratis · hasta el nivel 3</span></span>
           </div>
         </header>
 
         <figure class="plate keyart">
-          <div class="logo-strip"><img src="assets/mr-logo.webp" width="1200" height="159" alt="Logo de Metal Revenant"></div>
-          <img src="assets/mr-gameplay.webp" width="1600" height="1000" alt="Captura del juego: Echo apunta con su pistola sobre una plataforma de la fábrica, iluminado por reflectores, frente a un robot enemigo">
-          <figcaption class="label">Captura del juego · nivel de la fábrica</figcaption>
+          <div class="logo-strip"><img src="assets/mr-logo.webp" width="1200" height="159" alt="Metal Revenant logo" data-es-alt="Logo de Metal Revenant"></div>
+          <img src="assets/mr-gameplay.webp" width="1600" height="1000" alt="Gameplay screenshot: Echo aims a pistol from a factory platform, lit by spotlights, facing an enemy robot" data-es-alt="Captura del juego: Echo apunta con su pistola sobre una plataforma de la fábrica, iluminado por reflectores, frente a un robot enemigo">
+          <figcaption class="label"><span class="en">Gameplay screenshot · factory level</span><span class="es">Captura del juego · nivel de la fábrica</span></figcaption>
         </figure>
 
         <div class="dossier">
           <aside class="rail">
             <div class="block">
-              <h4 class="label">Ficha</h4>
+              <h4 class="label"><span class="en">Specs</span><span class="es">Ficha</span></h4>
               <dl class="spec">
-                <div><dt>Motor</dt><dd>Unity</dd></div>
-                <div><dt>Plataforma</dt><dd>PC (Windows)</dd></div>
-                <div><dt>Build</dt><dd>Jugable hasta el nivel 3</dd></div>
-                <div><dt>Equipo</dt><dd>3 personas</dd></div>
+                <div><dt><span class="en">Engine</span><span class="es">Motor</span></dt><dd>Unity</dd></div>
+                <div><dt><span class="en">Platform</span><span class="es">Plataforma</span></dt><dd>PC (Windows)</dd></div>
+                <div><dt>Build</dt><dd><span class="en">Playable up to level 3</span><span class="es">Jugable hasta el nivel 3</span></dd></div>
+                <div><dt><span class="en">Team</span><span class="es">Equipo</span></dt><dd><span class="en">3 people</span><span class="es">3 personas</span></dd></div>
               </dl>
             </div>
             <div class="block">
-              <h4 class="label">Mi rol</h4>
+              <h4 class="label"><span class="en">My role</span><span class="es">Mi rol</span></h4>
               <ul class="role">
-                <li>Escribí partes del GDD: high concept, público objetivo, género, UX/UI, UX flow y diseño de gameplay.</li>
-                <li>Diseñé los personajes, las armas, el HUD y los niveles.</li>
-                <li>Armé las imágenes y el diseño del pitch.</li>
+                <li><span class="en">I wrote parts of the GDD: high concept, target audience, genre, UX/UI, UX flow and gameplay design.</span><span class="es">Escribí partes del GDD: high concept, público objetivo, género, UX/UI, UX flow y diseño de gameplay.</span></li>
+                <li><span class="en">I designed the characters, weapons, HUD and levels.</span><span class="es">Diseñé los personajes, las armas, el HUD y los niveles.</span></li>
+                <li><span class="en">I created the visuals and layout for the pitch.</span><span class="es">Armé las imágenes y el diseño del pitch.</span></li>
               </ul>
             </div>
           </aside>
 
           <div class="main-col">
             <div class="block">
-              <h4 class="label">Cómo se juega</h4>
+              <h4 class="label"><span class="en">How it plays</span><span class="es">Cómo se juega</span></h4>
               <ul class="plays">
-                <li>El diseño tiene 20 niveles y la build jugable llega hasta el nivel 3. Los dos primeros son de tutorial: moverse y usar el dash.</li>
-                <li>Cada zona suma un arma nueva: pistola, pistola pesada, fusil de asalto y arma láser.</li>
-                <li>Los chips de memoria suman puntaje.</li>
-                <li>Cada zona cierra con una oleada grande, un mini jefe o el jefe final.</li>
+                <li><span class="en">The design has 20 levels and the playable build goes up to level 3. The first two are tutorials for moving and using the dash.</span><span class="es">El diseño tiene 20 niveles y la build jugable llega hasta el nivel 3. Los dos primeros son de tutorial: moverse y usar el dash.</span></li>
+                <li><span class="en">Each zone adds a new weapon: pistol, heavy pistol, assault rifle and laser gun.</span><span class="es">Cada zona suma un arma nueva: pistola, pistola pesada, fusil de asalto y arma láser.</span></li>
+                <li><span class="en">Memory chips add to your score.</span><span class="es">Los chips de memoria suman puntaje.</span></li>
+                <li><span class="en">Each zone ends with a big wave, a mini boss or the final boss.</span><span class="es">Cada zona cierra con una oleada grande, un mini jefe o el jefe final.</span></li>
               </ul>
             </div>
 
             <div class="block">
-              <h4 class="label">Arte y diseño</h4>
+              <h4 class="label"><span class="en">Art and design</span><span class="es">Arte y diseño</span></h4>
               <div class="gallery two">
                 <figure>
                   <div class="art weapons">
-                    <img src="assets/mr-pistol.webp" width="900" height="608" alt="Pistola gris con empuñadura naranja" loading="lazy">
-                    <img src="assets/mr-rifle.webp" width="900" height="357" alt="Fusil gris con mira y empuñadura naranja" loading="lazy">
-                    <img src="assets/mr-laser.webp" width="900" height="318" alt="Arma láser con una franja naranja luminosa" loading="lazy">
+                    <img src="assets/mr-pistol.webp" width="900" height="608" alt="Grey pistol with an orange grip" data-es-alt="Pistola gris con empuñadura naranja" loading="lazy">
+                    <img src="assets/mr-rifle.webp" width="900" height="357" alt="Grey rifle with a scope and an orange grip" data-es-alt="Fusil gris con mira y empuñadura naranja" loading="lazy">
+                    <img src="assets/mr-laser.webp" width="900" height="318" alt="Laser gun with a glowing orange stripe" data-es-alt="Arma láser con una franja naranja luminosa" loading="lazy">
                   </div>
-                  <figcaption>Diseño de armas.</figcaption>
+                  <figcaption><span class="en">Weapon designs.</span><span class="es">Diseño de armas.</span></figcaption>
                 </figure>
                 <figure>
                   <div class="art cast">
-                    <img src="assets/mr-boss-dark.webp" width="214" height="431" alt="Robot negro de ojos rojos, versión oscura de Echo" loading="lazy">
-                    <img src="assets/mr-boss-eye.webp" width="327" height="640" alt="Robot amarillo de una sola rueda con un ojo rojo" loading="lazy">
-                    <img src="assets/mr-turret.webp" width="165" height="159" alt="Torreta gris con dos cañones" loading="lazy">
+                    <img src="assets/mr-boss-dark.webp" width="214" height="431" alt="Black robot with red eyes, a dark version of Echo" data-es-alt="Robot negro de ojos rojos, versión oscura de Echo" loading="lazy">
+                    <img src="assets/mr-boss-eye.webp" width="327" height="640" alt="Yellow one-wheeled robot with a single red eye" data-es-alt="Robot amarillo de una sola rueda con un ojo rojo" loading="lazy">
+                    <img src="assets/mr-turret.webp" width="165" height="159" alt="Grey turret with two barrels" data-es-alt="Torreta gris con dos cañones" loading="lazy">
                   </div>
-                  <figcaption>Mini jefes: una versión oscura de Echo, un robot de una rueda y una torreta.</figcaption>
+                  <figcaption><span class="en">Mini bosses: a dark version of Echo, a one-wheeled robot and a turret.</span><span class="es">Mini jefes: una versión oscura de Echo, un robot de una rueda y una torreta.</span></figcaption>
                 </figure>
               </div>
             </div>
 
             <div class="block">
-              <h4 class="label">Lo que aprendí</h4>
+              <h4 class="label"><span class="en">What I learned</span><span class="es">Lo que aprendí</span></h4>
               <ul class="learned">
-                <li>A definir un alcance realista desde el principio. La idea original era más grande que el tiempo del equipo y hubo que recortar a mitad del desarrollo.</li>
-                <li>A organizar las tareas en un tablero desde el primer día. Empezamos a usar Trello tarde y se notó en el código.</li>
-                <li>A coordinar diseño, programación y arte desde el comienzo para no perder tiempo.</li>
-                <li>Que la documentación es el esqueleto de un juego.</li>
+                <li><span class="en">To set a realistic scope from the start. The original idea was bigger than the time the team had, and we had to cut it down halfway through development.</span><span class="es">A definir un alcance realista desde el principio. La idea original era más grande que el tiempo del equipo y hubo que recortar a mitad del desarrollo.</span></li>
+                <li><span class="en">To organize tasks on a board from day one. We started using Trello late, and it showed in the code.</span><span class="es">A organizar las tareas en un tablero desde el primer día. Empezamos a usar Trello tarde y se notó en el código.</span></li>
+                <li><span class="en">To coordinate design, programming and art early on so no time is lost.</span><span class="es">A coordinar diseño, programación y arte desde el comienzo para no perder tiempo.</span></li>
+                <li><span class="en">That documentation is the backbone of a game.</span><span class="es">Que la documentación es el esqueleto de un juego.</span></li>
               </ul>
             </div>
           </div>
@@ -575,95 +613,98 @@ footer { padding-block: 1.5rem 2.5rem; border-top: 1px solid var(--rule); }
       <!-- ================= MONKEY ON THE LOOSE ================= -->
       <article class="game" aria-labelledby="motl-title">
         <header class="game-head">
-          <span class="label">Top-down shooter · Supervivencia por oleadas</span>
+          <span class="label"><span class="en">Top-down shooter · Wave survival</span><span class="es">Top-down shooter · Supervivencia por oleadas</span></span>
           <h3 id="motl-title">Monkey on the Loose</h3>
-          <p class="hook">Un mono se escapa de un zoológico que esconde un laboratorio secreto. Las oleadas de guardias y máquinas no paran, y cada cinco aparece un jefe mecánico.</p>
+          <p class="hook">
+            <span class="en">A monkey breaks out of a zoo that hides a secret lab. The waves of guards and machines never stop, and every fifth wave brings a mechanical boss.</span>
+            <span class="es">Un mono se escapa de un zoológico que esconde un laboratorio secreto. Las oleadas de guardias y máquinas no paran, y cada cinco aparece un jefe mecánico.</span>
+          </p>
           <div class="actions">
-            <a class="btn primary" href="https://yukiliang.itch.io/monkey-on-the-loose" target="_blank" rel="noopener">Descargar en itch.io ↗</a>
-            <span class="label">Windows · gratis</span>
+            <a class="btn primary" href="https://yukiliang.itch.io/monkey-on-the-loose" target="_blank" rel="noopener"><span class="en">Download on itch.io ↗</span><span class="es">Descargar en itch.io ↗</span></a>
+            <span class="label"><span class="en">Windows · free</span><span class="es">Windows · gratis</span></span>
           </div>
         </header>
 
         <figure class="plate keyart">
-          <img src="assets/motl-menu.webp" width="821" height="462" alt="Menú principal en pixel art: un árbol con los botones Jugar, High score, Opciones y Salir sobre un cielo con nubes">
-          <figcaption class="label">Menú principal · pixel art</figcaption>
+          <img src="assets/motl-menu.webp" width="821" height="462" alt="Pixel art main menu: a tree with the buttons Jugar (Play), High score, Opciones (Options) and Salir (Quit) against a cloudy sky" data-es-alt="Menú principal en pixel art: un árbol con los botones Jugar, High score, Opciones y Salir sobre un cielo con nubes">
+          <figcaption class="label"><span class="en">Main menu · pixel art</span><span class="es">Menú principal · pixel art</span></figcaption>
         </figure>
 
         <div class="dossier">
           <aside class="rail">
             <div class="block">
-              <h4 class="label">Ficha</h4>
+              <h4 class="label"><span class="en">Specs</span><span class="es">Ficha</span></h4>
               <dl class="spec">
-                <div><dt>Motor</dt><dd>Unity</dd></div>
-                <div><dt>Plataforma</dt><dd>PC (Windows)</dd></div>
-                <div><dt>Equipo</dt><dd>4 personas</dd></div>
-                <div><dt>Arte</dt><dd>Pixel art chibi</dd></div>
+                <div><dt><span class="en">Engine</span><span class="es">Motor</span></dt><dd>Unity</dd></div>
+                <div><dt><span class="en">Platform</span><span class="es">Plataforma</span></dt><dd>PC (Windows)</dd></div>
+                <div><dt><span class="en">Team</span><span class="es">Equipo</span></dt><dd><span class="en">4 people</span><span class="es">4 personas</span></dd></div>
+                <div><dt><span class="en">Art</span><span class="es">Arte</span></dt><dd><span class="en">Chibi pixel art</span><span class="es">Pixel art chibi</span></dd></div>
               </dl>
             </div>
           </aside>
 
           <div class="main-col">
             <div class="block">
-              <h4 class="label">Cómo se juega</h4>
+              <h4 class="label"><span class="en">How it plays</span><span class="es">Cómo se juega</span></h4>
               <ul class="plays">
-                <li>Partidas infinitas en ciclos de cinco oleadas: cuatro de combate y una con jefe.</li>
-                <li>Después de cada oleada de combate se abre un mercado para mejorar vida, velocidad, cadencia, daño y dash con monedas.</li>
-                <li>El arma sube de nivel, de pistola a subfusil y a AK-47, cuando la cadencia y el daño llegan al máximo.</li>
-                <li>Cada jefe deja un poder permanente, como bala perforante o doble dash.</li>
-                <li>Acertar disparos carga una habilidad especial que sube por unos segundos la cadencia y el daño.</li>
-                <li>Biomas de selva, nieve y bosque hasta la salida del zoológico, con ranking de high score global.</li>
+                <li><span class="en">Endless runs in cycles of five waves: four combat waves and one boss wave.</span><span class="es">Partidas infinitas en ciclos de cinco oleadas: cuatro de combate y una con jefe.</span></li>
+                <li><span class="en">After each combat wave a shop opens where coins buy upgrades to health, speed, fire rate, damage and dash.</span><span class="es">Después de cada oleada de combate se abre un mercado para mejorar vida, velocidad, cadencia, daño y dash con monedas.</span></li>
+                <li><span class="en">The weapon levels up from pistol to SMG to AK-47 once fire rate and damage are maxed out.</span><span class="es">El arma sube de nivel, de pistola a subfusil y a AK-47, cuando la cadencia y el daño llegan al máximo.</span></li>
+                <li><span class="en">Each boss leaves a permanent power, such as piercing bullets or a double dash.</span><span class="es">Cada jefe deja un poder permanente, como bala perforante o doble dash.</span></li>
+                <li><span class="en">Landing shots charges a special ability that boosts fire rate and damage for a few seconds.</span><span class="es">Acertar disparos carga una habilidad especial que sube por unos segundos la cadencia y el daño.</span></li>
+                <li><span class="en">Jungle, snow and forest biomes lead to the zoo’s exit, with a global high score leaderboard.</span><span class="es">Biomas de selva, nieve y bosque hasta la salida del zoológico, con ranking de high score global.</span></li>
               </ul>
             </div>
 
             <div class="block">
-              <h4 class="label">Un ciclo de juego</h4>
+              <h4 class="label"><span class="en">One game cycle</span><span class="es">Un ciclo de juego</span></h4>
               <ol class="cycle">
-                <li>Oleada 1</li><li class="shop">Mercado</li>
-                <li>Oleada 2</li><li class="shop">Mercado</li>
-                <li>Oleada 3</li><li class="shop">Mercado</li>
-                <li>Oleada 4</li><li class="shop">Mercado</li>
-                <li class="boss">Jefe</li>
+                <li><span class="en">Wave 1</span><span class="es">Oleada 1</span></li><li class="shop"><span class="en">Shop</span><span class="es">Mercado</span></li>
+                <li><span class="en">Wave 2</span><span class="es">Oleada 2</span></li><li class="shop"><span class="en">Shop</span><span class="es">Mercado</span></li>
+                <li><span class="en">Wave 3</span><span class="es">Oleada 3</span></li><li class="shop"><span class="en">Shop</span><span class="es">Mercado</span></li>
+                <li><span class="en">Wave 4</span><span class="es">Oleada 4</span></li><li class="shop"><span class="en">Shop</span><span class="es">Mercado</span></li>
+                <li class="boss"><span class="en">Boss</span><span class="es">Jefe</span></li>
               </ol>
-              <p class="source">Al vencer al jefe se abre la puerta al siguiente mapa y empieza otro ciclo, con enemigos más fuertes.</p>
+              <p class="source"><span class="en">Beating the boss opens the door to the next map, and a new cycle starts with stronger enemies.</span><span class="es">Al vencer al jefe se abre la puerta al siguiente mapa y empieza otro ciclo, con enemigos más fuertes.</span></p>
             </div>
 
             <div class="block">
-              <h4 class="label">Del wireframe a la versión final</h4>
+              <h4 class="label"><span class="en">From wireframe to final version</span><span class="es">Del wireframe a la versión final</span></h4>
               <div class="evolution">
                 <figure class="pair">
-                  <figcaption>Menú principal</figcaption>
+                  <figcaption><span class="en">Main menu</span><span class="es">Menú principal</span></figcaption>
                   <div class="pair-row">
-                    <div><span class="label">Wireframe</span><img src="assets/motl-wf-menu.webp" width="760" height="427" alt="Wireframe en gris del menú principal" loading="lazy"></div>
-                    <div><span class="label">Final</span><img src="assets/motl-menu.webp" width="821" height="462" alt="Menú principal final en pixel art" loading="lazy"></div>
+                    <div><span class="label">Wireframe</span><img src="assets/motl-wf-menu.webp" width="760" height="427" alt="Grey wireframe of the main menu" data-es-alt="Wireframe en gris del menú principal" loading="lazy"></div>
+                    <div><span class="label">Final</span><img src="assets/motl-menu.webp" width="821" height="462" alt="Final pixel art main menu" data-es-alt="Menú principal final en pixel art" loading="lazy"></div>
                   </div>
                 </figure>
                 <figure class="pair">
-                  <figcaption>Pausa</figcaption>
+                  <figcaption><span class="en">Pause</span><span class="es">Pausa</span></figcaption>
                   <div class="pair-row">
-                    <div><span class="label">Wireframe</span><img src="assets/motl-wf-pause.webp" width="763" height="426" alt="Wireframe en gris del menú de pausa" loading="lazy"></div>
-                    <div><span class="label">Final</span><img src="assets/motl-pause.webp" width="825" height="455" alt="Menú de pausa final con carteles de madera" loading="lazy"></div>
+                    <div><span class="label">Wireframe</span><img src="assets/motl-wf-pause.webp" width="763" height="426" alt="Grey wireframe of the pause menu" data-es-alt="Wireframe en gris del menú de pausa" loading="lazy"></div>
+                    <div><span class="label">Final</span><img src="assets/motl-pause.webp" width="825" height="455" alt="Final pause menu with wooden signs" data-es-alt="Menú de pausa final con carteles de madera" loading="lazy"></div>
                   </div>
                 </figure>
                 <figure class="pair">
                   <figcaption>High score</figcaption>
                   <div class="pair-row">
-                    <div><span class="label">Wireframe</span><img src="assets/motl-wf-highscore.webp" width="765" height="427" alt="Wireframe en gris de la tabla de high score" loading="lazy"></div>
-                    <div><span class="label">Final</span><img src="assets/motl-highscore.webp" width="818" height="438" alt="Tabla de high score global final, de madera sobre un cielo con nubes" loading="lazy"></div>
+                    <div><span class="label">Wireframe</span><img src="assets/motl-wf-highscore.webp" width="765" height="427" alt="Grey wireframe of the high score table" data-es-alt="Wireframe en gris de la tabla de high score" loading="lazy"></div>
+                    <div><span class="label">Final</span><img src="assets/motl-highscore.webp" width="818" height="438" alt="Final global high score table, made of wood against a cloudy sky" data-es-alt="Tabla de high score global final, de madera sobre un cielo con nubes" loading="lazy"></div>
                   </div>
                 </figure>
               </div>
             </div>
 
             <div class="block">
-              <h4 class="label">Pantallas del juego</h4>
+              <h4 class="label"><span class="en">Game screens</span><span class="es">Pantallas del juego</span></h4>
               <div class="gallery two">
                 <figure>
-                  <div class="shot"><img src="assets/motl-market.webp" width="971" height="508" alt="Pantalla del mercado con barras de mejora de vida, velocidad, cadencia y daño" loading="lazy"></div>
-                  <figcaption>Mercado de mejoras entre oleadas.</figcaption>
+                  <div class="shot"><img src="assets/motl-market.webp" width="971" height="508" alt="Shop screen with upgrade bars for health, speed, fire rate and damage" data-es-alt="Pantalla del mercado con barras de mejora de vida, velocidad, cadencia y daño" loading="lazy"></div>
+                  <figcaption><span class="en">Upgrade shop between waves.</span><span class="es">Mercado de mejoras entre oleadas.</span></figcaption>
                 </figure>
                 <figure>
-                  <div class="shot"><img src="assets/motl-options.webp" width="816" height="431" alt="Menú de opciones con sliders de música y efectos y la lista de controles" loading="lazy"></div>
-                  <figcaption>Menú de opciones.</figcaption>
+                  <div class="shot"><img src="assets/motl-options.webp" width="816" height="431" alt="Options menu with music and sound effects sliders and the list of controls" data-es-alt="Menú de opciones con sliders de música y efectos y la lista de controles" loading="lazy"></div>
+                  <figcaption><span class="en">Options menu.</span><span class="es">Menú de opciones.</span></figcaption>
                 </figure>
               </div>
             </div>
@@ -673,135 +714,143 @@ footer { padding-block: 1.5rem 2.5rem; border-top: 1px solid var(--rule); }
     </div>
   </section>
 
-  <section id="niveles">
+  <section id="levels">
     <div class="wrap">
       <div class="section-head">
-        <h2>Diseño de niveles</h2>
+        <h2><span class="en">Level design</span><span class="es">Diseño de niveles</span></h2>
         <span class="label">Blockout · Unreal Engine 5.8</span>
       </div>
 
       <article class="game" aria-labelledby="lvl-title">
         <header class="game-head">
-          <span class="label">Blockout · Primera persona · Terror</span>
-          <h3 id="lvl-title">Casa, bosque y cueva</h3>
-          <p class="hook">Un blockout de terror en primera persona: el jugador sale de una casa de noche, cruza un bosque con la linterna y baja a una cueva con trampas y obstáculos.</p>
+          <span class="label"><span class="en">Blockout · First person · Horror</span><span class="es">Blockout · Primera persona · Terror</span></span>
+          <h3 id="lvl-title"><span class="en">House, forest and cave</span><span class="es">Casa, bosque y cueva</span></h3>
+          <p class="hook">
+            <span class="en">A first-person horror blockout: the player leaves a house at night, crosses a forest by flashlight and goes down into a cave full of traps and obstacles.</span>
+            <span class="es">Un blockout de terror en primera persona: el jugador sale de una casa de noche, cruza un bosque con la linterna y baja a una cueva con trampas y obstáculos.</span>
+          </p>
         </header>
 
         <figure class="plate video-plate">
           <video controls preload="none" playsinline poster="assets/lvl-bosque.webp" width="1280" height="744">
             <source src="assets/blockout.mp4" type="video/mp4">
           </video>
-          <figcaption class="label">Video del blockout en Unreal Engine · 2:38</figcaption>
+          <figcaption class="label"><span class="en">Blockout walkthrough in Unreal Engine · 2:38</span><span class="es">Video del blockout en Unreal Engine · 2:38</span></figcaption>
         </figure>
 
         <figure class="plate map-plate">
           <div class="map-layout">
-            <img class="lvl-map" src="assets/blockout-map-v2.svg" width="1160" height="1330" alt="Plano del blockout visto desde arriba. La casa está arriba a la izquierda; el bosque baja hacia el sur y gira al este hasta la entrada de la cueva. La cueva forma un anillo: el recorrido lo rodea, vuelve por el punto 7 y termina en una puerta que se abre con C4. Once números marcan el recorrido.">
+            <img class="lvl-map" src="assets/blockout-map-en.svg" data-es-src="assets/blockout-map-v2.svg" width="1160" height="1330" alt="Top-down map of the blockout. The house is at the top left; the forest runs south and turns east to the cave entrance. The cave forms a loop: the route goes around it, comes back through point 7 and ends at a door that opens with C4. Eleven numbers mark the route." data-es-alt="Plano del blockout visto desde arriba. La casa está arriba a la izquierda; el bosque baja hacia el sur y gira al este hasta la entrada de la cueva. La cueva forma un anillo: el recorrido lo rodea, vuelve por el punto 7 y termina en una puerta que se abre con C4. Once números marcan el recorrido.">
             <div class="beats-col">
-              <h4 class="label">Recorrido</h4>
+              <h4 class="label"><span class="en">Route</span><span class="es">Recorrido</span></h4>
               <ol class="beats">
-                <li>Inicio en la casa.</li>
-                <li>Fogata a la salida.</li>
-                <li>Zonas de audio: hojas y música.</li>
-                <li>Dos jumpscares con sacudida de cámara.</li>
-                <li>Sonido de lobo, un cuerpo y un botiquín.</li>
-                <li>Entrada a la cueva: un túnel que se derrumba.</li>
-                <li>Cuerda de 4 m y un paso estrecho.</li>
-                <li>Pozos con pinchos.</li>
-                <li>Estalactitas que caen.</li>
-                <li>Correr por la pared, saltar un obstáculo y subir una cuerda de 6 m.</li>
-                <li>Se vuelve por el 7 hasta la puerta bloqueada que se abre con C4.</li>
+                <li><span class="en">Start inside the house.</span><span class="es">Inicio en la casa.</span></li>
+                <li><span class="en">A campfire just outside.</span><span class="es">Fogata a la salida.</span></li>
+                <li><span class="en">Audio zones: leaves and music.</span><span class="es">Zonas de audio: hojas y música.</span></li>
+                <li><span class="en">Two jumpscares with camera shake.</span><span class="es">Dos jumpscares con sacudida de cámara.</span></li>
+                <li><span class="en">Wolf sounds, a body and a medkit.</span><span class="es">Sonido de lobo, un cuerpo y un botiquín.</span></li>
+                <li><span class="en">Cave entrance: a tunnel that collapses.</span><span class="es">Entrada a la cueva: un túnel que se derrumba.</span></li>
+                <li><span class="en">A 4 m rope and a narrow passage.</span><span class="es">Cuerda de 4 m y un paso estrecho.</span></li>
+                <li><span class="en">Spike pits.</span><span class="es">Pozos con pinchos.</span></li>
+                <li><span class="en">Falling stalactites.</span><span class="es">Estalactitas que caen.</span></li>
+                <li><span class="en">Run along a wall, jump an obstacle and climb a 6 m rope.</span><span class="es">Correr por la pared, saltar un obstáculo y subir una cuerda de 6 m.</span></li>
+                <li><span class="en">Back through 7 to the blocked door, which opens with C4.</span><span class="es">Se vuelve por el 7 hasta la puerta bloqueada que se abre con C4.</span></li>
               </ol>
-              <ul class="map-key" aria-label="Referencias del plano">
-                <li><i class="k-route"></i>Recorrido</li>
-                <li><i class="k-light"></i>Luz</li>
-                <li><i class="k-fire"></i>Fuego</li>
-                <li><i class="k-tree"></i>Árbol</li>
+              <ul class="map-key" aria-label="Map key" data-es-aria-label="Referencias del plano">
+                <li><i class="k-route"></i><span class="en">Route</span><span class="es">Recorrido</span></li>
+                <li><i class="k-light"></i><span class="en">Light</span><span class="es">Luz</span></li>
+                <li><i class="k-fire"></i><span class="en">Fire</span><span class="es">Fuego</span></li>
+                <li><i class="k-tree"></i><span class="en">Tree</span><span class="es">Árbol</span></li>
               </ul>
             </div>
           </div>
-          <figcaption class="label">Plano armado con la posición y el tamaño de cada pieza del archivo del nivel · cuadrícula de 10 m</figcaption>
+          <figcaption class="label"><span class="en">Map built from the position and size of every piece in the level file · 10 m grid</span><span class="es">Plano armado con la posición y el tamaño de cada pieza del archivo del nivel · cuadrícula de 10 m</span></figcaption>
         </figure>
 
         <div class="dossier">
           <aside class="rail">
             <div class="block">
-              <h4 class="label">Ficha</h4>
+              <h4 class="label"><span class="en">Specs</span><span class="es">Ficha</span></h4>
               <dl class="spec">
-                <div><dt>Motor</dt><dd>Unreal Engine 5.8</dd></div>
-                <div><dt>Vista</dt><dd>Primera persona</dd></div>
+                <div><dt><span class="en">Engine</span><span class="es">Motor</span></dt><dd>Unreal Engine 5.8</dd></div>
+                <div><dt><span class="en">View</span><span class="es">Vista</span></dt><dd><span class="en">First person</span><span class="es">Primera persona</span></dd></div>
               </dl>
             </div>
           </aside>
 
           <div class="main-col">
             <div class="block">
-              <h4 class="label">Cómo lo trabajé</h4>
+              <h4 class="label"><span class="en">How I approached it</span><span class="es">Cómo lo trabajé</span></h4>
               <ul class="plays">
-                <li>Camino semilineal: el recorrido principal está claro, pero el jugador tiene espacio para moverse y explorar.</li>
-                <li>Iluminación para guiar: en la oscuridad, las luces y los fuegos marcan por dónde seguir.</li>
-                <li>Sonido por zonas: la música y los ambientes cambian al pasar del bosque a la cueva.</li>
-                <li>Ritmo: los sustos del bosque dan paso a los obstáculos de la cueva.</li>
-                <li>Verticalidad: en la cueva se sube con cuerdas de 4 y 6 m y abajo hay pozos con pinchos.</li>
+                <li><span class="en">Semi-linear path: the main route is clear, but the player has room to move around and explore.</span><span class="es">Camino semilineal: el recorrido principal está claro, pero el jugador tiene espacio para moverse y explorar.</span></li>
+                <li><span class="en">Lighting that guides: in the dark, lights and fires show the way forward.</span><span class="es">Iluminación para guiar: en la oscuridad, las luces y los fuegos marcan por dónde seguir.</span></li>
+                <li><span class="en">Audio by zone: the music and ambience change as you move from the forest into the cave.</span><span class="es">Sonido por zonas: la música y los ambientes cambian al pasar del bosque a la cueva.</span></li>
+                <li><span class="en">Pacing: the scares in the forest give way to the obstacles in the cave.</span><span class="es">Ritmo: los sustos del bosque dan paso a los obstáculos de la cueva.</span></li>
+                <li><span class="en">Verticality: in the cave you climb 4 m and 6 m ropes, with spike pits below.</span><span class="es">Verticalidad: en la cueva se sube con cuerdas de 4 y 6 m y abajo hay pozos con pinchos.</span></li>
               </ul>
             </div>
             <div class="block">
-              <h4 class="label">Capturas</h4>
+              <h4 class="label"><span class="en">Screenshots</span><span class="es">Capturas</span></h4>
               <div class="gallery two">
                 <figure>
-                  <div class="shot"><img src="assets/lvl-casa.webp" width="1280" height="744" alt="Interior de la casa con paredes de cuadrícula, vigas rosadas y un escritorio naranja" loading="lazy"></div>
-                  <figcaption>La casa, donde empieza el recorrido.</figcaption>
+                  <div class="shot"><img src="assets/lvl-casa.webp" width="1280" height="744" alt="House interior with grid-textured walls, pink beams and an orange desk" data-es-alt="Interior de la casa con paredes de cuadrícula, vigas rosadas y un escritorio naranja" loading="lazy"></div>
+                  <figcaption><span class="en">The house, where the route begins.</span><span class="es">La casa, donde empieza el recorrido.</span></figcaption>
                 </figure>
                 <figure>
-                  <div class="shot"><img src="assets/lvl-bosque.webp" width="1280" height="744" alt="Bosque de noche con pinos iluminados de verde y pasto que brilla en el camino" loading="lazy"></div>
-                  <figcaption>El bosque de noche.</figcaption>
+                  <div class="shot"><img src="assets/lvl-bosque.webp" width="1280" height="744" alt="Forest at night with green-lit pines and grass glowing along the path" data-es-alt="Bosque de noche con pinos iluminados de verde y pasto que brilla en el camino" loading="lazy"></div>
+                  <figcaption><span class="en">The forest at night.</span><span class="es">El bosque de noche.</span></figcaption>
                 </figure>
                 <figure>
-                  <div class="shot"><img src="assets/lvl-cuerda.webp" width="1280" height="744" alt="Pared de la cueva iluminada por la linterna, con una cuerda colgando y una antorcha" loading="lazy"></div>
-                  <figcaption>En la cueva, una cuerda para subir.</figcaption>
+                  <div class="shot"><img src="assets/lvl-cuerda.webp" width="1280" height="744" alt="Cave wall lit by the flashlight, with a hanging rope and a torch" data-es-alt="Pared de la cueva iluminada por la linterna, con una cuerda colgando y una antorcha" loading="lazy"></div>
+                  <figcaption><span class="en">A rope to climb inside the cave.</span><span class="es">En la cueva, una cuerda para subir.</span></figcaption>
                 </figure>
                 <figure>
-                  <div class="shot"><img src="assets/lvl-c4.webp" width="1280" height="744" alt="Cueva con luz violeta y fuego, y una carga de C4 roja pegada a una roca" loading="lazy"></div>
-                  <figcaption>La carga de C4 al final de la cueva.</figcaption>
+                  <div class="shot"><img src="assets/lvl-c4.webp" width="1280" height="744" alt="Cave with purple light and fire, and a red C4 charge stuck to a rock" data-es-alt="Cueva con luz violeta y fuego, y una carga de C4 roja pegada a una roca" loading="lazy"></div>
+                  <figcaption><span class="en">The C4 charge at the end of the cave.</span><span class="es">La carga de C4 al final de la cueva.</span></figcaption>
                 </figure>
               </div>
-            </div>          </div>
+            </div>
+          </div>
         </div>
       </article>
     </div>
   </section>
 
-  <section id="herramientas">
+  <section id="tools">
     <div class="wrap">
-      <div class="section-head"><h2>Herramientas</h2></div>
+      <div class="section-head"><h2><span class="en">Tools</span><span class="es">Herramientas</span></h2></div>
       <div class="tools">
         <div>
-          <span class="label">Motores y arte</span>
+          <span class="label"><span class="en">Engines and art</span><span class="es">Motores y arte</span></span>
           <ul><li>Unity</li><li>Unreal Engine</li><li>Adobe Photoshop</li><li>Adobe Illustrator</li><li>Blender</li></ul>
         </div>
         <div>
-          <span class="label">Programación</span>
-          <ul><li>Java <small>(POO)</small></li><li>Python</li><li>C++</li><li>HTML y CSS</li></ul>
+          <span class="label"><span class="en">Programming</span><span class="es">Programación</span></span>
+          <ul><li>Java <small><span class="en">(OOP)</span><span class="es">(POO)</span></small></li><li>Python</li><li>C++</li><li><span class="en">HTML and CSS</span><span class="es">HTML y CSS</span></li></ul>
         </div>
         <div>
-          <span class="label">Idiomas</span>
-          <ul><li>Español <small>(nativo)</small></li><li>Inglés <small>(avanzado)</small></li><li>Chino <small>(intermedio)</small></li></ul>
+          <span class="label"><span class="en">Languages</span><span class="es">Idiomas</span></span>
+          <ul>
+            <li><span class="en">Spanish <small>(native)</small></span><span class="es">Español <small>(nativo)</small></span></li>
+            <li><span class="en">English <small>(advanced)</small></span><span class="es">Inglés <small>(avanzado)</small></span></li>
+            <li><span class="en">Chinese <small>(intermediate)</small></span><span class="es">Chino <small>(intermedio)</small></span></li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="contacto">
+  <section id="contact">
     <div class="wrap contact">
-      <h2>Hablemos</h2>
-      <p class="lead">Escribime por mail o por LinkedIn.</p>
+      <h2><span class="en">Let’s talk</span><span class="es">Hablemos</span></h2>
+      <p class="lead"><span class="en">Reach me by email or on LinkedIn.</span><span class="es">Escribime por mail o por LinkedIn.</span></p>
       <div class="contact-line">
         <span class="email" id="email-foot">liangmaximo2@gmail.com</span>
-        <button class="copy" type="button" data-copy="liangmaximo2@gmail.com" id="copy-foot">Copiar mail</button>
+        <button class="copy" type="button" data-copy="liangmaximo2@gmail.com" id="copy-foot"><span class="en">Copy email</span><span class="es">Copiar mail</span></button>
         <a href="https://www.linkedin.com/in/alexandermaximoliang" target="_blank" rel="noopener">LinkedIn ↗</a>
       </div>
       <div class="actions">
-        <a class="btn primary" href="cv.pdf" download="CV_Alexander_Liang_Videojuegos.pdf">Descargar CV (PDF)</a>
+        <a class="btn primary" href="cv-en.pdf" data-es-href="cv.pdf" download="CV_Alexander_Liang_Game_Development.pdf" data-es-download="CV_Alexander_Liang_Videojuegos.pdf" id="cv-link-foot" data-cv-link><span class="en">Download CV (PDF)</span><span class="es">Descargar CV (PDF)</span></a>
       </div>
       <p class="notice" aria-live="polite" data-notice></p>
     </div>
@@ -814,8 +863,64 @@ footer { padding-block: 1.5rem 2.5rem; border-top: 1px solid var(--rule); }
 
 <script>
 (function () {
+  var root = document.documentElement;
+  var lang = "en";
+  root.setAttribute("lang", "en");
+
+  var MSG = {
+    en: {
+      copied: "Email copied.",
+      selected: "Email selected: copy it with Ctrl+C or a long press.",
+      saved: "CV downloaded.",
+      declined: "Download cancelled.",
+      busy: "A download is already pending. Try again in a moment.",
+      failed: "The CV couldn’t be downloaded here. Ask me for it by email."
+    },
+    es: {
+      copied: "Mail copiado.",
+      selected: "Mail seleccionado: copialo con Ctrl+C o mantené apretado.",
+      saved: "CV descargado.",
+      declined: "Descarga cancelada.",
+      busy: "Ya hay una descarga pendiente. Probá de nuevo en un momento.",
+      failed: "No se pudo descargar el CV desde acá. Pedímelo por mail."
+    }
+  };
+  var CV = {
+    en: { file: "cv-en.pdf", name: "CV_Alexander_Liang_Game_Development.pdf" },
+    es: { file: "cv.pdf", name: "CV_Alexander_Liang_Videojuegos.pdf" }
+  };
+  var TITLE = { en: "Alexander Liang · Portfolio", es: "Alexander Liang · Portafolio" };
+
   var notices = document.querySelectorAll("[data-notice]");
-  function say(msg) { notices.forEach(function (n) { n.textContent = msg; }); }
+  function say(key) {
+    var msg = key ? MSG[lang][key] : "";
+    notices.forEach(function (n) { n.textContent = msg; });
+  }
+
+  // Language switch. The page always opens in English (nothing is remembered between visits).
+  // Text comes in .en/.es pairs shown by CSS; attributes with a data-es-* twin are swapped here.
+  var SWAP = ["alt", "src", "href", "download", "aria-label"];
+  function setLang(next) {
+    if ((next !== "en" && next !== "es") || next === lang) return;
+    lang = next;
+    root.setAttribute("data-lang", next);
+    root.setAttribute("lang", next);
+    SWAP.forEach(function (attr) {
+      document.querySelectorAll("[data-es-" + attr + "]").forEach(function (el) {
+        var keep = "data-en-" + attr;
+        if (!el.hasAttribute(keep)) el.setAttribute(keep, el.getAttribute(attr) || "");
+        el.setAttribute(attr, el.getAttribute(next === "es" ? "data-es-" + attr : keep));
+      });
+    });
+    document.querySelectorAll("[data-set-lang]").forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-set-lang") === next ? "true" : "false");
+    });
+    document.title = TITLE[next];
+    say("");
+  }
+  document.querySelectorAll("[data-set-lang]").forEach(function (b) {
+    b.addEventListener("click", function () { setLang(b.getAttribute("data-set-lang")); });
+  });
 
   // Copy e-mail (falls back to selecting the address when the clipboard is refused)
   document.querySelectorAll("[data-copy]").forEach(function (btn) {
@@ -827,16 +932,15 @@ footer { padding-block: 1.5rem 2.5rem; border-top: 1px solid var(--rule); }
           var r = document.createRange(); r.selectNodeContents(target);
           var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
         } catch (e) {}
-        say("Mail seleccionado: copialo con Ctrl+C o mantené apretado.");
+        say("selected");
       }
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(function () { say("Mail copiado."); }, selectIt);
+        navigator.clipboard.writeText(text).then(function () { say("copied"); }, selectIt);
       } else { selectIt(); }
     });
   });
 
 })();
 </script>
-
 </body>
 </html>
