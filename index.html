@@ -365,8 +365,6 @@ tbody th { font-weight: 700; white-space: nowrap; }
   padding: clamp(0.75rem, 3vw, 1.5rem);
   gap: 1rem;
 }
-.art.weapons { grid-template-columns: minmax(0, 1fr); }
-.art.weapons img { width: min(100%, 360px); }
 .art.cast { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; }
 .art.cast img { max-height: 210px; width: auto; }
 .shot { border: 1px solid var(--rule); background: var(--plate); }
@@ -558,7 +556,7 @@ footer { padding-block: 1.5rem 2.5rem; border-top: 1px solid var(--rule); }
               <h4 class="label"><span class="en">My role</span><span class="es">Mi rol</span></h4>
               <ul class="role">
                 <li><span class="en">I wrote parts of the GDD: high concept, target audience, genre, UX/UI, UX flow and gameplay design.</span><span class="es">Escribí partes del GDD: high concept, público objetivo, género, UX/UI, UX flow y diseño de gameplay.</span></li>
-                <li><span class="en">I designed the characters, weapons, HUD and levels.</span><span class="es">Diseñé los personajes, las armas, el HUD y los niveles.</span></li>
+                <li><span class="en">I designed the characters, HUD and levels.</span><span class="es">Diseñé los personajes, el HUD y los niveles.</span></li>
                 <li><span class="en">I created the visuals and layout for the pitch.</span><span class="es">Armé las imágenes y el diseño del pitch.</span></li>
               </ul>
             </div>
@@ -576,16 +574,8 @@ footer { padding-block: 1.5rem 2.5rem; border-top: 1px solid var(--rule); }
             </div>
 
             <div class="block">
-              <h4 class="label"><span class="en">Art and design</span><span class="es">Arte y diseño</span></h4>
-              <div class="gallery two">
-                <figure>
-                  <div class="art weapons">
-                    <img src="assets/mr-pistol.webp" width="900" height="608" alt="Grey pistol with an orange grip" data-es-alt="Pistola gris con empuñadura naranja" loading="lazy">
-                    <img src="assets/mr-rifle.webp" width="900" height="357" alt="Grey rifle with a scope and an orange grip" data-es-alt="Fusil gris con mira y empuñadura naranja" loading="lazy">
-                    <img src="assets/mr-laser.webp" width="900" height="318" alt="Laser gun with a glowing orange stripe" data-es-alt="Arma láser con una franja naranja luminosa" loading="lazy">
-                  </div>
-                  <figcaption><span class="en">Weapon designs.</span><span class="es">Diseño de armas.</span></figcaption>
-                </figure>
+              <h4 class="label"><span class="en">Characters</span><span class="es">Personajes</span></h4>
+              <div class="gallery">
                 <figure>
                   <div class="art cast">
                     <img src="assets/mr-boss-dark.webp" width="214" height="431" alt="Black robot with red eyes, a dark version of Echo" data-es-alt="Robot negro de ojos rojos, versión oscura de Echo" loading="lazy">
