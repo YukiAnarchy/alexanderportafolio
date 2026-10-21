@@ -4,735 +4,587 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Alexander Liang · Portfolio</title>
-<meta name="description" content="Game development portfolio of Alexander Liang: Metal Revenant, Monkey on the Loose and a level blockout in Unreal Engine.">
+<meta name="description" content="Game design and level design portfolio of Alexander Liang: Metal Revenant, Monkey on the Loose and a level blockout in Unreal Engine.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Alexander Liang · Game Development Portfolio">
+<meta property="og:title" content="Alexander Liang · Game Design Portfolio">
 <meta property="og:description" content="Metal Revenant, Monkey on the Loose and a level blockout in Unreal Engine. In English and Spanish.">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="es_AR">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Martian+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&family=Syncopate:wght@700&display=swap">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <style>
-/* Layout: a name plate under a factory spotlight, then one dossier per game:
-   spec rail (ficha, rol, controles) beside the media column; art sits on dark "night" plates. */
+/* Gallery index: a letter-spaced wordmark over a wide banner, then a grid of 4:3 covers.
+   Every project opens as its own page (a #view) with an image stack and a "More work" strip. */
 :root {
-  --paper: #edf0f4;
-  --plate: #ffffff;
-  --ink: #171f2e;
-  --muted: #566074;
-  --rule: #cbd2dc;
-  --signal: #e0532c;
-  --signal-ink: #b13f1d;
-  --steel: #3d5a80;
-  --night: #10151f;
-  --night-ink: #e8edf4;
-  --night-muted: #a4afc0;
-  --spot: rgba(224, 83, 44, 0.20);
-  --bar: #3d5a80;
+  --bg: #f3f4f6;
+  --surface: #ffffff;
+  --fg: #14171c;
+  --muted: #59616c;
+  --line: #d8dce2;
+  --accent: #1c69aa;
+  --accent-ink: #ffffff;
+  --plate: #12151b;
+  --plate-ink: #e9edf2;
+  --plate-muted: #a2abb7;
+  --spark: #e0582d;
+  --map-light: #ffd36b;
+  --map-fire: #ff8a4c;
+  --map-tree: #3f6f52;
 
-  --f-display: "Big Shoulders Display", "Oswald", "Arial Narrow", Impact, sans-serif;
-  --f-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
-  --f-mono: "Martian Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --f-mark: "Syncopate", "Arial Black", Arial, sans-serif;
+  --f-body: "Instrument Sans", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  --f-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 
-  --step--1: 0.8125rem;
-  --step-0: 1.0625rem;
-  --step-1: 1.25rem;
-  --step-2: clamp(2rem, 5.5vw, 3rem);
-  --step-3: clamp(2.5rem, 8vw, 4.25rem);
-  --step-4: clamp(3.4rem, 13vw, 7.75rem);
-  --gap: clamp(1rem, 3vw, 1.75rem);
+  --s0: 1rem;
+  --s1: 1.1875rem;
+  --s2: clamp(1.5rem, 3.6vw, 2.125rem);
+  --s3: clamp(2.25rem, 7vw, 4rem);
+  --gap: clamp(1rem, 2.5vw, 1.75rem);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #0d1219; --plate: #151c27; --ink: #e5eaf1; --muted: #9aa5b7; --rule: #263042;
-    --signal: #ff6f43; --signal-ink: #ff9b78; --steel: #8db0db; --night: #070a0f;
-    --night-ink: #e8edf4; --night-muted: #a4afc0; --spot: rgba(255, 111, 67, 0.16); --bar: #8db0db;
+    --bg: #0e1014; --surface: #171b21; --fg: #eceef2; --muted: #9aa3ae; --line: #272c34;
+    --accent: #6cb0ea; --accent-ink: #0e1014; --plate: #191d24; --plate-ink: #e9edf2; --plate-muted: #a2abb7;
+    --spark: #ff7b4f;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --paper: #0d1219; --plate: #151c27; --ink: #e5eaf1; --muted: #9aa5b7; --rule: #263042;
-  --signal: #ff6f43; --signal-ink: #ff9b78; --steel: #8db0db; --night: #070a0f;
-  --night-ink: #e8edf4; --night-muted: #a4afc0; --spot: rgba(255, 111, 67, 0.16); --bar: #8db0db;
+  --bg: #0e1014; --surface: #171b21; --fg: #eceef2; --muted: #9aa3ae; --line: #272c34;
+  --accent: #6cb0ea; --accent-ink: #0e1014; --plate: #191d24; --plate-ink: #e9edf2; --plate-muted: #a2abb7;
+  --spark: #ff7b4f;
   color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 body {
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--bg);
+  color: var(--fg);
   font-family: var(--f-body);
-  font-size: var(--step-0);
+  font-size: var(--s0);
   line-height: 1.6;
 }
+img, video { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+h1, h2, h3, p, figure { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+p { max-width: 64ch; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* every text comes as an .en/.es pair; the page always opens in English */
+:root:not([data-lang="es"]) .es { display: none !important; }
+:root[data-lang="es"] .en { display: none !important; }
+
 .wrap {
-  max-width: 1120px;
+  max-width: 1180px;
   margin-inline: auto;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
-img { max-width: 100%; height: auto; display: block; }
-a { color: inherit; }
-:focus-visible { outline: 3px solid var(--steel); outline-offset: 2px; border-radius: 4px; }
-
-h1, h2, h3 {
-  font-family: var(--f-display);
-  font-weight: 800;
-  text-transform: uppercase;
-  line-height: 0.92;
-  letter-spacing: 0.005em;
-  text-wrap: balance;
-  margin: 0;
-}
-p { margin: 0; max-width: 65ch; }
-ul, ol { margin: 0; padding: 0; }
-
 .label {
   font-family: var(--f-mono);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
-/* ---------- language: every text comes as an .en/.es pair; the page opens in English ---------- */
-:root:not([data-lang="es"]) .es { display: none !important; }
-:root[data-lang="es"] .en { display: none !important; }
-
-/* ---------- top bar ---------- */
-.topbar {
+/* ---------- header ---------- */
+.site-head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 0.75rem 1.5rem;
-  padding-block: 1.1rem;
-  border-bottom: 1px solid var(--rule);
+  gap: 0.9rem 2rem;
+  padding-block: 1.4rem 1.2rem;
 }
-.topbar nav { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
-@media (min-width: 760px) {
-  .topbar { grid-template-columns: auto minmax(0, 1fr) auto; }
-  .topbar nav { grid-column: 2; grid-row: 1; justify-content: flex-end; }
-  .lang { grid-column: 3; grid-row: 1; }
+.mark {
+  font-family: var(--f-mark);
+  font-weight: 700;
+  font-size: clamp(0.85rem, 2.3vw, 1.05rem);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
 }
-.lang { display: inline-flex; border: 2px solid var(--ink); }
-.lang button {
-  font-family: var(--f-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  min-width: 2.75rem;
-  min-height: 2.25rem;
-  padding: 0.35rem 0.7rem;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  color: var(--ink);
-  cursor: pointer;
-}
-.lang button + button { border-left: 2px solid var(--ink); }
-.lang button[aria-pressed="true"] { background: var(--ink); color: var(--paper); cursor: default; }
-.lang button[aria-pressed="false"]:hover { background: var(--signal); color: #fff; }
-.topbar nav a {
-  font-family: var(--f-mono);
-  font-size: var(--step--1);
+.site-nav { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0.25rem 1.6rem; }
+.site-nav a {
   text-decoration: none;
   color: var(--muted);
-}
-.topbar nav a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
-
-/* ---------- hero ---------- */
-.hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--gap);
-  padding-block: clamp(2rem, 6vw, 4rem) clamp(2rem, 5vw, 3.5rem);
-  align-items: end;
-}
-@media (min-width: 760px) {
-  .hero { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); }
-}
-.hero-copy { display: grid; gap: 1.25rem; min-width: 0; }
-.hero h1 { font-size: var(--step-4); }
-.hero h1 span { display: block; color: var(--signal); }
-.lead { font-size: var(--step-1); line-height: 1.5; }
-.status {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-weight: 700;
-}
-.status::before {
-  content: "";
-  width: 0.7rem;
-  height: 0.7rem;
-  background: var(--signal);
-  flex: none;
-}
-.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
-.btn {
-  font-family: var(--f-mono);
-  font-size: var(--step--1);
   font-weight: 500;
+  padding-block: 0.25rem;
+  border-bottom: 1px solid transparent;
+}
+.site-nav a:hover { color: var(--fg); }
+.site-nav a[aria-current="page"] { color: var(--fg); border-bottom-color: var(--fg); }
+@media (min-width: 760px) {
+  .site-head { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .site-nav { grid-column: 2; grid-row: 1; justify-content: flex-end; }
+  .lang { grid-column: 3; grid-row: 1; }
+}
+.lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
+.lang button {
+  font-family: var(--f-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  min-width: 2.7rem;
+  min-height: 2.1rem;
+  padding: 0.25rem 0.7rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+.lang button[aria-pressed="true"] { background: var(--fg); color: var(--bg); cursor: default; }
+.lang button[aria-pressed="false"]:hover { color: var(--fg); }
+
+/* ---------- shared controls ---------- */
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; }
+.btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.8rem 1.1rem;
-  border: 2px solid var(--ink);
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--fg);
   background: transparent;
-  color: var(--ink);
+  color: var(--fg);
   text-decoration: none;
   cursor: pointer;
-  border-radius: 0;
 }
-.btn.primary { background: var(--ink); color: var(--paper); }
-.btn:hover { background: var(--signal); border-color: var(--signal); color: #fff; }
-.contact-line {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem 1rem;
-  font-family: var(--f-mono);
-  font-size: var(--step--1);
-}
-.email { user-select: all; overflow-wrap: anywhere; }
+.btn.solid { background: var(--fg); color: var(--bg); }
+.btn:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.email { font-family: var(--f-mono); font-size: 0.9rem; user-select: all; overflow-wrap: anywhere; }
 .copy {
-  font: inherit;
-  font-size: 0.75rem;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid var(--rule);
-  background: var(--plate);
-  color: var(--ink);
+  font-family: var(--f-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--fg);
   cursor: pointer;
 }
-.copy:hover { border-color: var(--ink); }
-.contact-line a { text-underline-offset: 4px; }
+.copy:hover { border-color: var(--fg); }
 .notice { font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); min-height: 1.2em; }
+.textlink { text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
 
-.echo-stage {
-  position: relative;
+/* ---------- views ---------- */
+.view { padding-block: 0.25rem clamp(3rem, 8vw, 5rem); }
+
+/* work: banner, intro, covers */
+.banner { display: grid; gap: 0.6rem; }
+.banner img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--plate); }
+@media (min-width: 760px) { .banner img { aspect-ratio: 21 / 9; object-position: 50% 60%; } }
+.intro {
   display: grid;
-  justify-items: center;
-  align-content: end;
-  gap: 0.75rem;
-  min-width: 0;
-  padding-top: 1rem;
+  gap: 1.5rem;
+  padding-block: clamp(1.75rem, 5vw, 3rem);
+  margin-bottom: clamp(1.75rem, 5vw, 3rem);
+  border-bottom: 1px solid var(--line);
 }
-.echo-stage::before {
-  content: "";
+@media (min-width: 900px) { .intro { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: end; } }
+.intro .lead { font-size: clamp(1.25rem, 2.6vw, 1.6rem); line-height: 1.4; max-width: 34ch; text-wrap: pretty; }
+.intro-side { display: grid; gap: 1rem; justify-items: start; min-width: 0; }
+.status { display: flex; gap: 0.6rem; align-items: baseline; font-weight: 600; }
+.status::before { content: ""; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--spark); flex: none; }
+
+.grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.75rem, 4vw, 2.75rem) var(--gap); }
+@media (min-width: 700px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid .tile.feature { grid-column: 1 / -1; }
+  .grid .tile.feature .cover { aspect-ratio: 16 / 7; }
+}
+.tile { display: grid; gap: 0.8rem; text-decoration: none; min-width: 0; align-content: start; }
+.cover { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--plate); max-width: 100%; }
+.cover > img { width: 100%; height: 100%; object-fit: cover; }
+.tile.feature .cover > img { object-position: 50% 45%; }
+.tile h3 { font-size: var(--s1); font-weight: 600; line-height: 1.25; }
+.tile:hover h3 { text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+.tile-text { display: grid; gap: 0.2rem; }
+.badge {
   position: absolute;
-  inset: 0 12% 2.4rem;
-  background: linear-gradient(to bottom, var(--spot), transparent 90%);
-  clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
-  pointer-events: none;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(10, 12, 16, 0.74);
+  color: #fff;
 }
-.echo-stage img {
-  position: relative;
-  width: min(210px, 40vw);
-  filter: drop-shadow(0 18px 14px rgba(0, 0, 0, 0.18));
+/* cover composed from the character cutouts */
+.cast { position: absolute; inset: 9% 6% 0; display: flex; align-items: flex-end; justify-content: center; gap: 4%; }
+.cast img { width: auto; }
+.cast .h-echo { height: 90%; }
+.cast .h-dark { height: 52%; }
+.cast .h-eye { height: 60%; }
+.cast .h-turret { height: 24%; }
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .cover > img, .cast { transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .tile:hover .cover > img, .tile:hover .cast { transform: scale(1.035); }
 }
-.ledge {
-  position: relative;
-  width: 78%;
-  height: 10px;
-  border-top: 3px solid var(--ink);
-  background: repeating-linear-gradient(90deg, var(--rule) 0 14px, transparent 14px 22px);
-}
-.echo-stage figcaption { position: relative; text-align: center; }
 
-/* ---------- sections ---------- */
-section { padding-block: clamp(2.5rem, 6vw, 4.5rem); border-top: 1px solid var(--rule); }
-.section-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem 2rem;
-  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
-}
-.section-head h2 { font-size: var(--step-2); }
-
-/* ---------- game dossier ---------- */
-.game { display: grid; gap: clamp(1.25rem, 3vw, 2rem); }
-.game + .game { margin-top: clamp(3rem, 8vw, 5.5rem); padding-top: clamp(2.5rem, 6vw, 4rem); border-top: 2px solid var(--ink); }
-.game-head { display: grid; gap: 0.75rem; }
-.game-head h3 { font-size: var(--step-3); }
-.hook { font-size: var(--step-1); line-height: 1.5; }
-.game-head .actions { padding-top: 0.35rem; }
-
-.plate {
-  background: var(--night);
-  color: var(--night-ink);
-  margin: 0;
-}
-.plate .label { color: var(--night-muted); }
-.keyart img { width: 100%; }
-.keyart figcaption { padding: 0.7rem 1rem; }
-.logo-strip { padding: 1.25rem 1rem 0.25rem; }
-.logo-strip img { width: min(560px, 100%); margin-inline: auto; }
-
-.dossier { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 2.75rem); }
-@media (min-width: 900px) {
-  .dossier { grid-template-columns: 300px minmax(0, 1fr); align-items: start; }
-}
-.rail { display: grid; gap: 1.75rem; min-width: 0; }
-.block { display: grid; gap: 0.75rem; min-width: 0; }
-.block h4 { margin: 0; }
-
-.spec { display: grid; gap: 0; margin: 0; }
-.spec div {
-  display: grid;
-  grid-template-columns: 6.5rem minmax(0, 1fr);
-  gap: 0.75rem;
-  padding-block: 0.55rem;
-  border-bottom: 1px solid var(--rule);
-}
-.spec div:first-child { border-top: 1px solid var(--rule); }
-.spec dt { font-family: var(--f-mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 0.2rem; }
-.spec dd { margin: 0; }
-
-.role { list-style: none; display: grid; gap: 0.6rem; }
-.role li { padding-left: 1.1rem; position: relative; }
-.role li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 0.45rem; height: 0.45rem; background: var(--signal); }
-
-.keys { list-style: none; display: grid; gap: 0.55rem; }
-.keys li { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; }
-kbd {
+/* ---------- project pages ---------- */
+.back {
+  display: inline-flex;
+  gap: 0.5rem;
   font-family: var(--f-mono);
   font-size: 0.75rem;
-  line-height: 1;
-  padding: 0.35rem 0.5rem;
-  min-width: 1.9rem;
-  text-align: center;
-  background: var(--plate);
-  border: 1px solid var(--rule);
-  border-bottom-width: 3px;
-  border-radius: 5px;
-  color: var(--ink);
-}
-.keys .does { color: var(--muted); font-size: 0.95rem; }
-
-.main-col { display: grid; gap: clamp(1.75rem, 4vw, 2.5rem); min-width: 0; }
-.plays { list-style: none; display: grid; gap: 0.55rem; max-width: 65ch; }
-.plays li { padding-left: 1.1rem; position: relative; }
-.plays li::before { content: "›"; position: absolute; left: 0; color: var(--signal-ink); font-weight: 700; }
-
-/* level select, 4 screens of 5 levels like the game's own menu */
-.levels { display: grid; grid-template-columns: repeat(2, max-content); gap: 0.9rem 1rem; list-style: none; }
-@media (min-width: 1180px) { .levels { grid-template-columns: repeat(4, max-content); } }
-.lv-screen { display: grid; gap: 0.35rem; }
-.lv-row { display: flex; gap: 4px; }
-.lv {
-  width: clamp(1.5rem, 7vw, 1.875rem);
-  height: clamp(1.5rem, 7vw, 1.875rem);
-  display: grid;
-  place-items: center;
-  font-family: var(--f-mono);
-  font-size: 0.6875rem;
-  border: 1px solid var(--rule);
-  background: var(--plate);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
   color: var(--muted);
-  font-variant-numeric: tabular-nums;
+  padding-block: 0.5rem 1.25rem;
 }
-.lv.on { background: var(--signal); border-color: var(--signal); color: #fff; font-weight: 500; }
-.milestones { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(11.5rem, 1fr)); gap: 0.4rem 1rem; }
-.milestones li { display: flex; gap: 0.6rem; align-items: baseline; }
-.milestones b { font-family: var(--f-mono); font-size: 0.75rem; font-weight: 500; color: var(--signal-ink); font-variant-numeric: tabular-nums; min-width: 3.6rem; }
-
-/* balance table */
-.table-scroll { overflow-x: auto; border: 1px solid var(--rule); background: var(--plate); }
-table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.9375rem; }
-th, td { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--rule); vertical-align: middle; }
-thead th { font-family: var(--f-mono); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
-tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
-tbody th { font-weight: 700; white-space: nowrap; }
-.hp { display: grid; gap: 0.3rem; font-variant-numeric: tabular-nums; }
-.hp i { display: block; height: 6px; background: var(--bar); width: calc(var(--v) / 80 * 100%); }
-.source { font-size: 0.875rem; color: var(--muted); }
-
-/* galleries */
-.gallery { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap); }
-@media (min-width: 700px) { .gallery.two { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.gallery figure { margin: 0; display: grid; gap: 0.6rem; align-content: start; min-width: 0; }
-.gallery figcaption { font-size: 0.9rem; color: var(--muted); }
-.art {
-  background: var(--night);
-  display: grid;
-  place-items: center;
-  padding: clamp(0.75rem, 3vw, 1.5rem);
-  gap: 1rem;
+.back:hover { color: var(--fg); }
+.p-head { display: grid; gap: 1.75rem clamp(2rem, 5vw, 4rem); padding-bottom: clamp(1.75rem, 4vw, 2.5rem); }
+@media (min-width: 900px) { .p-head { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: end; } }
+.p-head h1, .page-title {
+  font-size: var(--s3);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
 }
-.art.cast { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; }
-.art.cast img { max-height: 210px; width: auto; }
-.shot { border: 1px solid var(--rule); background: var(--plate); }
+.p-head h1 { margin-block: 0.5rem 1rem; }
+.p-head h1:focus, .page-title:focus { outline: none; }
+.p-lead { font-size: var(--s1); line-height: 1.5; }
+.p-aside { display: grid; gap: 1.25rem; justify-items: start; min-width: 0; }
+.facts { display: grid; width: 100%; margin: 0; border-top: 1px solid var(--line); }
+.facts div { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 1rem; padding-block: 0.6rem; border-bottom: 1px solid var(--line); }
+.facts dt { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 0.15rem; }
+.facts dd { margin: 0; }
+
+.stack { display: grid; gap: var(--gap); }
+.shot { display: grid; gap: 0.6rem; min-width: 0; align-content: start; }
 .shot img { width: 100%; }
+.shot figcaption { font-size: 0.9rem; color: var(--muted); }
+.plate { background: var(--plate); color: var(--plate-ink); }
+.plate .label { color: var(--plate-muted); }
+.plate > figcaption { padding: 0 1rem 0.9rem; color: var(--plate-muted); }
+.keyart .logo { padding: 1.25rem 1rem 0.25rem; }
+.keyart .logo img { width: min(560px, 100%); margin-inline: auto; }
+.two { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap); }
+@media (min-width: 760px) { .two { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.edge { border: 1px solid var(--line); background: var(--surface); }
 
-/* wave cycle */
-.cycle { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; }
-.cycle li {
+.notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 2.25rem clamp(2rem, 5vw, 4rem); padding-block: clamp(2.25rem, 5vw, 3.25rem); }
+.note { display: grid; gap: 0.9rem; align-content: start; min-width: 0; }
+.note h2, .section-label {
   font-family: var(--f-mono);
   font-size: 0.75rem;
-  padding: 0.5rem 0.65rem;
-  border: 1px solid var(--rule);
-  background: var(--plate);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
-.cycle li.shop { border-style: dashed; color: var(--muted); background: transparent; }
-.cycle li.boss { background: var(--signal); border-color: var(--signal); color: #fff; font-weight: 500; }
+.list { display: grid; gap: 0.65rem; }
+.list li { padding-left: 1.25rem; position: relative; }
+.list li::before { content: ""; position: absolute; left: 0; top: 0.78em; width: 0.6rem; height: 1px; background: var(--fg); }
+.cycle { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.cycle li { font-family: var(--f-mono); font-size: 0.75rem; padding: 0.45rem 0.75rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+.cycle .shop { border-style: dashed; background: transparent; color: var(--muted); }
+.cycle .boss { background: var(--fg); border-color: var(--fg); color: var(--bg); }
+.small-print { font-size: 0.9rem; color: var(--muted); }
+.block { display: grid; gap: 1rem; padding-block: clamp(1.5rem, 4vw, 2.25rem) 0; }
+.pairs { display: grid; gap: 1.5rem; }
+.pair { display: grid; gap: 0.5rem; }
+.pair figcaption { font-weight: 600; }
+.pair-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+.pair-row div { display: grid; gap: 0.35rem; min-width: 0; }
+.pair-row img { width: 100%; border: 1px solid var(--line); }
 
-/* wireframe → final */
-.evolution { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
-.pair { margin: 0; display: grid; gap: 0.5rem; }
-.pair-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.5rem; }
-.pair-row div { display: grid; gap: 0.3rem; min-width: 0; }
-.pair-row img { width: 100%; border: 1px solid var(--rule); }
-.pair figcaption { font-weight: 700; }
+/* art pages */
+.art { display: grid; place-items: center; padding: clamp(1.5rem, 5vw, 3rem) 1rem; }
+.art.solo img { width: min(280px, 56vw); }
+.art.trio { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; gap: clamp(0.75rem, 3vw, 2.5rem); }
+.art.trio img { width: auto; max-height: min(280px, 40vw); justify-self: center; }
+.arms { display: grid; gap: clamp(1.75rem, 5vw, 3rem); justify-items: center; padding: clamp(1.75rem, 5vw, 3.5rem) 1rem; }
+.arms figure { display: grid; gap: 0.7rem; justify-items: center; width: 100%; }
+.arms img { width: min(520px, 92%); }
+.arms figcaption { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--plate-muted); }
 
-.learned { list-style: none; display: grid; gap: 0.9rem; counter-reset: none; }
-.learned li { border-left: 3px solid var(--signal); padding-left: 0.9rem; max-width: 65ch; }
-
-/* ---------- tools & contact ---------- */
-.tools { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem 2.5rem; }
-@media (min-width: 760px) { .tools { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.tools div { display: grid; gap: 0.5rem; align-content: start; }
-.tools ul { list-style: none; display: grid; gap: 0.25rem; }
-.tools li { font-size: 1.05rem; }
-.tools li small { color: var(--muted); font-size: 0.875rem; }
-
-.contact { display: grid; gap: 1.25rem; }
-.contact h2 { font-size: var(--step-3); }
-footer { padding-block: 1.5rem 2.5rem; border-top: 1px solid var(--rule); }
-
-/* ---------- level design: annotated map ---------- */
-:root {
-  --map-route: #f0612f;
-  --map-light: #ffd36b;
-  --map-fire: #ff8a4c;
-  --map-tree: #3f6f52;
-}
-.video-plate video { display: block; width: 100%; height: auto; aspect-ratio: 1280 / 744; max-width: 100%; background: var(--night); }
-.video-plate figcaption { padding: 0.7rem 1rem; }
-.map-plate { display: grid; gap: 1.1rem; padding: clamp(0.9rem, 3vw, 1.75rem); }
-.map-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.25rem, 3vw, 2.25rem); align-items: start; }
-@media (min-width: 860px) { .map-layout { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); } }
-.lvl-map { width: 100%; height: auto; }
-.beats-col { display: grid; gap: 1.1rem; align-content: start; min-width: 0; }
-.beats-col h4 { margin: 0; }
-.beats { list-style: none; counter-reset: beat; display: grid; gap: 0.6rem; }
+/* level page: video and map */
+.video video { width: 100%; aspect-ratio: 1280 / 744; background: var(--plate); }
+.video > figcaption { padding-top: 0.75rem; }
+.mapplate { display: grid; gap: 1.25rem; padding: clamp(1rem, 3vw, 2rem); }
+.maplayout { display: grid; gap: clamp(1.25rem, 3vw, 2.25rem); align-items: start; }
+@media (min-width: 860px) { .maplayout { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); } }
+.lvl-map { width: 100%; }
+.route { display: grid; gap: 1.1rem; align-content: start; min-width: 0; }
+.beats { counter-reset: beat; display: grid; gap: 0.6rem; }
 .beats li {
   counter-increment: beat;
   display: grid;
-  grid-template-columns: 1.75rem minmax(0, 1fr);
+  grid-template-columns: 1.7rem minmax(0, 1fr);
   gap: 0.75rem;
-  align-items: start;
-  font-size: 0.97rem;
+  font-size: 0.96rem;
   line-height: 1.45;
-  color: var(--night-ink);
 }
 .beats li::before {
   content: counter(beat);
   display: grid;
   place-items: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  margin-top: -0.12rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-top: -0.1rem;
   border-radius: 50%;
-  background: var(--map-route);
+  background: var(--spark);
   color: #fff;
   font-family: var(--f-mono);
   font-size: 0.72rem;
-  font-weight: 500;
 }
-.map-key {
-  list-style: none;
+.key { display: flex; flex-wrap: wrap; gap: 0.5rem 1.1rem; font-family: var(--f-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--plate-muted); }
+.key li { display: inline-flex; align-items: center; gap: 0.45rem; }
+.key i { display: inline-block; width: 0.6rem; height: 0.6rem; border-radius: 50%; }
+.key .k-light { background: var(--map-light); }
+.key .k-fire { background: var(--map-fire); }
+.key .k-tree { background: var(--map-tree); }
+.key .k-route { width: 1.4rem; height: 0; border-radius: 0; border-top: 3px dashed var(--spark); }
+
+/* more work strip (filled from the main grid by the script) */
+.more { display: grid; gap: 1.5rem; margin-top: clamp(2.5rem, 6vw, 4rem); padding-top: clamp(2rem, 5vw, 3rem); border-top: 1px solid var(--line); }
+.more h2 { font-size: var(--s2); font-weight: 600; letter-spacing: -0.01em; }
+.grid.small { gap: 1.5rem var(--gap); }
+@media (min-width: 1000px) { .grid.small { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.grid.small .tile h3 { font-size: 1rem; }
+.grid.small .badge { display: none; }
+.notes + .more { margin-top: 0.5rem; }
+
+/* about and contact */
+.page-title { padding-block: 0.5rem clamp(1.5rem, 4vw, 2.5rem); }
+.about { display: grid; gap: 2.5rem clamp(2rem, 6vw, 5rem); }
+@media (min-width: 900px) { .about { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); } }
+.about-text { display: grid; gap: 1.25rem; align-content: start; }
+.about-text .lead { font-size: clamp(1.2rem, 2.4vw, 1.5rem); line-height: 1.45; }
+.about-side { display: grid; gap: 2rem; align-content: start; min-width: 0; }
+.tools { display: grid; gap: 1.5rem; }
+.tools div { display: grid; gap: 0.45rem; }
+.tools li small { color: var(--muted); font-size: 0.9rem; }
+.links { display: grid; gap: 0.45rem; }
+.contact { display: grid; gap: 1.5rem; justify-items: start; }
+.contact .lead { font-size: clamp(1.2rem, 2.4vw, 1.5rem); line-height: 1.45; }
+.contact .email { font-family: var(--f-body); font-size: var(--s2); font-weight: 600; letter-spacing: -0.01em; }
+
+/* ---------- footer ---------- */
+.site-foot {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 1.1rem;
-  font-family: var(--f-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--night-muted);
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  padding-block: 1.5rem 2.5rem;
+  border-top: 1px solid var(--line);
 }
-.map-key li { display: inline-flex; align-items: center; gap: 0.45rem; }
-.map-key i { display: inline-block; width: 0.6rem; height: 0.6rem; border-radius: 50%; }
-.map-key .k-light { background: var(--map-light); }
-.map-key .k-fire { background: var(--map-fire); }
-.map-key .k-tree { background: var(--map-tree); }
-.map-key .k-route { width: 1.4rem; height: 0; border-radius: 0; border-top: 3px dashed var(--map-route); }
-
+.foot-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; font-size: 0.95rem; }
+.foot-links a { text-decoration: none; color: var(--muted); }
+.foot-links a:hover { color: var(--fg); }
+.top { font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; background: none; border: 0; color: var(--muted); cursor: pointer; padding: 0.4rem 0; }
+.top:hover { color: var(--fg); }
 
 @media (prefers-reduced-motion: no-preference) {
-  .btn, .copy, .lang button { transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+  .btn, .copy, .lang button, .site-nav a { transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+  .view:not([hidden]) { animation: rise 0.35s ease both; }
+  @keyframes rise { from { transform: translateY(8px); } to { transform: none; } }
 }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header class="topbar">
-    <span class="label"><span class="en">Portfolio · Game development</span><span class="es">Portafolio · Desarrollo de videojuegos</span></span>
+  <header class="site-head">
+    <a class="mark" href="#work">Alexander Liang</a>
     <div class="lang" role="group" aria-label="Language · Idioma">
       <button type="button" data-set-lang="en" aria-pressed="true" lang="en" title="English">EN</button>
       <button type="button" data-set-lang="es" aria-pressed="false" lang="es" title="Español">ES</button>
     </div>
-    <nav aria-label="Sections" data-es-aria-label="Secciones">
-      <a href="#games"><span class="en">Games</span><span class="es">Juegos</span></a>
-      <a href="#levels"><span class="en">Levels</span><span class="es">Niveles</span></a>
-      <a href="#tools"><span class="en">Tools</span><span class="es">Herramientas</span></a>
-      <a href="#contact"><span class="en">Contact</span><span class="es">Contacto</span></a>
+    <nav class="site-nav" aria-label="Main" data-es-aria-label="Principal">
+      <a href="#work" data-nav="work" aria-current="page"><span class="en">Work</span><span class="es">Trabajos</span></a>
+      <a href="#about" data-nav="about"><span class="en">About</span><span class="es">Sobre mí</span></a>
+      <a href="#contact" data-nav="contact"><span class="en">Contact</span><span class="es">Contacto</span></a>
     </nav>
   </header>
-
-  <div class="hero">
-    <div class="hero-copy">
-      <h1>Alexander <span>Liang</span></h1>
-      <p class="lead">
-        <span class="en">I’m a Video Game Development and Computer Engineering student at UADE in Buenos Aires. I’m interested in every area of game development, especially level design.</span>
-        <span class="es">Estudio la Licenciatura en Desarrollo de Videojuegos y la Ingeniería en Informática en UADE, en Buenos Aires. Me interesan todas las áreas del desarrollo de videojuegos, pero principalmente el diseño de niveles.</span>
-      </p>
-      <p class="status"><span class="en">Looking for an internship or my first job in the games industry.</span><span class="es">Busco una pasantía o mi primer trabajo en la industria de los videojuegos.</span></p>
-      <div class="actions">
-        <a class="btn primary" href="#games"><span class="en">See the games</span><span class="es">Ver juegos</span></a>
-        <a class="btn" href="cv-en.pdf" data-es-href="cv.pdf" download="CV_Alexander_Liang_Game_Development.pdf" data-es-download="CV_Alexander_Liang_Videojuegos.pdf" id="cv-link" data-cv-link><span class="en">Download CV (PDF)</span><span class="es">Descargar CV (PDF)</span></a>
-      </div>
-      <div class="contact-line">
-        <span class="email" id="email-hero">liangmaximo2@gmail.com</span>
-        <button class="copy" type="button" data-copy="liangmaximo2@gmail.com" id="copy-hero"><span class="en">Copy email</span><span class="es">Copiar mail</span></button>
-        <a href="https://www.linkedin.com/in/alexandermaximoliang" target="_blank" rel="noopener">LinkedIn ↗</a>
-      </div>
-      <p class="notice" aria-live="polite" data-notice></p>
-    </div>
-    <figure class="echo-stage">
-      <img src="assets/mr-echo.webp" width="435" height="900" alt="Echo, a blue robot with orange eyes, the main character of Metal Revenant" data-es-alt="Echo, robot azul de ojos naranjas, protagonista de Metal Revenant">
-      <div class="ledge" aria-hidden="true"></div>
-      <figcaption class="label"><span class="en">Echo · character design · Metal Revenant</span><span class="es">Echo · diseño de personaje · Metal Revenant</span></figcaption>
-    </figure>
-  </div>
 </div>
 
 <main>
-  <section id="games">
+  <!-- ================= WORK ================= -->
+  <section class="view" data-view="work" aria-labelledby="work-h">
     <div class="wrap">
-      <div class="section-head">
-        <h2><span class="en">Games</span><span class="es">Juegos</span></h2>
-        <span class="label"><span class="en">2 team projects · UADE · Unity</span><span class="es">2 proyectos en equipo · UADE · Unity</span></span>
+      <h1 id="work-h" class="sr-only" tabindex="-1"><span class="en">Work</span><span class="es">Trabajos</span></h1>
+      <figure class="banner">
+        <img src="assets/lvl-bosque.webp" width="1280" height="744" alt="Forest at night from the level blockout, with green-lit pines and grass glowing along the path" data-es-alt="Bosque de noche del blockout, con pinos iluminados de verde y pasto que brilla en el camino">
+        <figcaption class="label"><span class="en">House, forest and cave · level blockout · Unreal Engine 5.8</span><span class="es">Casa, bosque y cueva · blockout de nivel · Unreal Engine 5.8</span></figcaption>
+      </figure>
+
+      <div class="intro">
+        <p class="lead">
+          <span class="en">I’m a Video Game Development and Computer Engineering student at UADE in Buenos Aires. I’m interested in every area of game development, especially level design.</span>
+          <span class="es">Estudio la Licenciatura en Desarrollo de Videojuegos y la Ingeniería en Informática en UADE, en Buenos Aires. Me interesan todas las áreas del desarrollo de videojuegos, pero principalmente el diseño de niveles.</span>
+        </p>
+        <div class="intro-side">
+          <p class="status"><span class="en">Looking for an internship or my first job in the games industry.</span><span class="es">Busco una pasantía o mi primer trabajo en la industria de los videojuegos.</span></p>
+          <div class="row">
+            <a class="btn solid" href="cv-en.pdf" data-es-href="cv.pdf" download="CV_Alexander_Liang_Game_Development.pdf" data-es-download="CV_Alexander_Liang_Videojuegos.pdf" data-cv-link><span class="en">Download CV (PDF)</span><span class="es">Descargar CV (PDF)</span></a>
+            <a class="btn" href="#contact"><span class="en">Contact</span><span class="es">Contacto</span></a>
+          </div>
+          <p class="notice" aria-live="polite" data-notice></p>
+        </div>
       </div>
 
-      <!-- ================= METAL REVENANT ================= -->
-      <article class="game" aria-labelledby="mr-title">
-        <header class="game-head">
-          <span class="label"><span class="en">Run and gun · 2D platformer</span><span class="es">Run and gun · Plataformas 2D</span></span>
-          <h3 id="mr-title">Metal Revenant</h3>
-          <p class="hook">
-            <span class="en">Echo, a robot that was about to be scrapped, regains consciousness in a factory. In a world of machines with no humans left, it shoots its way through to take revenge on the Sentinel.</span>
-            <span class="es">Echo es un robot que iba a ser desechado y recobra la conciencia en una fábrica. En un mundo de máquinas donde ya no quedan humanos, se abre paso a los tiros hasta vengarse de El Centinela.</span>
-          </p>
-          <div class="actions">
-            <a class="btn primary" href="https://yukiliang.itch.io/metal-revenant" target="_blank" rel="noopener"><span class="en">Download on itch.io ↗</span><span class="es">Descargar en itch.io ↗</span></a>
-            <span class="label"><span class="en">Windows · free · up to level 3</span><span class="es">Windows · gratis · hasta el nivel 3</span></span>
+      <h2 class="sr-only"><span class="en">Projects</span><span class="es">Proyectos</span></h2>
+      <div class="grid" id="work-grid">
+        <a class="tile feature" href="#metal-revenant">
+          <div class="cover"><img src="assets/mr-gameplay.webp" width="1600" height="1000" alt=""></div>
+          <div class="tile-text">
+            <h3>Metal Revenant</h3>
+            <p class="label"><span class="en">Game · Run and gun · Unity</span><span class="es">Juego · Run and gun · Unity</span></p>
           </div>
-        </header>
-
-        <figure class="plate keyart">
-          <div class="logo-strip"><img src="assets/mr-logo.webp" width="1200" height="159" alt="Metal Revenant logo" data-es-alt="Logo de Metal Revenant"></div>
-          <img src="assets/mr-gameplay.webp" width="1600" height="1000" alt="Gameplay screenshot: Echo aims a pistol from a factory platform, lit by spotlights, facing an enemy robot" data-es-alt="Captura del juego: Echo apunta con su pistola sobre una plataforma de la fábrica, iluminado por reflectores, frente a un robot enemigo">
-          <figcaption class="label"><span class="en">Gameplay screenshot · factory level</span><span class="es">Captura del juego · nivel de la fábrica</span></figcaption>
-        </figure>
-
-        <div class="dossier">
-          <aside class="rail">
-            <div class="block">
-              <h4 class="label"><span class="en">Specs</span><span class="es">Ficha</span></h4>
-              <dl class="spec">
-                <div><dt><span class="en">Engine</span><span class="es">Motor</span></dt><dd>Unity</dd></div>
-                <div><dt><span class="en">Platform</span><span class="es">Plataforma</span></dt><dd>PC (Windows)</dd></div>
-                <div><dt>Build</dt><dd><span class="en">Playable up to level 3</span><span class="es">Jugable hasta el nivel 3</span></dd></div>
-                <div><dt><span class="en">Team</span><span class="es">Equipo</span></dt><dd><span class="en">3 people</span><span class="es">3 personas</span></dd></div>
-              </dl>
-            </div>
-            <div class="block">
-              <h4 class="label"><span class="en">My role</span><span class="es">Mi rol</span></h4>
-              <ul class="role">
-                <li><span class="en">I wrote parts of the GDD: high concept, target audience, genre, UX/UI, UX flow and gameplay design.</span><span class="es">Escribí partes del GDD: high concept, público objetivo, género, UX/UI, UX flow y diseño de gameplay.</span></li>
-                <li><span class="en">I designed the characters, HUD and levels.</span><span class="es">Diseñé los personajes, el HUD y los niveles.</span></li>
-                <li><span class="en">I created the visuals and layout for the pitch.</span><span class="es">Armé las imágenes y el diseño del pitch.</span></li>
-              </ul>
-            </div>
-          </aside>
-
-          <div class="main-col">
-            <div class="block">
-              <h4 class="label"><span class="en">How it plays</span><span class="es">Cómo se juega</span></h4>
-              <ul class="plays">
-                <li><span class="en">The design has 20 levels and the playable build goes up to level 3. The first two are tutorials for moving and using the dash.</span><span class="es">El diseño tiene 20 niveles y la build jugable llega hasta el nivel 3. Los dos primeros son de tutorial: moverse y usar el dash.</span></li>
-                <li><span class="en">Each zone adds a new weapon: pistol, heavy pistol, assault rifle and laser gun.</span><span class="es">Cada zona suma un arma nueva: pistola, pistola pesada, fusil de asalto y arma láser.</span></li>
-                <li><span class="en">Memory chips add to your score.</span><span class="es">Los chips de memoria suman puntaje.</span></li>
-                <li><span class="en">Each zone ends with a big wave, a mini boss or the final boss.</span><span class="es">Cada zona cierra con una oleada grande, un mini jefe o el jefe final.</span></li>
-              </ul>
-            </div>
-
-            <div class="block">
-              <h4 class="label"><span class="en">Characters</span><span class="es">Personajes</span></h4>
-              <div class="gallery">
-                <figure>
-                  <div class="art cast">
-                    <img src="assets/mr-boss-dark.webp" width="214" height="431" alt="Black robot with red eyes, a dark version of Echo" data-es-alt="Robot negro de ojos rojos, versión oscura de Echo" loading="lazy">
-                    <img src="assets/mr-boss-eye.webp" width="327" height="640" alt="Yellow one-wheeled robot with a single red eye" data-es-alt="Robot amarillo de una sola rueda con un ojo rojo" loading="lazy">
-                    <img src="assets/mr-turret.webp" width="165" height="159" alt="Grey turret with two barrels" data-es-alt="Torreta gris con dos cañones" loading="lazy">
-                  </div>
-                  <figcaption><span class="en">Mini bosses: a dark version of Echo, a one-wheeled robot and a turret.</span><span class="es">Mini jefes: una versión oscura de Echo, un robot de una rueda y una torreta.</span></figcaption>
-                </figure>
-              </div>
-            </div>
-
-            <div class="block">
-              <h4 class="label"><span class="en">What I learned</span><span class="es">Lo que aprendí</span></h4>
-              <ul class="learned">
-                <li><span class="en">To set a realistic scope from the start. The original idea was bigger than the time the team had, and we had to cut it down halfway through development.</span><span class="es">A definir un alcance realista desde el principio. La idea original era más grande que el tiempo del equipo y hubo que recortar a mitad del desarrollo.</span></li>
-                <li><span class="en">To organize tasks on a board from day one. We started using Trello late, and it showed in the code.</span><span class="es">A organizar las tareas en un tablero desde el primer día. Empezamos a usar Trello tarde y se notó en el código.</span></li>
-                <li><span class="en">To coordinate design, programming and art early on so no time is lost.</span><span class="es">A coordinar diseño, programación y arte desde el comienzo para no perder tiempo.</span></li>
-                <li><span class="en">That documentation is the backbone of a game.</span><span class="es">Que la documentación es el esqueleto de un juego.</span></li>
-              </ul>
+        </a>
+        <a class="tile" href="#blockout">
+          <div class="cover">
+            <img src="assets/lvl-c4.webp" width="1280" height="744" alt="" loading="lazy">
+            <span class="badge"><span class="en">▶ Video · 2:38</span><span class="es">▶ Video · 2:38</span></span>
+          </div>
+          <div class="tile-text">
+            <h3><span class="en">House, forest and cave</span><span class="es">Casa, bosque y cueva</span></h3>
+            <p class="label"><span class="en">Level design · Unreal Engine 5</span><span class="es">Diseño de niveles · Unreal Engine 5</span></p>
+          </div>
+        </a>
+        <a class="tile" href="#monkey-on-the-loose">
+          <div class="cover"><img src="assets/motl-menu.webp" width="821" height="462" alt="" loading="lazy"></div>
+          <div class="tile-text">
+            <h3>Monkey on the Loose</h3>
+            <p class="label"><span class="en">Game · Top-down shooter · Unity</span><span class="es">Juego · Top-down shooter · Unity</span></p>
+          </div>
+        </a>
+        <a class="tile feature" href="#characters">
+          <div class="cover">
+            <div class="cast">
+              <img class="h-echo" src="assets/mr-echo.webp" width="435" height="900" alt="" loading="lazy">
+              <img class="h-dark" src="assets/mr-boss-dark.webp" width="214" height="431" alt="" loading="lazy">
+              <img class="h-eye" src="assets/mr-boss-eye.webp" width="327" height="640" alt="" loading="lazy">
+              <img class="h-turret" src="assets/mr-turret.webp" width="165" height="159" alt="" loading="lazy">
             </div>
           </div>
-        </div>
-      </article>
-
-      <!-- ================= MONKEY ON THE LOOSE ================= -->
-      <article class="game" aria-labelledby="motl-title">
-        <header class="game-head">
-          <span class="label"><span class="en">Top-down shooter · Wave survival</span><span class="es">Top-down shooter · Supervivencia por oleadas</span></span>
-          <h3 id="motl-title">Monkey on the Loose</h3>
-          <p class="hook">
-            <span class="en">A monkey breaks out of a zoo that hides a secret lab. The waves of guards and machines never stop, and every fifth wave brings a mechanical boss.</span>
-            <span class="es">Un mono se escapa de un zoológico que esconde un laboratorio secreto. Las oleadas de guardias y máquinas no paran, y cada cinco aparece un jefe mecánico.</span>
-          </p>
-          <div class="actions">
-            <a class="btn primary" href="https://yukiliang.itch.io/monkey-on-the-loose" target="_blank" rel="noopener"><span class="en">Download on itch.io ↗</span><span class="es">Descargar en itch.io ↗</span></a>
-            <span class="label"><span class="en">Windows · free</span><span class="es">Windows · gratis</span></span>
+          <div class="tile-text">
+            <h3><span class="en">Characters</span><span class="es">Personajes</span></h3>
+            <p class="label"><span class="en">Character design · Metal Revenant</span><span class="es">Diseño de personajes · Metal Revenant</span></p>
           </div>
-        </header>
-
-        <figure class="plate keyart">
-          <img src="assets/motl-menu.webp" width="821" height="462" alt="Pixel art main menu: a tree with the buttons Jugar (Play), High score, Opciones (Options) and Salir (Quit) against a cloudy sky" data-es-alt="Menú principal en pixel art: un árbol con los botones Jugar, High score, Opciones y Salir sobre un cielo con nubes">
-          <figcaption class="label"><span class="en">Main menu · pixel art</span><span class="es">Menú principal · pixel art</span></figcaption>
-        </figure>
-
-        <div class="dossier">
-          <aside class="rail">
-            <div class="block">
-              <h4 class="label"><span class="en">Specs</span><span class="es">Ficha</span></h4>
-              <dl class="spec">
-                <div><dt><span class="en">Engine</span><span class="es">Motor</span></dt><dd>Unity</dd></div>
-                <div><dt><span class="en">Platform</span><span class="es">Plataforma</span></dt><dd>PC (Windows)</dd></div>
-                <div><dt><span class="en">Team</span><span class="es">Equipo</span></dt><dd><span class="en">4 people</span><span class="es">4 personas</span></dd></div>
-                <div><dt><span class="en">Art</span><span class="es">Arte</span></dt><dd><span class="en">Chibi pixel art</span><span class="es">Pixel art chibi</span></dd></div>
-              </dl>
-            </div>
-          </aside>
-
-          <div class="main-col">
-            <div class="block">
-              <h4 class="label"><span class="en">How it plays</span><span class="es">Cómo se juega</span></h4>
-              <ul class="plays">
-                <li><span class="en">Endless runs in cycles of five waves: four combat waves and one boss wave.</span><span class="es">Partidas infinitas en ciclos de cinco oleadas: cuatro de combate y una con jefe.</span></li>
-                <li><span class="en">After each combat wave a shop opens where coins buy upgrades to health, speed, fire rate, damage and dash.</span><span class="es">Después de cada oleada de combate se abre un mercado para mejorar vida, velocidad, cadencia, daño y dash con monedas.</span></li>
-                <li><span class="en">The weapon levels up from pistol to SMG to AK-47 once fire rate and damage are maxed out.</span><span class="es">El arma sube de nivel, de pistola a subfusil y a AK-47, cuando la cadencia y el daño llegan al máximo.</span></li>
-                <li><span class="en">Each boss leaves a permanent power, such as piercing bullets or a double dash.</span><span class="es">Cada jefe deja un poder permanente, como bala perforante o doble dash.</span></li>
-                <li><span class="en">Landing shots charges a special ability that boosts fire rate and damage for a few seconds.</span><span class="es">Acertar disparos carga una habilidad especial que sube por unos segundos la cadencia y el daño.</span></li>
-                <li><span class="en">Jungle, snow and forest biomes lead to the zoo’s exit, with a global high score leaderboard.</span><span class="es">Biomas de selva, nieve y bosque hasta la salida del zoológico, con ranking de high score global.</span></li>
-              </ul>
-            </div>
-
-            <div class="block">
-              <h4 class="label"><span class="en">One game cycle</span><span class="es">Un ciclo de juego</span></h4>
-              <ol class="cycle">
-                <li><span class="en">Wave 1</span><span class="es">Oleada 1</span></li><li class="shop"><span class="en">Shop</span><span class="es">Mercado</span></li>
-                <li><span class="en">Wave 2</span><span class="es">Oleada 2</span></li><li class="shop"><span class="en">Shop</span><span class="es">Mercado</span></li>
-                <li><span class="en">Wave 3</span><span class="es">Oleada 3</span></li><li class="shop"><span class="en">Shop</span><span class="es">Mercado</span></li>
-                <li><span class="en">Wave 4</span><span class="es">Oleada 4</span></li><li class="shop"><span class="en">Shop</span><span class="es">Mercado</span></li>
-                <li class="boss"><span class="en">Boss</span><span class="es">Jefe</span></li>
-              </ol>
-              <p class="source"><span class="en">Beating the boss opens the door to the next map, and a new cycle starts with stronger enemies.</span><span class="es">Al vencer al jefe se abre la puerta al siguiente mapa y empieza otro ciclo, con enemigos más fuertes.</span></p>
-            </div>
-
-            <div class="block">
-              <h4 class="label"><span class="en">From wireframe to final version</span><span class="es">Del wireframe a la versión final</span></h4>
-              <div class="evolution">
-                <figure class="pair">
-                  <figcaption><span class="en">Main menu</span><span class="es">Menú principal</span></figcaption>
-                  <div class="pair-row">
-                    <div><span class="label">Wireframe</span><img src="assets/motl-wf-menu.webp" width="760" height="427" alt="Grey wireframe of the main menu" data-es-alt="Wireframe en gris del menú principal" loading="lazy"></div>
-                    <div><span class="label">Final</span><img src="assets/motl-menu.webp" width="821" height="462" alt="Final pixel art main menu" data-es-alt="Menú principal final en pixel art" loading="lazy"></div>
-                  </div>
-                </figure>
-                <figure class="pair">
-                  <figcaption><span class="en">Pause</span><span class="es">Pausa</span></figcaption>
-                  <div class="pair-row">
-                    <div><span class="label">Wireframe</span><img src="assets/motl-wf-pause.webp" width="763" height="426" alt="Grey wireframe of the pause menu" data-es-alt="Wireframe en gris del menú de pausa" loading="lazy"></div>
-                    <div><span class="label">Final</span><img src="assets/motl-pause.webp" width="825" height="455" alt="Final pause menu with wooden signs" data-es-alt="Menú de pausa final con carteles de madera" loading="lazy"></div>
-                  </div>
-                </figure>
-                <figure class="pair">
-                  <figcaption>High score</figcaption>
-                  <div class="pair-row">
-                    <div><span class="label">Wireframe</span><img src="assets/motl-wf-highscore.webp" width="765" height="427" alt="Grey wireframe of the high score table" data-es-alt="Wireframe en gris de la tabla de high score" loading="lazy"></div>
-                    <div><span class="label">Final</span><img src="assets/motl-highscore.webp" width="818" height="438" alt="Final global high score table, made of wood against a cloudy sky" data-es-alt="Tabla de high score global final, de madera sobre un cielo con nubes" loading="lazy"></div>
-                  </div>
-                </figure>
-              </div>
-            </div>
-
-            <div class="block">
-              <h4 class="label"><span class="en">Game screens</span><span class="es">Pantallas del juego</span></h4>
-              <div class="gallery two">
-                <figure>
-                  <div class="shot"><img src="assets/motl-market.webp" width="971" height="508" alt="Shop screen with upgrade bars for health, speed, fire rate and damage" data-es-alt="Pantalla del mercado con barras de mejora de vida, velocidad, cadencia y daño" loading="lazy"></div>
-                  <figcaption><span class="en">Upgrade shop between waves.</span><span class="es">Mercado de mejoras entre oleadas.</span></figcaption>
-                </figure>
-                <figure>
-                  <div class="shot"><img src="assets/motl-options.webp" width="816" height="431" alt="Options menu with music and sound effects sliders and the list of controls" data-es-alt="Menú de opciones con sliders de música y efectos y la lista de controles" loading="lazy"></div>
-                  <figcaption><span class="en">Options menu.</span><span class="es">Menú de opciones.</span></figcaption>
-                </figure>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
+        </a>
+      </div>
     </div>
   </section>
 
-  <section id="levels">
+  <!-- ================= METAL REVENANT ================= -->
+  <section class="view" data-view="metal-revenant" aria-labelledby="mr-h" hidden>
     <div class="wrap">
-      <div class="section-head">
-        <h2><span class="en">Level design</span><span class="es">Diseño de niveles</span></h2>
-        <span class="label">Blockout · Unreal Engine 5.8</span>
+      <a class="back" href="#work"><span aria-hidden="true">←</span><span class="en">All work</span><span class="es">Todos los trabajos</span></a>
+      <header class="p-head">
+        <div>
+          <p class="label"><span class="en">Run and gun · 2D platformer</span><span class="es">Run and gun · Plataformas 2D</span></p>
+          <h1 id="mr-h" tabindex="-1">Metal Revenant</h1>
+          <p class="p-lead">
+            <span class="en">Echo, a robot that was about to be scrapped, regains consciousness in a factory. In a world of machines with no humans left, it shoots its way through to take revenge on the Sentinel.</span>
+            <span class="es">Echo es un robot que iba a ser desechado y recobra la conciencia en una fábrica. En un mundo de máquinas donde ya no quedan humanos, se abre paso a los tiros hasta vengarse de El Centinela.</span>
+          </p>
+        </div>
+        <div class="p-aside">
+          <dl class="facts">
+            <div><dt><span class="en">Engine</span><span class="es">Motor</span></dt><dd>Unity</dd></div>
+            <div><dt><span class="en">Platform</span><span class="es">Plataforma</span></dt><dd>PC (Windows)</dd></div>
+            <div><dt>Build</dt><dd><span class="en">Playable up to level 3</span><span class="es">Jugable hasta el nivel 3</span></dd></div>
+            <div><dt><span class="en">Team</span><span class="es">Equipo</span></dt><dd><span class="en">3 people</span><span class="es">3 personas</span></dd></div>
+          </dl>
+          <a class="btn solid" href="https://yukiliang.itch.io/metal-revenant" target="_blank" rel="noopener"><span class="en">Download on itch.io ↗</span><span class="es">Descargar en itch.io ↗</span></a>
+        </div>
+      </header>
+
+      <figure class="shot plate keyart">
+        <div class="logo"><img src="assets/mr-logo.webp" width="1200" height="159" alt="Metal Revenant logo" data-es-alt="Logo de Metal Revenant" loading="lazy"></div>
+        <img src="assets/mr-gameplay.webp" width="1600" height="1000" alt="Gameplay screenshot: Echo aims a pistol from a factory platform, lit by spotlights, facing an enemy robot" data-es-alt="Captura del juego: Echo apunta con su pistola sobre una plataforma de la fábrica, iluminado por reflectores, frente a un robot enemigo" loading="lazy">
+        <figcaption class="label"><span class="en">Gameplay screenshot · factory level</span><span class="es">Captura del juego · nivel de la fábrica</span></figcaption>
+      </figure>
+
+      <div class="notes">
+        <div class="note">
+          <h2><span class="en">My role</span><span class="es">Mi rol</span></h2>
+          <ul class="list">
+            <li><span class="en">I wrote parts of the GDD: high concept, target audience, genre, UX/UI, UX flow and gameplay design.</span><span class="es">Escribí partes del GDD: high concept, público objetivo, género, UX/UI, UX flow y diseño de gameplay.</span></li>
+            <li><span class="en">I designed the characters, HUD and levels.</span><span class="es">Diseñé los personajes, el HUD y los niveles.</span></li>
+            <li><span class="en">I created the visuals and layout for the pitch.</span><span class="es">Armé las imágenes y el diseño del pitch.</span></li>
+          </ul>
+        </div>
+        <div class="note">
+          <h2><span class="en">How it plays</span><span class="es">Cómo se juega</span></h2>
+          <ul class="list">
+            <li><span class="en">The design has 20 levels and the playable build goes up to level 3. The first two are tutorials for moving and using the dash.</span><span class="es">El diseño tiene 20 niveles y la build jugable llega hasta el nivel 3. Los dos primeros son de tutorial: moverse y usar el dash.</span></li>
+            <li><span class="en">Each zone adds a new weapon: pistol, heavy pistol, assault rifle and laser gun.</span><span class="es">Cada zona suma un arma nueva: pistola, pistola pesada, fusil de asalto y arma láser.</span></li>
+            <li><span class="en">Memory chips add to your score.</span><span class="es">Los chips de memoria suman puntaje.</span></li>
+            <li><span class="en">Each zone ends with a big wave, a mini boss or the final boss.</span><span class="es">Cada zona cierra con una oleada grande, un mini jefe o el jefe final.</span></li>
+          </ul>
+        </div>
+        <div class="note">
+          <h2><span class="en">What I learned</span><span class="es">Lo que aprendí</span></h2>
+          <ul class="list">
+            <li><span class="en">To set a realistic scope from the start. The original idea was bigger than the time the team had, and we had to cut it down halfway through development.</span><span class="es">A definir un alcance realista desde el principio. La idea original era más grande que el tiempo del equipo y hubo que recortar a mitad del desarrollo.</span></li>
+            <li><span class="en">To organize tasks on a board from day one. We started using Trello late, and it showed in the code.</span><span class="es">A organizar las tareas en un tablero desde el primer día. Empezamos a usar Trello tarde y se notó en el código.</span></li>
+            <li><span class="en">To coordinate design, programming and art early on so no time is lost.</span><span class="es">A coordinar diseño, programación y arte desde el comienzo para no perder tiempo.</span></li>
+            <li><span class="en">That documentation is the backbone of a game.</span><span class="es">Que la documentación es el esqueleto de un juego.</span></li>
+          </ul>
+        </div>
       </div>
 
-      <article class="game" aria-labelledby="lvl-title">
-        <header class="game-head">
-          <span class="label"><span class="en">Blockout · First person · Horror</span><span class="es">Blockout · Primera persona · Terror</span></span>
-          <h3 id="lvl-title"><span class="en">House, forest and cave</span><span class="es">Casa, bosque y cueva</span></h3>
-          <p class="hook">
+      <div class="more">
+        <h2><span class="en">More work</span><span class="es">Más trabajos</span></h2>
+        <div class="grid small" data-more="metal-revenant"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LEVEL BLOCKOUT ================= -->
+  <section class="view" data-view="blockout" aria-labelledby="lvl-h" hidden>
+    <div class="wrap">
+      <a class="back" href="#work"><span aria-hidden="true">←</span><span class="en">All work</span><span class="es">Todos los trabajos</span></a>
+      <header class="p-head">
+        <div>
+          <p class="label"><span class="en">Blockout · First person · Horror</span><span class="es">Blockout · Primera persona · Terror</span></p>
+          <h1 id="lvl-h" tabindex="-1"><span class="en">House, forest and cave</span><span class="es">Casa, bosque y cueva</span></h1>
+          <p class="p-lead">
             <span class="en">A first-person horror blockout: the player leaves a house at night, crosses a forest by flashlight and goes down into a cave full of traps and obstacles.</span>
             <span class="es">Un blockout de terror en primera persona: el jugador sale de una casa de noche, cruza un bosque con la linterna y baja a una cueva con trampas y obstáculos.</span>
           </p>
-        </header>
+        </div>
+        <div class="p-aside">
+          <dl class="facts">
+            <div><dt><span class="en">Engine</span><span class="es">Motor</span></dt><dd>Unreal Engine 5.8</dd></div>
+            <div><dt><span class="en">View</span><span class="es">Vista</span></dt><dd><span class="en">First person</span><span class="es">Primera persona</span></dd></div>
+          </dl>
+        </div>
+      </header>
 
-        <figure class="plate video-plate">
+      <div class="stack">
+        <figure class="shot video">
           <video controls preload="none" playsinline poster="assets/lvl-bosque.webp" width="1280" height="744">
             <source src="assets/blockout.mp4" type="video/mp4">
           </video>
           <figcaption class="label"><span class="en">Blockout walkthrough in Unreal Engine · 2:38</span><span class="es">Video del blockout en Unreal Engine · 2:38</span></figcaption>
         </figure>
 
-        <figure class="plate map-plate">
-          <div class="map-layout">
-            <img class="lvl-map" src="assets/blockout-map-en.svg" data-es-src="assets/blockout-map-v2.svg" width="1160" height="1330" alt="Top-down map of the blockout. The house is at the top left; the forest runs south and turns east to the cave entrance. The cave forms a loop: the route goes around it, comes back through point 7 and ends at a door that opens with C4. Eleven numbers mark the route." data-es-alt="Plano del blockout visto desde arriba. La casa está arriba a la izquierda; el bosque baja hacia el sur y gira al este hasta la entrada de la cueva. La cueva forma un anillo: el recorrido lo rodea, vuelve por el punto 7 y termina en una puerta que se abre con C4. Once números marcan el recorrido.">
-            <div class="beats-col">
-              <h4 class="label"><span class="en">Route</span><span class="es">Recorrido</span></h4>
+        <figure class="shot plate mapplate">
+          <div class="maplayout">
+            <img class="lvl-map" src="assets/blockout-map-en.svg" data-es-src="assets/blockout-map-v2.svg" width="1160" height="1330" alt="Top-down map of the blockout. The house is at the top left; the forest runs south and turns east to the cave entrance. The cave forms a loop: the route goes around it, comes back through point 7 and ends at a door that opens with C4. Eleven numbers mark the route." data-es-alt="Plano del blockout visto desde arriba. La casa está arriba a la izquierda; el bosque baja hacia el sur y gira al este hasta la entrada de la cueva. La cueva forma un anillo: el recorrido lo rodea, vuelve por el punto 7 y termina en una puerta que se abre con C4. Once números marcan el recorrido." loading="lazy">
+            <div class="route">
+              <h2 class="label"><span class="en">Route</span><span class="es">Recorrido</span></h2>
               <ol class="beats">
                 <li><span class="en">Start inside the house.</span><span class="es">Inicio en la casa.</span></li>
                 <li><span class="en">A campfire just outside.</span><span class="es">Fogata a la salida.</span></li>
@@ -746,7 +598,7 @@ footer { padding-block: 1.5rem 2.5rem; border-top: 1px solid var(--rule); }
                 <li><span class="en">Run along a wall, jump an obstacle and climb a 6 m rope.</span><span class="es">Correr por la pared, saltar un obstáculo y subir una cuerda de 6 m.</span></li>
                 <li><span class="en">Back through 7 to the blocked door, which opens with C4.</span><span class="es">Se vuelve por el 7 hasta la puerta bloqueada que se abre con C4.</span></li>
               </ol>
-              <ul class="map-key" aria-label="Map key" data-es-aria-label="Referencias del plano">
+              <ul class="key" aria-label="Map key" data-es-aria-label="Referencias del plano">
                 <li><i class="k-route"></i><span class="en">Route</span><span class="es">Recorrido</span></li>
                 <li><i class="k-light"></i><span class="en">Light</span><span class="es">Luz</span></li>
                 <li><i class="k-fire"></i><span class="en">Fire</span><span class="es">Fuego</span></li>
@@ -756,105 +608,277 @@ footer { padding-block: 1.5rem 2.5rem; border-top: 1px solid var(--rule); }
           </div>
           <figcaption class="label"><span class="en">Map built from the position and size of every piece in the level file · 10 m grid</span><span class="es">Plano armado con la posición y el tamaño de cada pieza del archivo del nivel · cuadrícula de 10 m</span></figcaption>
         </figure>
+      </div>
 
-        <div class="dossier">
-          <aside class="rail">
-            <div class="block">
-              <h4 class="label"><span class="en">Specs</span><span class="es">Ficha</span></h4>
-              <dl class="spec">
-                <div><dt><span class="en">Engine</span><span class="es">Motor</span></dt><dd>Unreal Engine 5.8</dd></div>
-                <div><dt><span class="en">View</span><span class="es">Vista</span></dt><dd><span class="en">First person</span><span class="es">Primera persona</span></dd></div>
-              </dl>
-            </div>
-          </aside>
-
-          <div class="main-col">
-            <div class="block">
-              <h4 class="label"><span class="en">How I approached it</span><span class="es">Cómo lo trabajé</span></h4>
-              <ul class="plays">
-                <li><span class="en">Semi-linear path: the main route is clear, but the player has room to move around and explore.</span><span class="es">Camino semilineal: el recorrido principal está claro, pero el jugador tiene espacio para moverse y explorar.</span></li>
-                <li><span class="en">Lighting that guides: in the dark, lights and fires show the way forward.</span><span class="es">Iluminación para guiar: en la oscuridad, las luces y los fuegos marcan por dónde seguir.</span></li>
-                <li><span class="en">Audio by zone: the music and ambience change as you move from the forest into the cave.</span><span class="es">Sonido por zonas: la música y los ambientes cambian al pasar del bosque a la cueva.</span></li>
-                <li><span class="en">Pacing: the scares in the forest give way to the obstacles in the cave.</span><span class="es">Ritmo: los sustos del bosque dan paso a los obstáculos de la cueva.</span></li>
-                <li><span class="en">Verticality: in the cave you climb 4 m and 6 m ropes, with spike pits below.</span><span class="es">Verticalidad: en la cueva se sube con cuerdas de 4 y 6 m y abajo hay pozos con pinchos.</span></li>
-              </ul>
-            </div>
-            <div class="block">
-              <h4 class="label"><span class="en">Screenshots</span><span class="es">Capturas</span></h4>
-              <div class="gallery two">
-                <figure>
-                  <div class="shot"><img src="assets/lvl-casa.webp" width="1280" height="744" alt="House interior with grid-textured walls, pink beams and an orange desk" data-es-alt="Interior de la casa con paredes de cuadrícula, vigas rosadas y un escritorio naranja" loading="lazy"></div>
-                  <figcaption><span class="en">The house, where the route begins.</span><span class="es">La casa, donde empieza el recorrido.</span></figcaption>
-                </figure>
-                <figure>
-                  <div class="shot"><img src="assets/lvl-bosque.webp" width="1280" height="744" alt="Forest at night with green-lit pines and grass glowing along the path" data-es-alt="Bosque de noche con pinos iluminados de verde y pasto que brilla en el camino" loading="lazy"></div>
-                  <figcaption><span class="en">The forest at night.</span><span class="es">El bosque de noche.</span></figcaption>
-                </figure>
-                <figure>
-                  <div class="shot"><img src="assets/lvl-cuerda.webp" width="1280" height="744" alt="Cave wall lit by the flashlight, with a hanging rope and a torch" data-es-alt="Pared de la cueva iluminada por la linterna, con una cuerda colgando y una antorcha" loading="lazy"></div>
-                  <figcaption><span class="en">A rope to climb inside the cave.</span><span class="es">En la cueva, una cuerda para subir.</span></figcaption>
-                </figure>
-                <figure>
-                  <div class="shot"><img src="assets/lvl-c4.webp" width="1280" height="744" alt="Cave with purple light and fire, and a red C4 charge stuck to a rock" data-es-alt="Cueva con luz violeta y fuego, y una carga de C4 roja pegada a una roca" loading="lazy"></div>
-                  <figcaption><span class="en">The C4 charge at the end of the cave.</span><span class="es">La carga de C4 al final de la cueva.</span></figcaption>
-                </figure>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section id="tools">
-    <div class="wrap">
-      <div class="section-head"><h2><span class="en">Tools</span><span class="es">Herramientas</span></h2></div>
-      <div class="tools">
-        <div>
-          <span class="label"><span class="en">Engines and art</span><span class="es">Motores y arte</span></span>
-          <ul><li>Unity</li><li>Unreal Engine</li><li>Adobe Photoshop</li><li>Adobe Illustrator</li><li>Blender</li></ul>
-        </div>
-        <div>
-          <span class="label"><span class="en">Programming</span><span class="es">Programación</span></span>
-          <ul><li>Java <small><span class="en">(OOP)</span><span class="es">(POO)</span></small></li><li>Python</li><li>C++</li><li><span class="en">HTML and CSS</span><span class="es">HTML y CSS</span></li></ul>
-        </div>
-        <div>
-          <span class="label"><span class="en">Languages</span><span class="es">Idiomas</span></span>
-          <ul>
-            <li><span class="en">Spanish <small>(native)</small></span><span class="es">Español <small>(nativo)</small></span></li>
-            <li><span class="en">English <small>(advanced)</small></span><span class="es">Inglés <small>(avanzado)</small></span></li>
-            <li><span class="en">Chinese <small>(intermediate)</small></span><span class="es">Chino <small>(intermedio)</small></span></li>
+      <div class="notes">
+        <div class="note">
+          <h2><span class="en">How I approached it</span><span class="es">Cómo lo trabajé</span></h2>
+          <ul class="list">
+            <li><span class="en">Semi-linear path: the main route is clear, but the player has room to move around and explore.</span><span class="es">Camino semilineal: el recorrido principal está claro, pero el jugador tiene espacio para moverse y explorar.</span></li>
+            <li><span class="en">Lighting that guides: in the dark, lights and fires show the way forward.</span><span class="es">Iluminación para guiar: en la oscuridad, las luces y los fuegos marcan por dónde seguir.</span></li>
+            <li><span class="en">Audio by zone: the music and ambience change as you move from the forest into the cave.</span><span class="es">Sonido por zonas: la música y los ambientes cambian al pasar del bosque a la cueva.</span></li>
+            <li><span class="en">Pacing: the scares in the forest give way to the obstacles in the cave.</span><span class="es">Ritmo: los sustos del bosque dan paso a los obstáculos de la cueva.</span></li>
+            <li><span class="en">Verticality: in the cave you climb 4 m and 6 m ropes, with spike pits below.</span><span class="es">Verticalidad: en la cueva se sube con cuerdas de 4 y 6 m y abajo hay pozos con pinchos.</span></li>
           </ul>
         </div>
       </div>
+
+      <div class="two">
+        <figure class="shot">
+          <img class="edge" src="assets/lvl-casa.webp" width="1280" height="744" alt="House interior with grid-textured walls, pink beams and an orange desk" data-es-alt="Interior de la casa con paredes de cuadrícula, vigas rosadas y un escritorio naranja" loading="lazy">
+          <figcaption><span class="en">The house, where the route begins.</span><span class="es">La casa, donde empieza el recorrido.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img class="edge" src="assets/lvl-bosque.webp" width="1280" height="744" alt="Forest at night with green-lit pines and grass glowing along the path" data-es-alt="Bosque de noche con pinos iluminados de verde y pasto que brilla en el camino" loading="lazy">
+          <figcaption><span class="en">The forest at night.</span><span class="es">El bosque de noche.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img class="edge" src="assets/lvl-cuerda.webp" width="1280" height="744" alt="Cave wall lit by the flashlight, with a hanging rope and a torch" data-es-alt="Pared de la cueva iluminada por la linterna, con una cuerda colgando y una antorcha" loading="lazy">
+          <figcaption><span class="en">A rope to climb inside the cave.</span><span class="es">En la cueva, una cuerda para subir.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img class="edge" src="assets/lvl-c4.webp" width="1280" height="744" alt="Cave with purple light and fire, and a red C4 charge stuck to a rock" data-es-alt="Cueva con luz violeta y fuego, y una carga de C4 roja pegada a una roca" loading="lazy">
+          <figcaption><span class="en">The C4 charge at the end of the cave.</span><span class="es">La carga de C4 al final de la cueva.</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="more">
+        <h2><span class="en">More work</span><span class="es">Más trabajos</span></h2>
+        <div class="grid small" data-more="blockout"></div>
+      </div>
     </div>
   </section>
 
-  <section id="contact">
-    <div class="wrap contact">
-      <h2><span class="en">Let’s talk</span><span class="es">Hablemos</span></h2>
-      <p class="lead"><span class="en">Reach me by email or on LinkedIn.</span><span class="es">Escribime por mail o por LinkedIn.</span></p>
-      <div class="contact-line">
-        <span class="email" id="email-foot">liangmaximo2@gmail.com</span>
-        <button class="copy" type="button" data-copy="liangmaximo2@gmail.com" id="copy-foot"><span class="en">Copy email</span><span class="es">Copiar mail</span></button>
-        <a href="https://www.linkedin.com/in/alexandermaximoliang" target="_blank" rel="noopener">LinkedIn ↗</a>
+  <!-- ================= MONKEY ON THE LOOSE ================= -->
+  <section class="view" data-view="monkey-on-the-loose" aria-labelledby="motl-h" hidden>
+    <div class="wrap">
+      <a class="back" href="#work"><span aria-hidden="true">←</span><span class="en">All work</span><span class="es">Todos los trabajos</span></a>
+      <header class="p-head">
+        <div>
+          <p class="label"><span class="en">Top-down shooter · Wave survival</span><span class="es">Top-down shooter · Supervivencia por oleadas</span></p>
+          <h1 id="motl-h" tabindex="-1">Monkey on the Loose</h1>
+          <p class="p-lead">
+            <span class="en">A monkey breaks out of a zoo that hides a secret lab. The waves of guards and machines never stop, and every fifth wave brings a mechanical boss.</span>
+            <span class="es">Un mono se escapa de un zoológico que esconde un laboratorio secreto. Las oleadas de guardias y máquinas no paran, y cada cinco aparece un jefe mecánico.</span>
+          </p>
+        </div>
+        <div class="p-aside">
+          <dl class="facts">
+            <div><dt><span class="en">Engine</span><span class="es">Motor</span></dt><dd>Unity</dd></div>
+            <div><dt><span class="en">Platform</span><span class="es">Plataforma</span></dt><dd>PC (Windows)</dd></div>
+            <div><dt><span class="en">Team</span><span class="es">Equipo</span></dt><dd><span class="en">4 people</span><span class="es">4 personas</span></dd></div>
+            <div><dt><span class="en">Art</span><span class="es">Arte</span></dt><dd><span class="en">Chibi pixel art</span><span class="es">Pixel art chibi</span></dd></div>
+          </dl>
+          <a class="btn solid" href="https://yukiliang.itch.io/monkey-on-the-loose" target="_blank" rel="noopener"><span class="en">Download on itch.io ↗</span><span class="es">Descargar en itch.io ↗</span></a>
+        </div>
+      </header>
+
+      <figure class="shot">
+        <img src="assets/motl-menu.webp" width="821" height="462" alt="Pixel art main menu: a tree with the buttons Jugar (Play), High score, Opciones (Options) and Salir (Quit) against a cloudy sky" data-es-alt="Menú principal en pixel art: un árbol con los botones Jugar, High score, Opciones y Salir sobre un cielo con nubes" loading="lazy">
+        <figcaption class="label"><span class="en">Main menu · pixel art</span><span class="es">Menú principal · pixel art</span></figcaption>
+      </figure>
+
+      <div class="notes">
+        <div class="note">
+          <h2><span class="en">How it plays</span><span class="es">Cómo se juega</span></h2>
+          <ul class="list">
+            <li><span class="en">Endless runs in cycles of five waves: four combat waves and one boss wave.</span><span class="es">Partidas infinitas en ciclos de cinco oleadas: cuatro de combate y una con jefe.</span></li>
+            <li><span class="en">After each combat wave a shop opens where coins buy upgrades to health, speed, fire rate, damage and dash.</span><span class="es">Después de cada oleada de combate se abre un mercado para mejorar vida, velocidad, cadencia, daño y dash con monedas.</span></li>
+            <li><span class="en">The weapon levels up from pistol to SMG to AK-47 once fire rate and damage are maxed out.</span><span class="es">El arma sube de nivel, de pistola a subfusil y a AK-47, cuando la cadencia y el daño llegan al máximo.</span></li>
+            <li><span class="en">Each boss leaves a permanent power, such as piercing bullets or a double dash.</span><span class="es">Cada jefe deja un poder permanente, como bala perforante o doble dash.</span></li>
+            <li><span class="en">Landing shots charges a special ability that boosts fire rate and damage for a few seconds.</span><span class="es">Acertar disparos carga una habilidad especial que sube por unos segundos la cadencia y el daño.</span></li>
+            <li><span class="en">Jungle, snow and forest biomes lead to the zoo’s exit, with a global high score leaderboard.</span><span class="es">Biomas de selva, nieve y bosque hasta la salida del zoológico, con ranking de high score global.</span></li>
+          </ul>
+        </div>
+        <div class="note">
+          <h2><span class="en">One game cycle</span><span class="es">Un ciclo de juego</span></h2>
+          <ol class="cycle">
+            <li><span class="en">Wave 1</span><span class="es">Oleada 1</span></li><li class="shop"><span class="en">Shop</span><span class="es">Mercado</span></li>
+            <li><span class="en">Wave 2</span><span class="es">Oleada 2</span></li><li class="shop"><span class="en">Shop</span><span class="es">Mercado</span></li>
+            <li><span class="en">Wave 3</span><span class="es">Oleada 3</span></li><li class="shop"><span class="en">Shop</span><span class="es">Mercado</span></li>
+            <li><span class="en">Wave 4</span><span class="es">Oleada 4</span></li><li class="shop"><span class="en">Shop</span><span class="es">Mercado</span></li>
+            <li class="boss"><span class="en">Boss</span><span class="es">Jefe</span></li>
+          </ol>
+          <p class="small-print"><span class="en">Beating the boss opens the door to the next map, and a new cycle starts with stronger enemies.</span><span class="es">Al vencer al jefe se abre la puerta al siguiente mapa y empieza otro ciclo, con enemigos más fuertes.</span></p>
+        </div>
       </div>
-      <div class="actions">
-        <a class="btn primary" href="cv-en.pdf" data-es-href="cv.pdf" download="CV_Alexander_Liang_Game_Development.pdf" data-es-download="CV_Alexander_Liang_Videojuegos.pdf" id="cv-link-foot" data-cv-link><span class="en">Download CV (PDF)</span><span class="es">Descargar CV (PDF)</span></a>
+
+      <div class="block">
+        <h2 class="section-label"><span class="en">From wireframe to final version</span><span class="es">Del wireframe a la versión final</span></h2>
+        <div class="pairs">
+          <figure class="pair">
+            <figcaption><span class="en">Main menu</span><span class="es">Menú principal</span></figcaption>
+            <div class="pair-row">
+              <div><span class="label">Wireframe</span><img src="assets/motl-wf-menu.webp" width="760" height="427" alt="Grey wireframe of the main menu" data-es-alt="Wireframe en gris del menú principal" loading="lazy"></div>
+              <div><span class="label">Final</span><img src="assets/motl-menu.webp" width="821" height="462" alt="Final pixel art main menu" data-es-alt="Menú principal final en pixel art" loading="lazy"></div>
+            </div>
+          </figure>
+          <figure class="pair">
+            <figcaption><span class="en">Pause</span><span class="es">Pausa</span></figcaption>
+            <div class="pair-row">
+              <div><span class="label">Wireframe</span><img src="assets/motl-wf-pause.webp" width="763" height="426" alt="Grey wireframe of the pause menu" data-es-alt="Wireframe en gris del menú de pausa" loading="lazy"></div>
+              <div><span class="label">Final</span><img src="assets/motl-pause.webp" width="825" height="455" alt="Final pause menu with wooden signs" data-es-alt="Menú de pausa final con carteles de madera" loading="lazy"></div>
+            </div>
+          </figure>
+          <figure class="pair">
+            <figcaption>High score</figcaption>
+            <div class="pair-row">
+              <div><span class="label">Wireframe</span><img src="assets/motl-wf-highscore.webp" width="765" height="427" alt="Grey wireframe of the high score table" data-es-alt="Wireframe en gris de la tabla de high score" loading="lazy"></div>
+              <div><span class="label">Final</span><img src="assets/motl-highscore.webp" width="818" height="438" alt="Final global high score table, made of wood against a cloudy sky" data-es-alt="Tabla de high score global final, de madera sobre un cielo con nubes" loading="lazy"></div>
+            </div>
+          </figure>
+        </div>
       </div>
-      <p class="notice" aria-live="polite" data-notice></p>
+
+      <div class="block">
+        <h2 class="section-label"><span class="en">Game screens</span><span class="es">Pantallas del juego</span></h2>
+        <div class="two">
+          <figure class="shot">
+            <img class="edge" src="assets/motl-market.webp" width="971" height="508" alt="Shop screen with upgrade bars for health, speed, fire rate and damage" data-es-alt="Pantalla del mercado con barras de mejora de vida, velocidad, cadencia y daño" loading="lazy">
+            <figcaption><span class="en">Upgrade shop between waves.</span><span class="es">Mercado de mejoras entre oleadas.</span></figcaption>
+          </figure>
+          <figure class="shot">
+            <img class="edge" src="assets/motl-options.webp" width="816" height="431" alt="Options menu with music and sound effects sliders and the list of controls" data-es-alt="Menú de opciones con sliders de música y efectos y la lista de controles" loading="lazy">
+            <figcaption><span class="en">Options menu.</span><span class="es">Menú de opciones.</span></figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="more">
+        <h2><span class="en">More work</span><span class="es">Más trabajos</span></h2>
+        <div class="grid small" data-more="monkey-on-the-loose"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CHARACTERS ================= -->
+  <section class="view" data-view="characters" aria-labelledby="char-h" hidden>
+    <div class="wrap">
+      <a class="back" href="#work"><span aria-hidden="true">←</span><span class="en">All work</span><span class="es">Todos los trabajos</span></a>
+      <header class="p-head">
+        <div>
+          <p class="label"><span class="en">Character design · Metal Revenant</span><span class="es">Diseño de personajes · Metal Revenant</span></p>
+          <h1 id="char-h" tabindex="-1"><span class="en">Characters</span><span class="es">Personajes</span></h1>
+          <p class="p-lead">
+            <span class="en">Echo, the main character of Metal Revenant, and three mini bosses: a dark version of Echo, a one-wheeled robot and a turret.</span>
+            <span class="es">Echo, el protagonista de Metal Revenant, y tres mini jefes: una versión oscura de Echo, un robot de una rueda y una torreta.</span>
+          </p>
+        </div>
+        <div class="p-aside">
+          <dl class="facts">
+            <div><dt><span class="en">Game</span><span class="es">Juego</span></dt><dd><a class="textlink" href="#metal-revenant">Metal Revenant</a></dd></div>
+            <div><dt><span class="en">Engine</span><span class="es">Motor</span></dt><dd>Unity</dd></div>
+          </dl>
+        </div>
+      </header>
+      <div class="stack">
+        <figure class="shot plate">
+          <div class="art solo"><img src="assets/mr-echo.webp" width="435" height="900" alt="Echo, a blue robot with orange eyes, the main character of Metal Revenant" data-es-alt="Echo, robot azul de ojos naranjas, protagonista de Metal Revenant" loading="lazy"></div>
+          <figcaption class="label">Echo</figcaption>
+        </figure>
+        <figure class="shot plate">
+          <div class="art trio">
+            <img src="assets/mr-boss-dark.webp" width="214" height="431" alt="Black robot with red eyes, a dark version of Echo" data-es-alt="Robot negro de ojos rojos, versión oscura de Echo" loading="lazy">
+            <img src="assets/mr-boss-eye.webp" width="327" height="640" alt="Yellow one-wheeled robot with a single red eye" data-es-alt="Robot amarillo de una sola rueda con un ojo rojo" loading="lazy">
+            <img src="assets/mr-turret.webp" width="165" height="159" alt="Grey turret with two barrels" data-es-alt="Torreta gris con dos cañones" loading="lazy">
+          </div>
+          <figcaption class="label"><span class="en">Mini bosses</span><span class="es">Mini jefes</span></figcaption>
+        </figure>
+      </div>
+      <div class="more">
+        <h2><span class="en">More work</span><span class="es">Más trabajos</span></h2>
+        <div class="grid small" data-more="characters"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="view" data-view="about" aria-labelledby="about-h" hidden>
+    <div class="wrap">
+      <h1 class="page-title" id="about-h" tabindex="-1"><span class="en">About</span><span class="es">Sobre mí</span></h1>
+      <div class="about">
+        <div class="about-text">
+          <p class="lead">
+            <span class="en">I’m a Video Game Development and Computer Engineering student at UADE in Buenos Aires. I’m interested in every area of game development, especially level design.</span>
+            <span class="es">Estudio la Licenciatura en Desarrollo de Videojuegos y la Ingeniería en Informática en UADE, en Buenos Aires. Me interesan todas las áreas del desarrollo de videojuegos, pero principalmente el diseño de niveles.</span>
+          </p>
+          <p class="status"><span class="en">Looking for an internship or my first job in the games industry.</span><span class="es">Busco una pasantía o mi primer trabajo en la industria de los videojuegos.</span></p>
+          <div class="row">
+            <a class="btn solid" href="cv-en.pdf" data-es-href="cv.pdf" download="CV_Alexander_Liang_Game_Development.pdf" data-es-download="CV_Alexander_Liang_Videojuegos.pdf" data-cv-link><span class="en">Download CV (PDF)</span><span class="es">Descargar CV (PDF)</span></a>
+          </div>
+          <p class="notice" aria-live="polite" data-notice></p>
+        </div>
+        <div class="about-side">
+          <div class="tools">
+            <div>
+              <h2 class="section-label"><span class="en">Engines and art</span><span class="es">Motores y arte</span></h2>
+              <ul><li>Unity</li><li>Unreal Engine</li><li>Adobe Photoshop</li><li>Adobe Illustrator</li><li>Blender</li></ul>
+            </div>
+            <div>
+              <h2 class="section-label"><span class="en">Programming</span><span class="es">Programación</span></h2>
+              <ul><li>Java <small><span class="en">(OOP)</span><span class="es">(POO)</span></small></li><li>Python</li><li>C++</li><li><span class="en">HTML and CSS</span><span class="es">HTML y CSS</span></li></ul>
+            </div>
+            <div>
+              <h2 class="section-label"><span class="en">Languages</span><span class="es">Idiomas</span></h2>
+              <ul>
+                <li><span class="en">Spanish <small>(native)</small></span><span class="es">Español <small>(nativo)</small></span></li>
+                <li><span class="en">English <small>(advanced)</small></span><span class="es">Inglés <small>(avanzado)</small></span></li>
+                <li><span class="en">Chinese <small>(intermediate)</small></span><span class="es">Chino <small>(intermedio)</small></span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="tools">
+            <div>
+              <h2 class="section-label"><span class="en">Elsewhere</span><span class="es">En otros sitios</span></h2>
+              <ul class="links">
+                <li><a class="textlink" href="https://www.linkedin.com/in/alexandermaximoliang" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+                <li><a class="textlink" href="https://yukiliang.itch.io" target="_blank" rel="noopener">itch.io ↗</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section class="view" data-view="contact" aria-labelledby="contact-h" hidden>
+    <div class="wrap">
+      <h1 class="page-title" id="contact-h" tabindex="-1"><span class="en">Let’s talk</span><span class="es">Hablemos</span></h1>
+      <div class="contact">
+        <p class="lead"><span class="en">Reach me by email or on LinkedIn.</span><span class="es">Escribime por mail o por LinkedIn.</span></p>
+        <div class="row">
+          <span class="email" id="email-contact">liangmaximo2@gmail.com</span>
+          <button class="copy" type="button" data-copy="liangmaximo2@gmail.com" id="copy-contact"><span class="en">Copy email</span><span class="es">Copiar mail</span></button>
+        </div>
+        <div class="row">
+          <a class="btn" href="https://www.linkedin.com/in/alexandermaximoliang" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a class="btn" href="https://yukiliang.itch.io" target="_blank" rel="noopener">itch.io ↗</a>
+          <a class="btn solid" href="cv-en.pdf" data-es-href="cv.pdf" download="CV_Alexander_Liang_Game_Development.pdf" data-es-download="CV_Alexander_Liang_Videojuegos.pdf" data-cv-link><span class="en">Download CV (PDF)</span><span class="es">Descargar CV (PDF)</span></a>
+        </div>
+        <p class="notice" aria-live="polite" data-notice></p>
+      </div>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap"><span class="label">Alexander Liang · Buenos Aires · 2026</span></div>
+<footer class="wrap">
+  <div class="site-foot">
+    <ul class="foot-links">
+      <li><a href="https://www.linkedin.com/in/alexandermaximoliang" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+      <li><a href="https://yukiliang.itch.io" target="_blank" rel="noopener">itch.io ↗</a></li>
+      <li><a href="#contact"><span class="en">Contact</span><span class="es">Contacto</span></a></li>
+    </ul>
+    <button class="top" type="button" data-top><span class="en">Back to top ↑</span><span class="es">Volver arriba ↑</span></button>
+    <span class="label">Alexander Liang · Buenos Aires · 2026</span>
+  </div>
 </footer>
 
 <script>
 (function () {
   var root = document.documentElement;
   var lang = "en";
+  var view = "work";
   root.setAttribute("lang", "en");
 
   var MSG = {
@@ -879,16 +903,70 @@ footer { padding-block: 1.5rem 2.5rem; border-top: 1px solid var(--rule); }
     en: { file: "cv-en.pdf", name: "CV_Alexander_Liang_Game_Development.pdf" },
     es: { file: "cv.pdf", name: "CV_Alexander_Liang_Videojuegos.pdf" }
   };
-  var TITLE = { en: "Alexander Liang · Portfolio", es: "Alexander Liang · Portafolio" };
+  var NAMES = {
+    work: ["Work", "Trabajos"],
+    about: ["About", "Sobre mí"],
+    contact: ["Contact", "Contacto"],
+    "metal-revenant": ["Metal Revenant", "Metal Revenant"],
+    blockout: ["House, forest and cave", "Casa, bosque y cueva"],
+    "monkey-on-the-loose": ["Monkey on the Loose", "Monkey on the Loose"],
+    characters: ["Characters", "Personajes"]
+  };
 
   var notices = document.querySelectorAll("[data-notice]");
   function say(key) {
     var msg = key ? MSG[lang][key] : "";
     notices.forEach(function (n) { n.textContent = msg; });
   }
+  function setTitle() {
+    var i = lang === "es" ? 1 : 0;
+    document.title = view === "work" ? "Alexander Liang · " + ["Portfolio", "Portafolio"][i] : NAMES[view][i] + " · Alexander Liang";
+  }
+
+  // "More work" strips: copies of the main covers, minus the project being viewed.
+  var tiles = document.querySelectorAll("#work-grid > .tile");
+  document.querySelectorAll("[data-more]").forEach(function (box) {
+    var self = "#" + box.getAttribute("data-more");
+    tiles.forEach(function (t) {
+      if (t.getAttribute("href") === self) return;
+      var c = t.cloneNode(true);
+      c.classList.remove("feature");
+      c.querySelectorAll("img").forEach(function (img) { img.setAttribute("loading", "lazy"); });
+      box.appendChild(c);
+    });
+  });
+
+  // Views: each project, About and Contact is its own page, opened by a bare #token.
+  function show(next, fromUser) {
+    if (!NAMES.hasOwnProperty(next)) next = "work";
+    view = next;
+    document.querySelectorAll("[data-view]").forEach(function (s) {
+      s.hidden = s.getAttribute("data-view") !== next;
+    });
+    var navKey = (next === "about" || next === "contact") ? next : "work";
+    document.querySelectorAll("[data-nav]").forEach(function (a) {
+      if (a.getAttribute("data-nav") === navKey) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+    document.querySelectorAll("video").forEach(function (v) {
+      if (v.closest("[hidden]") && !v.paused) v.pause();
+    });
+    setTitle();
+    say("");
+    if (fromUser) {
+      window.scrollTo(0, 0);
+      var h = document.querySelector('[data-view="' + next + '"] h1');
+      if (h) { try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
+    }
+  }
+  window.addEventListener("hashchange", function () { show(location.hash.slice(1), true); });
+  show(location.hash.slice(1), false);
+
+  document.querySelectorAll("[data-top]").forEach(function (b) {
+    b.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+  });
 
   // Language switch. The page always opens in English (nothing is remembered between visits).
-  // Text comes in .en/.es pairs shown by CSS; attributes with a data-es-* twin are swapped here.
   var SWAP = ["alt", "src", "href", "download", "aria-label"];
   function setLang(next) {
     if ((next !== "en" && next !== "es") || next === lang) return;
@@ -905,7 +983,7 @@ footer { padding-block: 1.5rem 2.5rem; border-top: 1px solid var(--rule); }
     document.querySelectorAll("[data-set-lang]").forEach(function (b) {
       b.setAttribute("aria-pressed", b.getAttribute("data-set-lang") === next ? "true" : "false");
     });
-    document.title = TITLE[next];
+    setTitle();
     say("");
   }
   document.querySelectorAll("[data-set-lang]").forEach(function (b) {
