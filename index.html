@@ -202,7 +202,7 @@ p { max-width: 64ch; }
   z-index: 2;
   top: 0.75rem;
   right: 0.75rem;
-  width: 76px;
+  width: 92px;
   aspect-ratio: 1;
   border-radius: 50%;
   overflow: hidden;
@@ -217,7 +217,8 @@ p { max-width: 64ch; }
   .banner-art img { aspect-ratio: 21 / 9; object-position: 50% 60%; }
   .banner-art::after { background: linear-gradient(90deg, rgba(8, 10, 14, 0) 38%, rgba(8, 10, 14, 0.8) 100%); }
   .banner-name { top: 50%; bottom: auto; transform: translateY(-38%); }
-  .avatar { top: 0; right: clamp(1.5rem, 6vw, 4.5rem); transform: translateY(-50%); width: clamp(110px, 13vw, 164px); border-width: 5px; }
+  .hero { --av: clamp(150px, 21vw, 270px); margin-top: max(0px, calc(var(--av) / 2 - 64px)); }   /* room above the banner for the photo */
+  .avatar { top: 0; right: clamp(1.5rem, 9vw, 7.5rem); transform: translateY(-50%); width: var(--av); border-width: 6px; }
   .avatar .mono { font-size: clamp(1.3rem, 2.2vw, 1.8rem); }
 }
 .banner-desc { font-size: var(--s1); line-height: 1.5; max-width: 60ch; }
@@ -493,24 +494,9 @@ p { max-width: 64ch; }
 .tools div { display: grid; gap: 0.45rem; }
 .tools li small { color: var(--muted); font-size: 0.9rem; }
 .links { display: grid; gap: 0.45rem; }
-.contact-grid { display: grid; gap: clamp(2.5rem, 6vw, 4.5rem); align-items: start; }
-@media (min-width: 900px) { .contact-grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); } }
-.contact-form { display: grid; gap: 1.2rem; max-width: 640px; min-width: 0; }
-.contact-form .lead { font-size: clamp(1.2rem, 2.4vw, 1.5rem); line-height: 1.45; margin-bottom: 0.4rem; }
-.field { display: grid; gap: 0.45rem; }
-.field label { font-size: 0.95rem; color: var(--muted); }
-.field .req { color: var(--spark-ink); }
-.field input, .field textarea { width: 100%; font: inherit; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 0.85rem 1rem; }
-.field textarea { min-height: 11rem; resize: vertical; }
-.field input::placeholder, .field textarea::placeholder { color: var(--muted); opacity: 0.8; }
-.field input:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
-.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.form-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; }
-.form-foot .btn[disabled] { opacity: 0.6; cursor: progress; }
-.form-status { font-size: 0.95rem; color: var(--muted); min-height: 1.4em; }
-.contact-side { display: grid; gap: 1rem; align-content: start; justify-items: start; min-width: 0; }
-.contact-side .section-label:not(:first-child) { margin-top: 0.75rem; }
-.contact-side .email { font-family: var(--f-body); font-size: var(--s1); font-weight: 600; }
+.contact { display: grid; gap: 1.5rem; justify-items: start; }
+.contact .lead { font-size: clamp(1.2rem, 2.4vw, 1.5rem); line-height: 1.45; }
+.contact .email { font-family: var(--f-body); font-size: var(--s2); font-weight: 600; letter-spacing: -0.01em; }
 
 /* ---------- footer ---------- */
 .site-foot {
@@ -1135,45 +1121,19 @@ p { max-width: 64ch; }
   <!-- ================= CONTACT ================= -->
   <section class="view" data-view="contact" aria-labelledby="contact-h" hidden>
     <div class="wrap">
-      <h1 class="page-title" id="contact-h" tabindex="-1"><span class="en">Contact</span><span class="es">Contacto</span></h1>
-      <div class="contact-grid">
-        <form class="contact-form" id="contact-form">
-          <p class="lead"><span class="en">Send me a message and I’ll get back to you by email.</span><span class="es">Mandame un mensaje y te respondo por email.</span></p>
-          <div class="field">
-            <label for="cf-name"><span class="en">Name</span><span class="es">Nombre</span> <span class="req" aria-hidden="true">*</span></label>
-            <input id="cf-name" name="name" type="text" autocomplete="name" maxlength="100" required placeholder="Your name…" data-es-placeholder="Tu nombre…">
-          </div>
-          <div class="field">
-            <label for="cf-email"><span class="en">Email address</span><span class="es">Email</span> <span class="req" aria-hidden="true">*</span></label>
-            <input id="cf-email" name="email" type="email" autocomplete="email" maxlength="150" required placeholder="Your email address…" data-es-placeholder="Tu email…">
-          </div>
-          <div class="field">
-            <label for="cf-message"><span class="en">Message</span><span class="es">Mensaje</span> <span class="req" aria-hidden="true">*</span></label>
-            <textarea id="cf-message" name="message" rows="7" maxlength="5000" required placeholder="Your message…" data-es-placeholder="Tu mensaje…"></textarea>
-          </div>
-          <div class="hp" aria-hidden="true"><label>Leave this field empty <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
-          <div class="form-foot">
-            <button class="btn solid" type="submit"><span class="en">Send</span><span class="es">Enviar</span></button>
-            <p class="form-status" role="status" aria-live="polite" data-form-status></p>
-          </div>
-        </form>
-
-        <aside class="contact-side">
-          <h2 class="section-label"><span class="en">Or write to me directly</span><span class="es">O escribime directo</span></h2>
-          <div class="row">
-            <span class="email" id="email-contact">liangmaximo2@gmail.com</span>
-            <button class="copy" type="button" data-copy="liangmaximo2@gmail.com" id="copy-contact"><span class="en">Copy email</span><span class="es">Copiar mail</span></button>
-          </div>
-          <div class="row">
-            <a class="btn" href="https://www.linkedin.com/in/alexandermaximoliang" target="_blank" rel="noopener">LinkedIn ↗</a>
-            <a class="btn" href="https://yukiliang.itch.io" target="_blank" rel="noopener">itch.io ↗</a>
-          </div>
-          <h2 class="section-label">CV</h2>
-          <div class="row">
-            <a class="btn solid" href="cv-en.pdf" data-es-href="cv.pdf" download="CV_Alexander_Liang_Game_Development.pdf" data-es-download="CV_Alexander_Liang_Videojuegos.pdf" data-cv-link><span class="en">Download CV (PDF)</span><span class="es">Descargar CV (PDF)</span></a>
-          </div>
-          <p class="notice" aria-live="polite" data-notice></p>
-        </aside>
+      <h1 class="page-title" id="contact-h" tabindex="-1"><span class="en">Let’s talk</span><span class="es">Hablemos</span></h1>
+      <div class="contact">
+        <p class="lead"><span class="en">Reach me by email or on LinkedIn.</span><span class="es">Escribime por mail o por LinkedIn.</span></p>
+        <div class="row">
+          <span class="email" id="email-contact">liangmaximo2@gmail.com</span>
+          <button class="copy" type="button" data-copy="liangmaximo2@gmail.com" id="copy-contact"><span class="en">Copy email</span><span class="es">Copiar mail</span></button>
+        </div>
+        <div class="row">
+          <a class="btn" href="https://www.linkedin.com/in/alexandermaximoliang" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a class="btn" href="https://yukiliang.itch.io" target="_blank" rel="noopener">itch.io ↗</a>
+          <a class="btn solid" href="cv-en.pdf" data-es-href="cv.pdf" download="CV_Alexander_Liang_Game_Development.pdf" data-es-download="CV_Alexander_Liang_Videojuegos.pdf" data-cv-link><span class="en">Download CV (PDF)</span><span class="es">Descargar CV (PDF)</span></a>
+        </div>
+        <p class="notice" aria-live="polite" data-notice></p>
       </div>
     </div>
   </section>
@@ -1205,10 +1165,7 @@ p { max-width: 64ch; }
       saved: "CV downloaded.",
       declined: "Download cancelled.",
       busy: "A download is already pending. Try again in a moment.",
-      failed: "The CV couldn’t be downloaded here. Ask me for it by email.",
-      sending: "Sending…",
-      sent: "Thanks! Your message was sent. I’ll reply to your email soon.",
-      unsent: "The message couldn’t be sent from here. Please write to me at liangmaximo2@gmail.com."
+      failed: "The CV couldn’t be downloaded here. Ask me for it by email."
     },
     es: {
       copied: "Mail copiado.",
@@ -1216,10 +1173,7 @@ p { max-width: 64ch; }
       saved: "CV descargado.",
       declined: "Descarga cancelada.",
       busy: "Ya hay una descarga pendiente. Probá de nuevo en un momento.",
-      failed: "No se pudo descargar el CV desde acá. Pedímelo por mail.",
-      sending: "Enviando…",
-      sent: "¡Gracias! Tu mensaje se envió. Te respondo a tu email a la brevedad.",
-      unsent: "No se pudo enviar el mensaje desde acá. Escribime a liangmaximo2@gmail.com."
+      failed: "No se pudo descargar el CV desde acá. Pedímelo por mail."
     }
   };
   var CV = {
@@ -1320,7 +1274,7 @@ p { max-width: 64ch; }
   });
 
   // Language switch. The page always opens in English (nothing is remembered between visits).
-  var SWAP = ["alt", "src", "href", "download", "aria-label", "placeholder"];
+  var SWAP = ["alt", "src", "href", "download", "aria-label"];
   function setLang(next) {
     if ((next !== "en" && next !== "es") || next === lang) return;
     lang = next;
@@ -1360,43 +1314,6 @@ p { max-width: 64ch; }
       } else { selectIt(); }
     });
   });
-
-  // Contact form: sent through FormSubmit straight to my inbox, with the sender's address as
-  // reply-to. Where the request can't go out (for example inside the Claude viewer), the
-  // status line says so and gives the address instead.
-  var form = document.getElementById("contact-form");
-  if (form) {
-    var formStatus = form.querySelector("[data-form-status]");
-    var sendBtn = form.querySelector('button[type="submit"]');
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var fd = new FormData(form);
-      if (fd.get("_honey")) { form.reset(); formStatus.textContent = MSG[lang].sent; return; }
-      var name = String(fd.get("name") || "").trim();
-      var email = String(fd.get("email") || "").trim();
-      sendBtn.disabled = true;
-      formStatus.textContent = MSG[lang].sending;
-      fetch("https://formsubmit.co/ajax/liangmaximo2@gmail.com", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          message: String(fd.get("message") || ""),
-          _replyto: email,
-          _subject: "Nuevo mensaje de " + name + " desde el portafolio",
-          _template: "table",
-          _captcha: "false"
-        })
-      }).then(function (r) { return r.json(); }).then(function (res) {
-        if (String(res && res.success) !== "true") throw new Error("not sent");
-        form.reset();
-        formStatus.textContent = MSG[lang].sent;
-      }).catch(function () {
-        formStatus.textContent = MSG[lang].unsent;
-      }).then(function () { sendBtn.disabled = false; });
-    });
-  }
 
 })();
 </script>
