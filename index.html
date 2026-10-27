@@ -13,7 +13,7 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&family=Syncopate:wght@700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Orbitron:wght@500;700&family=Instrument+Sans:wght@400;500;600;700&family=Syncopate:wght@700&display=swap">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <style>
 /* Gallery index: a letter-spaced wordmark over a wide banner, then a grid of 4:3 covers.
@@ -30,6 +30,7 @@
   --plate-ink: #e9edf2;
   --plate-muted: #a2abb7;
   --spark: #e0582d;
+  --spark-ink: #b5441f;
   --map-light: #ffd36b;
   --map-fire: #ff8a4c;
   --map-tree: #3f6f52;
@@ -48,14 +49,14 @@
   :root:not([data-theme="light"]) {
     --bg: #0e1014; --surface: #171b21; --fg: #eceef2; --muted: #9aa3ae; --line: #272c34;
     --accent: #6cb0ea; --accent-ink: #0e1014; --plate: #191d24; --plate-ink: #e9edf2; --plate-muted: #a2abb7;
-    --spark: #ff7b4f;
+    --spark: #ff7b4f; --spark-ink: #ff9370;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0e1014; --surface: #171b21; --fg: #eceef2; --muted: #9aa3ae; --line: #272c34;
   --accent: #6cb0ea; --accent-ink: #0e1014; --plate: #191d24; --plate-ink: #e9edf2; --plate-muted: #a2abb7;
-  --spark: #ff7b4f;
+  --spark: #ff7b4f; --spark-ink: #ff9370;
   color-scheme: dark;
 }
 
@@ -94,24 +95,15 @@ p { max-width: 64ch; }
   color: var(--muted);
 }
 
-/* ---------- header ---------- */
+/* ---------- header: nav on the left, the photo sits on the banner's top-right corner ---------- */
 .site-head {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.9rem 2rem;
+  gap: 0.75rem 1.75rem;
   padding-block: 1.4rem 1.2rem;
 }
-.mark {
-  font-family: var(--f-mark);
-  font-weight: 700;
-  font-size: clamp(0.85rem, 2.3vw, 1.05rem);
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.site-nav { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0.25rem 1.6rem; }
+.site-nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.6rem; }
 .site-nav a {
   text-decoration: none;
   color: var(--muted);
@@ -121,11 +113,6 @@ p { max-width: 64ch; }
 }
 .site-nav a:hover { color: var(--fg); }
 .site-nav a[aria-current="page"] { color: var(--fg); border-bottom-color: var(--fg); }
-@media (min-width: 760px) {
-  .site-head { grid-template-columns: auto minmax(0, 1fr) auto; }
-  .site-nav { grid-column: 2; grid-row: 1; justify-content: flex-end; }
-  .lang { grid-column: 3; grid-row: 1; }
-}
 .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
 .lang button {
   font-family: var(--f-mono);
@@ -181,20 +168,73 @@ p { max-width: 64ch; }
 /* ---------- views ---------- */
 .view { padding-block: 0.25rem clamp(3rem, 8vw, 5rem); }
 
-/* work: banner, intro, covers */
-.banner { display: grid; gap: 0.6rem; }
-.banner img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--plate); }
-@media (min-width: 760px) { .banner img { aspect-ratio: 21 / 9; object-position: 50% 60%; } }
-.intro {
-  display: grid;
-  gap: 1.5rem;
-  padding-block: clamp(1.75rem, 5vw, 3rem);
-  margin-bottom: clamp(1.75rem, 5vw, 3rem);
-  border-bottom: 1px solid var(--line);
+/* work: banner with the name and the photo, then the projects */
+.hero { display: grid; gap: 1rem; }
+.banner { position: relative; }
+.banner-art { position: relative; overflow: hidden; background: var(--plate); }
+.banner-art img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.banner-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 10, 14, 0) 35%, rgba(8, 10, 14, 0.82) 100%);
 }
-@media (min-width: 900px) { .intro { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: end; } }
-.intro .lead { font-size: clamp(1.25rem, 2.6vw, 1.6rem); line-height: 1.4; max-width: 34ch; text-wrap: pretty; }
-.intro-side { display: grid; gap: 1rem; justify-items: start; min-width: 0; }
+.banner-name {
+  position: absolute;
+  z-index: 1;
+  right: clamp(1rem, 4vw, 3rem);
+  bottom: clamp(1rem, 4vw, 2.25rem);
+  margin: 0;
+  display: grid;
+  justify-items: end;
+  font-family: var(--f-mark);
+  font-weight: 700;
+  font-size: clamp(1.35rem, 4.4vw, 3.25rem);
+  line-height: 1.15;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+  max-width: none;
+}
+.avatar {
+  position: absolute;
+  z-index: 2;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 92px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--bg);
+  background: var(--surface);
+  display: grid;
+  place-items: center;
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.avatar .mono { font-family: var(--f-mark); font-weight: 700; font-size: 1.05rem; letter-spacing: 0.12em; padding-left: 0.12em; color: var(--fg); }
+@media (min-width: 760px) {
+  .banner-art img { aspect-ratio: 21 / 9; object-position: 50% 60%; }
+  .banner-art::after { background: linear-gradient(90deg, rgba(8, 10, 14, 0) 38%, rgba(8, 10, 14, 0.8) 100%); }
+  .banner-name { top: 50%; bottom: auto; transform: translateY(-38%); }
+  .hero { --av: clamp(150px, 21vw, 270px); margin-top: max(0px, calc(var(--av) / 2 - 64px)); }   /* room above the banner for the photo */
+  .avatar { top: 0; right: clamp(1.5rem, 9vw, 7.5rem); transform: translateY(-50%); width: var(--av); border-width: 6px; }
+  .avatar .mono { font-size: clamp(1.3rem, 2.2vw, 1.8rem); }
+}
+.banner-desc { font-size: var(--s1); line-height: 1.5; max-width: 60ch; }
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-block: clamp(2.5rem, 6vw, 3.75rem) clamp(1.25rem, 3vw, 2rem);
+  font-family: var(--f-mark);
+  font-weight: 700;
+  font-size: clamp(0.95rem, 2vw, 1.25rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--spark-ink);
+}
+.section-title::before { content: ""; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--spark); flex: none; }
 .status { display: flex; gap: 0.6rem; align-items: baseline; font-weight: 600; }
 .status::before { content: ""; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--spark); flex: none; }
 
@@ -206,11 +246,18 @@ p { max-width: 64ch; }
 }
 .tile { display: grid; gap: 0.8rem; text-decoration: none; min-width: 0; align-content: start; }
 .cover { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--plate); max-width: 100%; }
-.cover > img { width: 100%; height: 100%; object-fit: cover; }
+.cover > img, .cover > video { width: 100%; height: 100%; object-fit: cover; }
 .tile.feature .cover > img { object-position: 50% 45%; }
+/* Metal Revenant loop: keep the whole HUD and the floor in frame, in the 4:3 and the 16:7 covers */
+.cover > .v-mr { object-position: 0 50%; }
+@media (min-width: 700px) { .grid .tile.feature .cover > .v-mr { object-position: 50% 45%; } }
 .tile h3 { font-size: var(--s1); font-weight: 600; line-height: 1.25; }
 .tile:hover h3 { text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
-.tile-text { display: grid; gap: 0.2rem; }
+.tile-text { display: grid; gap: 0.35rem; }
+.tile h3 .cat { display: inline-block; margin-left: 0.35rem; font-family: var(--f-mono); font-size: 0.72rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.tile-desc { color: var(--muted); max-width: 62ch; }
+.grid.small .tile-desc { display: none; }
+.grid.small .tile h3 .cat { display: block; margin: 0.2rem 0 0; }
 .badge {
   position: absolute;
   left: 0.75rem;
@@ -231,8 +278,8 @@ p { max-width: 64ch; }
 .cast .h-eye { height: 60%; }
 .cast .h-turret { height: 24%; }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) {
-  .cover > img, .cast { transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
-  .tile:hover .cover > img, .tile:hover .cast { transform: scale(1.035); }
+  .cover > img, .cover > video, .cast { transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .tile:hover .cover > img, .tile:hover .cover > video, .tile:hover .cast { transform: scale(1.035); }
 }
 
 /* ---------- project pages ---------- */
@@ -292,6 +339,7 @@ p { max-width: 64ch; }
 .list { display: grid; gap: 0.65rem; }
 .list li { padding-left: 1.25rem; position: relative; }
 .list li::before { content: ""; position: absolute; left: 0; top: 0.78em; width: 0.6rem; height: 1px; background: var(--fg); }
+.list strong { font-weight: 600; }
 .cycle { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .cycle li { font-family: var(--f-mono); font-size: 0.75rem; padding: 0.45rem 0.75rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
 .cycle .shop { border-style: dashed; background: transparent; color: var(--muted); }
@@ -314,6 +362,9 @@ p { max-width: 64ch; }
 .arms figure { display: grid; gap: 0.7rem; justify-items: center; width: 100%; }
 .arms img { width: min(520px, 92%); }
 .arms figcaption { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--plate-muted); }
+
+/* gameplay videos (Metal Revenant, Monkey on the Loose) */
+.gameplay-video { width: 100%; aspect-ratio: 16 / 10; background: var(--plate); }
 
 /* level page: video and map */
 .video video { width: 100%; aspect-ratio: 1280 / 744; background: var(--plate); }
@@ -353,6 +404,76 @@ p { max-width: 64ch; }
 .key .k-tree { background: var(--map-tree); }
 .key .k-route { width: 1.4rem; height: 0; border-radius: 0; border-top: 3px dashed var(--spark); }
 
+/* process (Metal Revenant) */
+.process { display: grid; gap: clamp(2.25rem, 5vw, 3.25rem); }
+.process > .section-title { margin-bottom: 0; }
+.step { display: grid; gap: 1rem; }
+.step-head { display: grid; gap: 0.4rem; max-width: 70ch; }
+.step-head h3 { font-size: var(--s1); font-weight: 600; line-height: 1.3; }
+.step-head p { color: var(--muted); }
+.steps3 { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap); }
+.steps3 img { aspect-ratio: 16 / 9; object-fit: cover; object-position: 0 0; }
+@media (min-width: 760px) { .steps3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.zones { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.5rem; }
+.zones li { display: grid; gap: 0.15rem; padding-top: 0.55rem; border-top: 3px solid var(--spark); min-width: 0; }
+.zones b { font-weight: 600; }
+@media (min-width: 760px) {
+  .zones { display: flex; gap: 0.4rem; }
+  .zones li { flex: var(--n) 1 0; }
+}
+.palettes { display: grid; gap: 0.9rem; }
+.swatches { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.5rem; }
+.swatches li { display: grid; gap: 0.35rem; min-width: 0; }
+.swatches i { display: block; height: clamp(44px, 7vw, 68px); background: var(--c); border: 1px solid var(--line); }
+.swatches code { font-family: var(--f-mono); font-size: 0.72rem; color: var(--muted); overflow-wrap: anywhere; }
+.typeset { display: grid; gap: 0.35rem; padding: 1.1rem 1.25rem; }
+.typeset .orbitron { font-family: "Orbitron", var(--f-body); font-size: clamp(1rem, 2.4vw, 1.35rem); font-weight: 500; letter-spacing: 0.04em; max-width: none; }
+.two-up { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+.two-up div { display: grid; gap: 0.35rem; min-width: 0; align-content: start; }
+.two-up img { width: 100%; }
+/* documentation (Monkey on the Loose) */
+.pages { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem 0.75rem; }
+@media (min-width: 560px) { .pages { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 980px) { .pages { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+.pages li { display: grid; gap: 0.45rem; align-content: start; min-width: 0; }
+.pages img { width: 100%; aspect-ratio: 480 / 679; }
+.diagram { max-width: 880px; }
+
+/* characters */
+.cast-sec { display: grid; gap: clamp(1.5rem, 4vw, 2.25rem); padding-bottom: clamp(2.75rem, 6vw, 4rem); }
+.cast-sec > .section-title { margin-bottom: 0; }
+.sec-lead { color: var(--muted); max-width: 70ch; }
+.sub-title { font-size: var(--s1); font-weight: 600; line-height: 1.3; }
+.char-hero { display: grid; gap: var(--gap); align-items: center; }
+@media (min-width: 860px) { .char-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.char-text { display: grid; gap: 0.75rem; align-content: start; min-width: 0; }
+.evo { padding: clamp(1.5rem, 4vw, 2.5rem) 1rem; }
+.evo-row { display: flex; justify-content: center; align-items: flex-end; gap: clamp(1.5rem, 6vw, 4rem); }
+.evo .evo-item { display: grid; gap: 0.65rem; justify-items: center; min-width: 0; }
+.evo .evo-item img { height: clamp(220px, 30vw, 315px); width: auto; max-width: 100%; }
+.evo .sketch { border-radius: 3px; }
+.step > .btn { justify-self: start; }
+.char-text h3, .char h4 { font-size: var(--s2); font-weight: 600; letter-spacing: -0.01em; line-height: 1.1; }
+.char h4 { font-size: var(--s1); }
+.chars { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.75rem, 4vw, 2.5rem) var(--gap); }
+@media (min-width: 760px) { .chars { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.char { display: grid; gap: 0.6rem; align-content: start; min-width: 0; }
+.char .plate { display: flex; align-items: flex-end; justify-content: center; height: clamp(220px, 26vw, 300px); padding: 1.25rem 1rem 1.5rem; }
+.char .plate img { height: 100%; width: auto; max-width: 100%; object-fit: contain; }
+.char .plate img.small { height: 42%; }
+.char p:not(.label) { color: var(--muted); }
+
+/* art gallery */
+.gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 2.25rem) var(--gap); }
+@media (min-width: 860px) { .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.piece { display: grid; gap: 0.6rem; align-content: start; min-width: 0; }
+.piece .plate { display: flex; align-items: center; justify-content: center; height: clamp(220px, 28vw, 340px); padding: clamp(1rem, 3vw, 1.75rem); }
+.piece .plate img { height: 100%; width: auto; max-width: 100%; object-fit: contain; }
+.piece .plate img.small { height: 42%; }
+.piece .plate img.paper { border-radius: 3px; }
+.piece figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.6rem; }
+.piece figcaption b { font-weight: 600; }
+
 /* more work strip (filled from the main grid by the script) */
 .more { display: grid; gap: 1.5rem; margin-top: clamp(2.5rem, 6vw, 4rem); padding-top: clamp(2rem, 5vw, 3rem); border-top: 1px solid var(--line); }
 .more h2 { font-size: var(--s2); font-weight: 600; letter-spacing: -0.01em; }
@@ -373,9 +494,24 @@ p { max-width: 64ch; }
 .tools div { display: grid; gap: 0.45rem; }
 .tools li small { color: var(--muted); font-size: 0.9rem; }
 .links { display: grid; gap: 0.45rem; }
-.contact { display: grid; gap: 1.5rem; justify-items: start; }
-.contact .lead { font-size: clamp(1.2rem, 2.4vw, 1.5rem); line-height: 1.45; }
-.contact .email { font-family: var(--f-body); font-size: var(--s2); font-weight: 600; letter-spacing: -0.01em; }
+.contact-grid { display: grid; gap: clamp(2.5rem, 6vw, 4.5rem); align-items: start; }
+@media (min-width: 900px) { .contact-grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); } }
+.contact-form { display: grid; gap: 1.2rem; max-width: 640px; min-width: 0; }
+.contact-form .lead { font-size: clamp(1.2rem, 2.4vw, 1.5rem); line-height: 1.45; margin-bottom: 0.4rem; }
+.field { display: grid; gap: 0.45rem; }
+.field label { font-size: 0.95rem; color: var(--muted); }
+.field .req { color: var(--spark-ink); }
+.field input, .field textarea { width: 100%; font: inherit; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 0.85rem 1rem; }
+.field textarea { min-height: 11rem; resize: vertical; }
+.field input::placeholder, .field textarea::placeholder { color: var(--muted); opacity: 0.8; }
+.field input:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; }
+.form-foot .btn[disabled] { opacity: 0.6; cursor: progress; }
+.form-status { font-size: 0.95rem; color: var(--muted); min-height: 1.4em; }
+.contact-side { display: grid; gap: 1rem; align-content: start; justify-items: start; min-width: 0; }
+.contact-side .section-label:not(:first-child) { margin-top: 0.75rem; }
+.contact-side .email { font-family: var(--f-body); font-size: var(--s1); font-weight: 600; }
 
 /* ---------- footer ---------- */
 .site-foot {
@@ -403,16 +539,15 @@ p { max-width: 64ch; }
 <body>
 <div class="wrap">
   <header class="site-head">
-    <a class="mark" href="#work">Alexander Liang</a>
+    <nav class="site-nav" aria-label="Main" data-es-aria-label="Principal">
+      <a href="#work" data-nav="work" aria-current="page"><span class="en">Work</span><span class="es">Trabajos</span></a>
+      <a href="#about" data-nav="about"><span class="en">About me</span><span class="es">Sobre mí</span></a>
+      <a href="#contact" data-nav="contact"><span class="en">Contact</span><span class="es">Contacto</span></a>
+    </nav>
     <div class="lang" role="group" aria-label="Language · Idioma">
       <button type="button" data-set-lang="en" aria-pressed="true" lang="en" title="English">EN</button>
       <button type="button" data-set-lang="es" aria-pressed="false" lang="es" title="Español">ES</button>
     </div>
-    <nav class="site-nav" aria-label="Main" data-es-aria-label="Principal">
-      <a href="#work" data-nav="work" aria-current="page"><span class="en">Work</span><span class="es">Trabajos</span></a>
-      <a href="#about" data-nav="about"><span class="en">About</span><span class="es">Sobre mí</span></a>
-      <a href="#contact" data-nav="contact"><span class="en">Contact</span><span class="es">Contacto</span></a>
-    </nav>
   </header>
 </div>
 
@@ -420,65 +555,60 @@ p { max-width: 64ch; }
   <!-- ================= WORK ================= -->
   <section class="view" data-view="work" aria-labelledby="work-h">
     <div class="wrap">
-      <h1 id="work-h" class="sr-only" tabindex="-1"><span class="en">Work</span><span class="es">Trabajos</span></h1>
-      <figure class="banner">
-        <img src="assets/lvl-bosque.webp" width="1280" height="744" alt="Forest at night from the level blockout, with green-lit pines and grass glowing along the path" data-es-alt="Bosque de noche del blockout, con pinos iluminados de verde y pasto que brilla en el camino">
-        <figcaption class="label"><span class="en">House, forest and cave · level blockout · Unreal Engine 5.8</span><span class="es">Casa, bosque y cueva · blockout de nivel · Unreal Engine 5.8</span></figcaption>
-      </figure>
-
-      <div class="intro">
-        <p class="lead">
-          <span class="en">I’m a Video Game Development and Computer Engineering student at UADE in Buenos Aires. I’m interested in every area of game development, especially level design.</span>
-          <span class="es">Estudio la Licenciatura en Desarrollo de Videojuegos y la Ingeniería en Informática en UADE, en Buenos Aires. Me interesan todas las áreas del desarrollo de videojuegos, pero principalmente el diseño de niveles.</span>
-        </p>
-        <div class="intro-side">
-          <p class="status"><span class="en">Looking for an internship or my first job in the games industry.</span><span class="es">Busco una pasantía o mi primer trabajo en la industria de los videojuegos.</span></p>
-          <div class="row">
-            <a class="btn solid" href="cv-en.pdf" data-es-href="cv.pdf" download="CV_Alexander_Liang_Game_Development.pdf" data-es-download="CV_Alexander_Liang_Videojuegos.pdf" data-cv-link><span class="en">Download CV (PDF)</span><span class="es">Descargar CV (PDF)</span></a>
-            <a class="btn" href="#contact"><span class="en">Contact</span><span class="es">Contacto</span></a>
-          </div>
-          <p class="notice" aria-live="polite" data-notice></p>
-        </div>
+      <h1 id="work-h" class="sr-only" tabindex="-1">Alexander Liang · <span class="en">Work</span><span class="es">Trabajos</span></h1>
+      <div class="hero">
+        <figure class="banner">
+          <div class="banner-art"><img src="assets/lvl-bosque.webp" width="1280" height="744" alt=""></div>
+          <p class="banner-name" aria-hidden="true"><span>Alexander</span><span>Liang</span></p>
+          <div class="avatar"><img src="assets/avatar.webp" width="512" height="512" alt="Alexander Liang"></div>
+        </figure>
+        <p class="banner-desc"><span class="en">Level design, characters and UI for games, in Unity and Unreal Engine.</span><span class="es">Diseño de niveles, personajes y UI para videojuegos, en Unity y Unreal Engine.</span></p>
       </div>
 
-      <h2 class="sr-only"><span class="en">Projects</span><span class="es">Proyectos</span></h2>
+      <h2 class="section-title"><span class="en">Developed projects</span><span class="es">Proyectos desarrollados</span></h2>
       <div class="grid" id="work-grid">
-        <a class="tile feature" href="#metal-revenant">
-          <div class="cover"><img src="assets/mr-gameplay.webp" width="1600" height="1000" alt=""></div>
+        <a class="tile feature" href="#blockout">
           <div class="tile-text">
-            <h3>Metal Revenant</h3>
-            <p class="label"><span class="en">Game · Run and gun · Unity</span><span class="es">Juego · Run and gun · Unity</span></p>
+            <h3><span class="en">House, forest and cave</span><span class="es">Casa, bosque y cueva</span> <span class="cat"><span class="en">Level design · Unreal Engine 5</span><span class="es">Diseño de niveles · Unreal Engine 5</span></span></h3>
+            <p class="tile-desc"><span class="en">First-person horror blockout: a house, a forest at night and a cave full of traps.</span><span class="es">Blockout de terror en primera persona: una casa, un bosque de noche y una cueva con trampas.</span></p>
           </div>
-        </a>
-        <a class="tile" href="#blockout">
           <div class="cover">
-            <img src="assets/lvl-c4.webp" width="1280" height="744" alt="" loading="lazy">
+            <video src="assets/lvl-loop.mp4" poster="assets/lvl-loop.webp" width="1280" height="744" muted loop playsinline preload="none" aria-hidden="true" data-auto></video>
             <span class="badge"><span class="en">▶ Video · 2:38</span><span class="es">▶ Video · 2:38</span></span>
           </div>
+        </a>
+        <a class="tile" href="#metal-revenant">
           <div class="tile-text">
-            <h3><span class="en">House, forest and cave</span><span class="es">Casa, bosque y cueva</span></h3>
-            <p class="label"><span class="en">Level design · Unreal Engine 5</span><span class="es">Diseño de niveles · Unreal Engine 5</span></p>
+            <h3>Metal Revenant <span class="cat"><span class="en">Game · Run and gun · Unity</span><span class="es">Juego · Run and gun · Unity</span></span></h3>
+            <p class="tile-desc"><span class="en">2D run and gun made in Unity by a team of three. I designed the characters, the HUD and the levels.</span><span class="es">Run and gun 2D hecho en Unity en un equipo de 3. Diseñé los personajes, el HUD y los niveles.</span></p>
+          </div>
+          <div class="cover">
+            <video class="v-mr" src="assets/mr-loop.mp4" poster="assets/mr-loop.webp" width="1280" height="800" muted loop playsinline preload="none" aria-hidden="true" data-auto></video>
+            <span class="badge"><span class="en">▶ Video · 0:20</span><span class="es">▶ Video · 0:20</span></span>
           </div>
         </a>
         <a class="tile" href="#monkey-on-the-loose">
-          <div class="cover"><img src="assets/motl-menu.webp" width="821" height="462" alt="" loading="lazy"></div>
           <div class="tile-text">
-            <h3>Monkey on the Loose</h3>
-            <p class="label"><span class="en">Game · Top-down shooter · Unity</span><span class="es">Juego · Top-down shooter · Unity</span></p>
+            <h3>Monkey on the Loose <span class="cat"><span class="en">Game · Top-down shooter · Unity</span><span class="es">Juego · Top-down shooter · Unity</span></span></h3>
+            <p class="tile-desc"><span class="en">Wave-survival shooter made in Unity by a team of four, with a boss every five waves. I was the lead author of the 36-page GDD and contributed to UX design and programming.</span><span class="es">Shooter de supervivencia por oleadas hecho en Unity en un equipo de 4, con un jefe cada cinco oleadas. Fui el autor principal del GDD de 36 páginas y colaboré en el diseño UX y la programación.</span></p>
+          </div>
+          <div class="cover">
+            <video src="assets/motl-loop.mp4" poster="assets/motl-loop.webp" width="960" height="600" muted loop playsinline preload="none" aria-hidden="true" data-auto></video>
+            <span class="badge"><span class="en">▶ Video · 0:28</span><span class="es">▶ Video · 0:28</span></span>
           </div>
         </a>
-        <a class="tile feature" href="#characters">
+        <a class="tile feature" href="#art">
+          <div class="tile-text">
+            <h3><span class="en">Art</span><span class="es">Arte</span> <span class="cat"><span class="en">Characters · Drawings · Sketches</span><span class="es">Personajes · Dibujos · Bocetos</span></span></h3>
+            <p class="tile-desc"><span class="en">Character designs, drawings and sketches.</span><span class="es">Diseños de personajes, dibujos y bocetos.</span></p>
+          </div>
           <div class="cover">
             <div class="cast">
-              <img class="h-echo" src="assets/mr-echo.webp" width="435" height="900" alt="" loading="lazy">
+              <img class="h-echo" src="assets/mr-echo-hd.webp" width="532" height="1100" alt="" loading="lazy">
               <img class="h-dark" src="assets/mr-boss-dark.webp" width="214" height="431" alt="" loading="lazy">
-              <img class="h-eye" src="assets/mr-boss-eye.webp" width="327" height="640" alt="" loading="lazy">
+              <img class="h-eye" src="assets/mr-r4btr4p-hd.webp" width="399" height="796" alt="" loading="lazy">
               <img class="h-turret" src="assets/mr-turret.webp" width="165" height="159" alt="" loading="lazy">
             </div>
-          </div>
-          <div class="tile-text">
-            <h3><span class="en">Characters</span><span class="es">Personajes</span></h3>
-            <p class="label"><span class="en">Character design · Metal Revenant</span><span class="es">Diseño de personajes · Metal Revenant</span></p>
           </div>
         </a>
       </div>
@@ -511,18 +641,18 @@ p { max-width: 64ch; }
 
       <figure class="shot plate keyart">
         <div class="logo"><img src="assets/mr-logo.webp" width="1200" height="159" alt="Metal Revenant logo" data-es-alt="Logo de Metal Revenant" loading="lazy"></div>
-        <img src="assets/mr-gameplay.webp" width="1600" height="1000" alt="Gameplay screenshot: Echo aims a pistol from a factory platform, lit by spotlights, facing an enemy robot" data-es-alt="Captura del juego: Echo apunta con su pistola sobre una plataforma de la fábrica, iluminado por reflectores, frente a un robot enemigo" loading="lazy">
-        <figcaption class="label"><span class="en">Gameplay screenshot · factory level</span><span class="es">Captura del juego · nivel de la fábrica</span></figcaption>
+        <video class="gameplay-video" src="assets/mr-gameplay.mp4" poster="assets/mr-gameplay-poster.webp" width="1280" height="800" controls muted loop playsinline preload="none" data-auto aria-label="Gameplay video: Echo picks up a pistol and fights robots and a turret in the factory" data-es-aria-label="Video del juego: Echo agarra una pistola y pelea contra robots y una torreta en la fábrica"></video>
+        <figcaption class="label"><span class="en">Gameplay · factory level · 0:20</span><span class="es">Gameplay · nivel de la fábrica · 0:20</span></figcaption>
       </figure>
 
       <div class="notes">
         <div class="note">
           <h2><span class="en">My role</span><span class="es">Mi rol</span></h2>
           <ul class="list">
-            <li><span class="en">I wrote parts of the GDD: high concept, target audience, genre, UX/UI, UX flow and gameplay design.</span><span class="es">Escribí partes del GDD: high concept, público objetivo, género, UX/UI, UX flow y diseño de gameplay.</span></li>
-            <li><span class="en">I designed the characters, HUD and levels.</span><span class="es">Diseñé los personajes, el HUD y los niveles.</span></li>
-            <li><span class="en">I created the visuals and layout for the pitch.</span><span class="es">Armé las imágenes y el diseño del pitch.</span></li>
-          </ul>
+            <li><span class="en"><strong>Level design:</strong> we planned 20 levels across five zones, each paced from a safe start with a short tutorial, through combat waves, to a climax with a mini boss or harder platforming.</span><span class="es"><strong>Diseño de niveles:</strong> planificamos 20 niveles en cinco zonas, cada uno con un ritmo que va de un inicio seguro con tutorial breve a oleadas de combate y a un clímax con mini jefe o plataformas más difíciles.</span></li>
+            <li><span class="en"><strong>Character design:</strong> designed Echo, the main character, and the enemies, including two mini bosses.</span><span class="es"><strong>Diseño de personajes:</strong> diseñé a Echo, el protagonista, y a los enemigos, entre ellos dos mini jefes.</span></li>
+            <li><span class="en"><strong>UX/UI:</strong> designed the HUD over two wireframe iterations and wireframed all 15 screens of the UX flow.</span><span class="es"><strong>UX/UI:</strong> diseñé el HUD en dos iteraciones de wireframe e hice los wireframes de las 15 pantallas del UX flow.</span></li>
+            <li><span class="en"><strong>Game design documentation:</strong> wrote the GDD’s high concept, target audience, genre, UX/UI, UX flow and gameplay design sections.</span><span class="es"><strong>Documentación de diseño:</strong> escribí en el GDD el high concept, el público objetivo, el género, UX/UI, el UX flow y el diseño de gameplay.</span></li>          </ul>
         </div>
         <div class="note">
           <h2><span class="en">How it plays</span><span class="es">Cómo se juega</span></h2>
@@ -543,6 +673,121 @@ p { max-width: 64ch; }
           </ul>
         </div>
       </div>
+
+      <section class="cast-sec" aria-labelledby="mr-chars">
+        <h2 class="section-title" id="mr-chars"><span class="en">Characters</span><span class="es">Personajes</span></h2>
+        <p class="sec-lead"><span class="en">Metal Revenant takes place after humanity disappeared and the machines built their own societies, ruled by the Sentinel. I designed Echo and the enemies that try to stop it.</span><span class="es">Metal Revenant transcurre después de que la humanidad desapareció y las máquinas armaron sus propias sociedades, gobernadas por el Centinela. Diseñé a Echo y a los enemigos que intentan detenerlo.</span></p>
+
+        <article class="char-hero">
+          <figure class="shot plate evo">
+            <div class="evo-row">
+              <div class="evo-item"><img class="sketch" src="assets/mr-echo-sketch.webp" width="160" height="315" alt="Pencil sketch of Echo: a round head with an antenna, large eyes and a segmented body" data-es-alt="Boceto a lápiz de Echo: cabeza redonda con antena, ojos grandes y cuerpo segmentado" loading="lazy"><span class="label"><span class="en">Sketch</span><span class="es">Boceto</span></span></div>
+              <div class="evo-item"><img src="assets/mr-echo-hd.webp" width="532" height="1100" alt="Echo in its final version, a blue robot with a round head and orange eyes" data-es-alt="Echo en su versión final, un robot azul de cabeza redonda y ojos naranjas" loading="lazy"><span class="label">Final</span></div>
+            </div>
+          </figure>
+          <div class="char-text">
+            <p class="label"><span class="en">Protagonist</span><span class="es">Protagonista</span></p>
+            <h3>Echo</h3>
+            <p class="p-lead"><span class="en">A humanoid robot that regains consciousness just as it is about to be scrapped in a factory. It seeks justice for the robots of its kind, which are built to serve and easy to replace.</span><span class="es">Un robot humanoide que recobra la conciencia justo cuando iba a ser desechado en una fábrica. Busca justicia para los robots de su tipo, hechos para servir y fáciles de reemplazar.</span></p>
+            <dl class="facts">
+              <div><dt><span class="en">Personality</span><span class="es">Personalidad</span></dt><dd><span class="en">Silent, skeptical and determined</span><span class="es">Silencioso, escéptico y decidido</span></dd></div>
+              <div><dt><span class="en">Look</span><span class="es">Estética</span></dt><dd><span class="en">Industrial design with bright blue lights and factory markings worn by time</span><span class="es">Diseño industrial con luces azules brillantes y marcas de fábrica gastadas por el tiempo</span></dd></div>
+              <div><dt><span class="en">Height</span><span class="es">Altura</span></dt><dd>1.75 m</dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <h3 class="sub-title"><span class="en">Enemies</span><span class="es">Enemigos</span></h3>
+        <div class="chars">
+          <article class="char">
+            <div class="plate"><img src="assets/mr-boss-dark.webp" width="214" height="431" alt="3çH0, a black robot with red eyes, a dark version of Echo" data-es-alt="3çH0, un robot negro de ojos rojos, versión oscura de Echo" loading="lazy"></div>
+            <p class="label"><span class="en">Mini boss</span><span class="es">Mini jefe</span></p>
+            <h4>3çH0</h4>
+            <p><span class="en">The same model as Echo, built by the Sentinel as a last resort. Polished black and grey metal, with red eyes that signal hostility to the player.</span><span class="es">Del mismo modelo que Echo, creado por el Centinela como último recurso. Metal pulido negro y gris, con ojos rojos que marcan la hostilidad hacia el jugador.</span></p>
+          </article>
+          <article class="char">
+            <div class="plate"><img src="assets/mr-r4btr4p-hd.webp" width="399" height="796" alt="R4BTR4P, a yellow robot on one wheel with an inverted-diamond body and one red eye" data-es-alt="R4BTR4P, un robot amarillo de una rueda con cuerpo de diamante invertido y un ojo rojo" loading="lazy"></div>
+            <p class="label"><span class="en">Mini boss</span><span class="es">Mini jefe</span></p>
+            <h4>R4BTR4P</h4>
+            <p><span class="en">Moves side to side and jumps. A single wheel and an inverted-diamond body with one eye in the center. It wants revenge on Echo for destroying its society.</span><span class="es">Se mueve de un lado a otro y salta. Una sola rueda y un cuerpo con forma de diamante invertido con un ojo en el centro. Quiere vengarse de Echo por acabar con su sociedad.</span></p>
+          </article>
+          <article class="char">
+            <div class="plate"><img class="small" src="assets/mr-turret.webp" width="165" height="159" alt="Grey turret with two barrels" data-es-alt="Torreta gris con dos cañones" loading="lazy"></div>
+            <p class="label"><span class="en">Enemy</span><span class="es">Enemigo</span></p>
+            <h4><span class="en">Turret</span><span class="es">Torreta</span></h4>
+            <p><span class="en">A fixed turret placed along the levels, one of the basic enemy types.</span><span class="es">Una torreta fija ubicada en los niveles, uno de los tipos de enemigo básicos.</span></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="process" aria-labelledby="mr-process">
+        <h2 class="section-title" id="mr-process"><span class="en">Process</span><span class="es">Proceso</span></h2>
+
+        <div class="step">
+          <div class="step-head">
+            <h3><span class="en">World and level sketch</span><span class="es">Boceto del mundo y de los niveles</span></h3>
+            <p><span class="en">The game crosses five zones, from the factory where Echo wakes up to the Sentinel’s fortress. Each level goes from a safe start with a short tutorial, to a combat zone with waves, to a climax with a mini boss or harder platforming, and then the exit.</span><span class="es">El juego recorre cinco zonas, desde la fábrica donde despierta Echo hasta la fortaleza del Centinela. Cada nivel va de un inicio seguro con un tutorial breve, a una zona de combate con oleadas, a un clímax con un mini jefe o plataformas más difíciles, y después a la salida.</span></p>
+          </div>
+          <figure class="shot">
+            <img class="edge" src="assets/mr-world-sketch.webp" width="945" height="421" alt="Hand-drawn side view of the world: factory, city, underground, scrapyard and a tall fortress, separated by red lines" data-es-alt="Boceto a mano del mundo visto de costado: fábrica, ciudad, subterráneo, chatarrería y una fortaleza alta, separadas con líneas rojas" loading="lazy">
+          </figure>
+          <ol class="zones" aria-label="Zones and levels" data-es-aria-label="Zonas y niveles">
+            <li style="--n:2"><b><span class="en">Factory</span><span class="es">Fábrica</span></b><span class="label"><span class="en">Levels 1–2</span><span class="es">Niveles 1–2</span></span></li>
+            <li style="--n:5"><b><span class="en">Abandoned city</span><span class="es">Ciudad abandonada</span></b><span class="label"><span class="en">Levels 3–7</span><span class="es">Niveles 3–7</span></span></li>
+            <li style="--n:5"><b><span class="en">Underground</span><span class="es">Subterráneo</span></b><span class="label"><span class="en">Levels 8–12</span><span class="es">Niveles 8–12</span></span></li>
+            <li style="--n:4"><b><span class="en">Scrapyard</span><span class="es">Chatarrería</span></b><span class="label"><span class="en">Levels 13–16</span><span class="es">Niveles 13–16</span></span></li>
+            <li style="--n:4"><b><span class="en">Fortress</span><span class="es">Fortaleza</span></b><span class="label"><span class="en">Levels 17–20 · vertical</span><span class="es">Niveles 17–20 · vertical</span></span></li>
+          </ol>
+        </div>
+
+        <div class="step">
+          <div class="step-head">
+            <h3><span class="en">HUD: from wireframe to game</span><span class="es">HUD: del wireframe al juego</span></h3>
+            <p><span class="en">I planned the HUD in two wireframes before it went into the game: health bar, current weapon, ammo, repair kits and level number.</span><span class="es">Planifiqué el HUD en dos wireframes antes de pasarlo al juego: barra de vida, arma en uso, munición, kits de reparación y número de nivel.</span></p>
+          </div>
+          <div class="steps3">
+            <figure class="shot"><img class="edge" src="assets/mr-hud-wire-1.webp" width="1000" height="558" alt="First HUD wireframe with labels for the health bar, ammo, repair kit, current weapon and level" data-es-alt="Primer wireframe del HUD con etiquetas para la barra de vida, la munición, el kit de reparación, el arma en uso y el nivel" loading="lazy"><figcaption><span class="en">1 · First wireframe</span><span class="es">1 · Primer wireframe</span></figcaption></figure>
+            <figure class="shot"><img class="edge" src="assets/mr-hud-wire-2.webp" width="1000" height="562" alt="Second HUD wireframe with an ammo counter next to the weapon" data-es-alt="Segundo wireframe del HUD con un contador de munición junto al arma" loading="lazy"><figcaption><span class="en">2 · Second wireframe</span><span class="es">2 · Segundo wireframe</span></figcaption></figure>
+            <figure class="shot"><img class="edge" src="assets/mr-gameplay.webp" width="1600" height="1000" alt="The HUD in the game: a hexagon with the weapon, a green health bar and the ammo" data-es-alt="El HUD en el juego: un hexágono con el arma, una barra de vida verde y la munición" loading="lazy"><figcaption><span class="en">3 · In the game</span><span class="es">3 · En el juego</span></figcaption></figure>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-head">
+            <h3><span class="en">UX flow and prototype</span><span class="es">UX flow y prototipo</span></h3>
+            <p><span class="en">How every screen connects: from the start screen to the main menu, level select in pages of five levels, options for interface, graphics, sound and controls, pause, and what follows a win or a loss.</span><span class="es">Cómo se conectan todas las pantallas: de la pantalla inicial al menú principal, la selección de niveles en páginas de cinco, las opciones de interfaz, gráficos, sonido y controles, la pausa y lo que sigue después de ganar o perder.</span></p>
+          </div>
+          <figure class="shot"><img class="edge" src="assets/mr-ux-flow.webp" width="1337" height="827" alt="UX flow diagram, labelled in Spanish: the start screen leads to the main menu, which branches to new game, level select (levels 1–5, 6–10, 11–15 and 16–20), options (interface, graphics, sound and controls) and a quit confirmation. Gameplay leads to pause, to victory (next level or main menu) and to defeat (retry the level or main menu)." data-es-alt="Diagrama del UX flow: la pantalla inicial lleva al menú principal, que se abre en nueva partida, selección de nivel (niveles 1–5, 6–10, 11–15 y 16–20), opciones (interfaz, gráficos, sonido y controles) y la confirmación para salir. Desde el gameplay se pasa a la pausa, a la victoria (siguiente nivel o menú principal) y a la derrota (repetir el nivel o menú principal)." loading="lazy"></figure>
+          <a class="btn" href="https://www.figma.com/proto/9C9nkeVbnXRGOFdrYusM41/Grupo-X---Aaron-Soraide--Nicolas-Soria--Maximo-Liang?node-id=395-586" target="_blank" rel="noopener"><span class="en">Try the clickable prototype in Figma ↗</span><span class="es">Probar el prototipo navegable en Figma ↗</span></a>
+        </div>
+
+        <div class="step">
+          <div class="step-head">
+            <h3><span class="en">Every screen of the UX flow</span><span class="es">Todas las pantallas del UX flow</span></h3>
+            <p><span class="en">Wireframes for the start screen, menus, options, HUD, pause, loading, victory, defeat and level select, made for the UX flow in the GDD.</span><span class="es">Wireframes de la pantalla de inicio, los menús, las opciones, el HUD, la pausa, la carga, la victoria, la derrota y la selección de niveles, hechos para el UX flow del GDD.</span></p>
+          </div>
+          <figure class="shot"><img class="edge" src="assets/mr-ui-screens.webp" width="1237" height="416" alt="Fifteen grey wireframes: start screen, main menu, options, gameplay HUD, pause, loading, quit dialog, interface, graphics, audio, keyboard, victory, defeat and two level select screens" data-es-alt="Quince wireframes en gris: pantalla de inicio, menú principal, opciones, HUD, pausa, carga, salir, interfaz, gráficos, audio, teclado, victoria, derrota y dos pantallas de selección de niveles" loading="lazy"></figure>
+          <div class="two-up">
+            <div><span class="label">Wireframe</span><img class="edge" src="assets/mr-menu-wire.webp" width="858" height="482" alt="Main menu wireframe with the logo and four buttons" data-es-alt="Wireframe del menú principal con el logo y cuatro botones" loading="lazy"></div>
+            <div><span class="label">Final</span><img class="edge" src="assets/mr-menu-final.webp" width="557" height="312" alt="Final main menu over a blue factory background with robotic arms" data-es-alt="Menú principal final sobre un fondo azul de fábrica con brazos robóticos" loading="lazy"></div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-head">
+            <h3><span class="en">Visual style</span><span class="es">Estilo visual</span></h3>
+            <p><span class="en">2D cartoon art inspired by Hollow Knight, Mega Man and Jetpack Joyride, with gears, futuristic structures and metallic tones with blue hues. Orbitron for text and menus, and a separate display font for the title.</span><span class="es">Arte 2D estilo cartoon inspirado en Hollow Knight, Megaman y Jetpack Joyride, con engranajes, estructuras futuristas y tonos metálicos con matices azules. Orbitron para textos y menús, y otra tipografía para el título.</span></p>
+          </div>
+          <div class="palettes">
+            <ul class="swatches" aria-label="Palette 1" data-es-aria-label="Paleta 1"><li style="--c:#3c3744"><i></i><code>#3c3744</code></li><li style="--c:#090c9b"><i></i><code>#090c9b</code></li><li style="--c:#3066be"><i></i><code>#3066be</code></li><li style="--c:#b4c5e4"><i></i><code>#b4c5e4</code></li><li style="--c:#fbfff1"><i></i><code>#fbfff1</code></li></ul>
+            <ul class="swatches" aria-label="Palette 2" data-es-aria-label="Paleta 2"><li style="--c:#3d5a80"><i></i><code>#3d5a80</code></li><li style="--c:#98c1d9"><i></i><code>#98c1d9</code></li><li style="--c:#e0fbfc"><i></i><code>#e0fbfc</code></li><li style="--c:#ee6c4d"><i></i><code>#ee6c4d</code></li><li style="--c:#293241"><i></i><code>#293241</code></li></ul>
+          </div>
+          <div class="typeset edge">
+            <span class="label"><span class="en">Orbitron · menu text</span><span class="es">Orbitron · texto de menús</span></span>
+            <p class="orbitron" lang="es">Nueva partida · Selección de nivel · Opciones</p>
+          </div>
+        </div>
+      </section>
 
       <div class="more">
         <h2><span class="en">More work</span><span class="es">Más trabajos</span></h2>
@@ -668,18 +913,27 @@ p { max-width: 64ch; }
             <div><dt><span class="en">Engine</span><span class="es">Motor</span></dt><dd>Unity</dd></div>
             <div><dt><span class="en">Platform</span><span class="es">Plataforma</span></dt><dd>PC (Windows)</dd></div>
             <div><dt><span class="en">Team</span><span class="es">Equipo</span></dt><dd><span class="en">4 people</span><span class="es">4 personas</span></dd></div>
-            <div><dt><span class="en">Art</span><span class="es">Arte</span></dt><dd><span class="en">Chibi pixel art</span><span class="es">Pixel art chibi</span></dd></div>
+            <div><dt><span class="en">Art style</span><span class="es">Estilo de arte</span></dt><dd><span class="en">Chibi pixel art</span><span class="es">Pixel art chibi</span></dd></div>
           </dl>
           <a class="btn solid" href="https://yukiliang.itch.io/monkey-on-the-loose" target="_blank" rel="noopener"><span class="en">Download on itch.io ↗</span><span class="es">Descargar en itch.io ↗</span></a>
         </div>
       </header>
 
       <figure class="shot">
-        <img src="assets/motl-menu.webp" width="821" height="462" alt="Pixel art main menu: a tree with the buttons Jugar (Play), High score, Opciones (Options) and Salir (Quit) against a cloudy sky" data-es-alt="Menú principal en pixel art: un árbol con los botones Jugar, High score, Opciones y Salir sobre un cielo con nubes" loading="lazy">
-        <figcaption class="label"><span class="en">Main menu · pixel art</span><span class="es">Menú principal · pixel art</span></figcaption>
+        <video class="gameplay-video" src="assets/motl-gameplay.mp4" poster="assets/motl-gameplay-poster.webp" width="1280" height="800" controls muted loop playsinline preload="none" data-auto aria-label="Gameplay video: waves of guards, the upgrade shop, the mechanical gorilla boss and the game over screen" data-es-aria-label="Video del juego: oleadas de guardias, el mercado de mejoras, el gorila mecánico y la pantalla de game over"></video>
+        <figcaption class="label"><span class="en">Gameplay · waves, shop and boss · 0:28</span><span class="es">Gameplay · oleadas, mercado y jefe · 0:28</span></figcaption>
       </figure>
 
       <div class="notes">
+        <div class="note">
+          <h2><span class="en">My role</span><span class="es">Mi rol</span></h2>
+          <ul class="list">
+            <li><span class="en"><strong>Lead author of the GDD:</strong> a 36-page document covering market and competitor analysis, target audience, core loop, mechanics, level design wave by wave and onboarding.</span><span class="es"><strong>Autor principal del GDD:</strong> un documento de 36 páginas con análisis de mercado y competencia, público objetivo, core loop, mecánicas, diseño de niveles oleada por oleada y onboarding.</span></li>
+            <li><span class="en"><strong>Systems and balance:</strong> specified the shop economy (costs, upgrade values and level caps), the stats for every weapon, enemy and boss, and the difficulty curve across waves.</span><span class="es"><strong>Sistemas y balance:</strong> especifiqué la economía del mercado (costos, valores de mejora y límites de nivel), las estadísticas de cada arma, enemigo y jefe, y la curva de dificultad a lo largo de las oleadas.</span></li>
+            <li><span class="en"><strong>UX design:</strong> contributed to the screen flow and the menus, from grey wireframes to the final screens.</span><span class="es"><strong>Diseño UX:</strong> participé en el flujo de pantallas y en los menús, del wireframe en gris a la pantalla final.</span></li>
+            <li><span class="en"><strong>Programming:</strong> supported the team with programming in Unity.</span><span class="es"><strong>Programación:</strong> colaboré con el equipo en la programación en Unity.</span></li>
+          </ul>
+        </div>
         <div class="note">
           <h2><span class="en">How it plays</span><span class="es">Cómo se juega</span></h2>
           <ul class="list">
@@ -704,9 +958,38 @@ p { max-width: 64ch; }
         </div>
       </div>
 
-      <div class="block">
-        <h2 class="section-label"><span class="en">From wireframe to final version</span><span class="es">Del wireframe a la versión final</span></h2>
-        <div class="pairs">
+      <section class="process" aria-labelledby="motl-process">
+        <h2 class="section-title" id="motl-process"><span class="en">Documentation and UX</span><span class="es">Documentación y UX</span></h2>
+
+        <div class="step">
+          <div class="step-head">
+            <h3><span class="en">The GDD</span><span class="es">El GDD</span></h3>
+            <p><span class="en">A 36-page document covering the high concept, the market and the target audience with player personas, the mechanics, the stats for every weapon, upgrade and enemy, the bosses, UX/UI, the core loop, the art and sound lists, level design wave by wave, and onboarding.</span><span class="es">Un documento de 36 páginas que cubre el high concept, el mercado y el público objetivo con player personas, las mecánicas, las estadísticas de cada arma, mejora y enemigo, los jefes, UX/UI, el core loop, las listas de arte y sonido, el diseño de niveles oleada por oleada y el onboarding.</span></p>
+          </div>
+          <ol class="pages" aria-label="Pages from the GDD" data-es-aria-label="Páginas del GDD">
+            <li><img class="edge" src="assets/motl-gdd-01.webp" width="480" height="679" alt="GDD cover: Small Games, Monkey On The Loose, Game Design Document" data-es-alt="Portada del GDD: Small Games, Monkey On The Loose, Game Design Document" loading="lazy"><span class="label"><span class="en">Cover</span><span class="es">Portada</span></span></li>
+            <li><img class="edge" src="assets/motl-gdd-02.webp" width="480" height="679" alt="Table of contents with every section of the GDD" data-es-alt="Índice con todas las secciones del GDD" loading="lazy"><span class="label"><span class="en">Contents</span><span class="es">Índice</span></span></li>
+            <li><img class="edge" src="assets/motl-gdd-10.webp" width="480" height="679" alt="Target audience page: PC players aged 15 to 30 on itch.io, their motivations and a player persona" data-es-alt="Página de público objetivo: jugadores de PC de 15 a 30 años en itch.io, sus motivaciones y una player persona" loading="lazy"><span class="label"><span class="en">Target audience</span><span class="es">Público objetivo</span></span></li>
+            <li><img class="edge" src="assets/motl-gdd-15.webp" width="480" height="679" alt="Table of shop upgrades with the cost, the amount and the level limit for health, speed, fire rate, damage and dash" data-es-alt="Tabla de mejoras del mercado con el costo, la cantidad y el límite de niveles de vida, velocidad, cadencia, daño y dash" loading="lazy"><span class="label"><span class="en">Shop upgrades</span><span class="es">Mejoras del mercado</span></span></li>
+            <li><img class="edge" src="assets/motl-gdd-21.webp" width="480" height="679" alt="Boss rules and the mechanical gorilla: health, attack patterns, a second phase and the micro-monkeys it spawns" data-es-alt="Reglas de los jefes y el gorila mecánico: vida, patrones de ataque, segunda fase y los micro-monos que invoca" loading="lazy"><span class="label"><span class="en">Bosses</span><span class="es">Jefes</span></span></li>
+            <li><img class="edge" src="assets/motl-gdd-32.webp" width="480" height="679" alt="Level design page: what each wave introduces, from movement and shooting to the boss" data-es-alt="Página de diseño de niveles: qué suma cada oleada, desde el movimiento y el disparo hasta el jefe" loading="lazy"><span class="label"><span class="en">Level design</span><span class="es">Diseño de niveles</span></span></li>
+          </ol>
+        </div>
+
+        <div class="step">
+          <div class="step-head">
+            <h3>Core loop</h3>
+            <p><span class="en">How a run flows, as the GDD maps it: a wave can end in the shop, dying leads to the game over screen with retry or quit, and after five waves comes the boss and the power-up panel.</span><span class="es">Cómo fluye una partida, tal como lo muestra el GDD: una oleada puede terminar en el mercado, al morir se pasa a la pantalla de game over con reintentar o salir, y después de cinco oleadas llega el jefe con el panel de power up.</span></p>
+          </div>
+          <figure class="shot diagram"><img class="edge" src="assets/motl-core-loop.webp" width="1048" height="844" alt="Flowchart of a run, labelled in Spanish: start, wave, does the player die (yes: game over, then retry or quit), end of wave, enter the shop (yes: shop, buy, improve stats), have five waves passed (yes: boss wave, end of wave, power-up panel)" data-es-alt="Diagrama de flujo de una partida: inicio, oleada, ¿jugador muere? (sí: game over, después reintentar o salir), fin de oleada, ¿entra al mercado? (sí: mercado, ¿comprar?, mejora stats), ¿pasaron 5 oleadas? (sí: oleada boss, fin de oleada, panel de power up)" loading="lazy"></figure>
+        </div>
+
+        <div class="step">
+          <div class="step-head">
+            <h3><span class="en">From wireframe to final version</span><span class="es">Del wireframe a la versión final</span></h3>
+            <p><span class="en">The screens were planned as grey wireframes in the GDD before they got the wooden signs of the final pixel art.</span><span class="es">Las pantallas se planificaron como wireframes en gris en el GDD antes de tomar los carteles de madera del pixel art final.</span></p>
+          </div>
+          <div class="pairs">
           <figure class="pair">
             <figcaption><span class="en">Main menu</span><span class="es">Menú principal</span></figcaption>
             <div class="pair-row">
@@ -722,28 +1005,38 @@ p { max-width: 64ch; }
             </div>
           </figure>
           <figure class="pair">
+            <figcaption>Game over</figcaption>
+            <div class="pair-row">
+              <div><span class="label">Wireframe</span><img src="assets/motl-wf-gameover.webp" width="767" height="428" alt="Grey wireframe of the game over screen with the score, the wave, the high score and the retry and quit buttons" data-es-alt="Wireframe en gris de la pantalla de game over con el puntaje, la oleada, el high score y los botones de reintentar y salir" loading="lazy"></div>
+              <div><span class="label">Final</span><img src="assets/motl-gameover.webp" width="820" height="458" alt="Final game over screen on a wooden panel: Te atraparon (They caught you), with the score, the wave, the personal best and the retry and main menu buttons" data-es-alt="Pantalla final de game over en un panel de madera: Te atraparon, con el puntaje, la oleada, el récord personal y los botones de reintentar y menú principal" loading="lazy"></div>
+            </div>
+          </figure>
+          <figure class="pair">
             <figcaption>High score</figcaption>
             <div class="pair-row">
               <div><span class="label">Wireframe</span><img src="assets/motl-wf-highscore.webp" width="765" height="427" alt="Grey wireframe of the high score table" data-es-alt="Wireframe en gris de la tabla de high score" loading="lazy"></div>
               <div><span class="label">Final</span><img src="assets/motl-highscore.webp" width="818" height="438" alt="Final global high score table, made of wood against a cloudy sky" data-es-alt="Tabla de high score global final, de madera sobre un cielo con nubes" loading="lazy"></div>
             </div>
           </figure>
+          </div>
         </div>
-      </div>
 
-      <div class="block">
-        <h2 class="section-label"><span class="en">Game screens</span><span class="es">Pantallas del juego</span></h2>
-        <div class="two">
-          <figure class="shot">
-            <img class="edge" src="assets/motl-market.webp" width="971" height="508" alt="Shop screen with upgrade bars for health, speed, fire rate and damage" data-es-alt="Pantalla del mercado con barras de mejora de vida, velocidad, cadencia y daño" loading="lazy">
-            <figcaption><span class="en">Upgrade shop between waves.</span><span class="es">Mercado de mejoras entre oleadas.</span></figcaption>
-          </figure>
-          <figure class="shot">
-            <img class="edge" src="assets/motl-options.webp" width="816" height="431" alt="Options menu with music and sound effects sliders and the list of controls" data-es-alt="Menú de opciones con sliders de música y efectos y la lista de controles" loading="lazy">
-            <figcaption><span class="en">Options menu.</span><span class="es">Menú de opciones.</span></figcaption>
-          </figure>
+        <div class="step">
+          <div class="step-head">
+            <h3><span class="en">Game screens</span><span class="es">Pantallas del juego</span></h3>
+          </div>
+          <div class="two">
+            <figure class="shot">
+              <img class="edge" src="assets/motl-market.webp" width="971" height="508" alt="Shop screen with upgrade bars for health, speed, fire rate and damage" data-es-alt="Pantalla del mercado con barras de mejora de vida, velocidad, cadencia y daño" loading="lazy">
+              <figcaption><span class="en">Upgrade shop between waves.</span><span class="es">Mercado de mejoras entre oleadas.</span></figcaption>
+            </figure>
+            <figure class="shot">
+              <img class="edge" src="assets/motl-options.webp" width="816" height="431" alt="Options menu with music and sound effects sliders and the list of controls" data-es-alt="Menú de opciones con sliders de música y efectos y la lista de controles" loading="lazy">
+              <figcaption><span class="en">Options menu.</span><span class="es">Menú de opciones.</span></figcaption>
+            </figure>
+          </div>
         </div>
-      </div>
+      </section>
 
       <div class="more">
         <h2><span class="en">More work</span><span class="es">Más trabajos</span></h2>
@@ -752,43 +1045,44 @@ p { max-width: 64ch; }
     </div>
   </section>
 
-  <!-- ================= CHARACTERS ================= -->
-  <section class="view" data-view="characters" aria-labelledby="char-h" hidden>
+  <!-- ================= ART ================= -->
+  <section class="view" data-view="art" aria-labelledby="art-h" hidden>
     <div class="wrap">
       <a class="back" href="#work"><span aria-hidden="true">←</span><span class="en">All work</span><span class="es">Todos los trabajos</span></a>
       <header class="p-head">
         <div>
-          <p class="label"><span class="en">Character design · Metal Revenant</span><span class="es">Diseño de personajes · Metal Revenant</span></p>
-          <h1 id="char-h" tabindex="-1"><span class="en">Characters</span><span class="es">Personajes</span></h1>
-          <p class="p-lead">
-            <span class="en">Echo, the main character of Metal Revenant, and three mini bosses: a dark version of Echo, a one-wheeled robot and a turret.</span>
-            <span class="es">Echo, el protagonista de Metal Revenant, y tres mini jefes: una versión oscura de Echo, un robot de una rueda y una torreta.</span>
-          </p>
-        </div>
-        <div class="p-aside">
-          <dl class="facts">
-            <div><dt><span class="en">Game</span><span class="es">Juego</span></dt><dd><a class="textlink" href="#metal-revenant">Metal Revenant</a></dd></div>
-            <div><dt><span class="en">Engine</span><span class="es">Motor</span></dt><dd>Unity</dd></div>
-          </dl>
+          <p class="label"><span class="en">Characters · Drawings · Sketches</span><span class="es">Personajes · Dibujos · Bocetos</span></p>
+          <h1 id="art-h" tabindex="-1"><span class="en">Art</span><span class="es">Arte</span></h1>
+          <p class="p-lead"><span class="en">Character designs, drawings and sketches.</span><span class="es">Diseños de personajes, dibujos y bocetos.</span></p>
         </div>
       </header>
-      <div class="stack">
-        <figure class="shot plate">
-          <div class="art solo"><img src="assets/mr-echo.webp" width="435" height="900" alt="Echo, a blue robot with orange eyes, the main character of Metal Revenant" data-es-alt="Echo, robot azul de ojos naranjas, protagonista de Metal Revenant" loading="lazy"></div>
-          <figcaption class="label">Echo</figcaption>
+
+      <div class="gallery">
+        <figure class="piece">
+          <div class="plate"><img class="paper" src="assets/mr-echo-sketch.webp" width="160" height="315" alt="Pencil sketch of Echo: a round head with an antenna, large eyes and a segmented body" data-es-alt="Boceto a lápiz de Echo: cabeza redonda con antena, ojos grandes y cuerpo segmentado" loading="lazy"></div>
+          <figcaption><b><span class="en">Echo, sketch</span><span class="es">Echo, boceto</span></b> <span class="label">Metal Revenant</span></figcaption>
         </figure>
-        <figure class="shot plate">
-          <div class="art trio">
-            <img src="assets/mr-boss-dark.webp" width="214" height="431" alt="Black robot with red eyes, a dark version of Echo" data-es-alt="Robot negro de ojos rojos, versión oscura de Echo" loading="lazy">
-            <img src="assets/mr-boss-eye.webp" width="327" height="640" alt="Yellow one-wheeled robot with a single red eye" data-es-alt="Robot amarillo de una sola rueda con un ojo rojo" loading="lazy">
-            <img src="assets/mr-turret.webp" width="165" height="159" alt="Grey turret with two barrels" data-es-alt="Torreta gris con dos cañones" loading="lazy">
-          </div>
-          <figcaption class="label"><span class="en">Mini bosses</span><span class="es">Mini jefes</span></figcaption>
+        <figure class="piece">
+          <div class="plate"><img src="assets/mr-echo-hd.webp" width="532" height="1100" alt="Echo, a blue robot with a round head and orange eyes" data-es-alt="Echo, un robot azul de cabeza redonda y ojos naranjas" loading="lazy"></div>
+          <figcaption><b>Echo</b> <span class="label">Metal Revenant</span></figcaption>
+        </figure>
+        <figure class="piece">
+          <div class="plate"><img src="assets/mr-boss-dark.webp" width="214" height="431" alt="3çH0, a black robot with red eyes, a dark version of Echo" data-es-alt="3çH0, un robot negro de ojos rojos, versión oscura de Echo" loading="lazy"></div>
+          <figcaption><b>3çH0</b> <span class="label">Metal Revenant</span></figcaption>
+        </figure>
+        <figure class="piece">
+          <div class="plate"><img src="assets/mr-r4btr4p-hd.webp" width="399" height="796" alt="R4BTR4P, a yellow robot on one wheel with an inverted-diamond body and one red eye" data-es-alt="R4BTR4P, un robot amarillo de una rueda con cuerpo de diamante invertido y un ojo rojo" loading="lazy"></div>
+          <figcaption><b>R4BTR4P</b> <span class="label">Metal Revenant</span></figcaption>
+        </figure>
+        <figure class="piece">
+          <div class="plate"><img class="small" src="assets/mr-turret.webp" width="165" height="159" alt="Grey turret with two barrels" data-es-alt="Torreta gris con dos cañones" loading="lazy"></div>
+          <figcaption><b><span class="en">Turret</span><span class="es">Torreta</span></b> <span class="label">Metal Revenant</span></figcaption>
         </figure>
       </div>
+
       <div class="more">
         <h2><span class="en">More work</span><span class="es">Más trabajos</span></h2>
-        <div class="grid small" data-more="characters"></div>
+        <div class="grid small" data-more="art"></div>
       </div>
     </div>
   </section>
@@ -796,18 +1090,15 @@ p { max-width: 64ch; }
   <!-- ================= ABOUT ================= -->
   <section class="view" data-view="about" aria-labelledby="about-h" hidden>
     <div class="wrap">
-      <h1 class="page-title" id="about-h" tabindex="-1"><span class="en">About</span><span class="es">Sobre mí</span></h1>
+      <h1 class="page-title" id="about-h" tabindex="-1"><span class="en">About me</span><span class="es">Sobre mí</span></h1>
       <div class="about">
         <div class="about-text">
           <p class="lead">
-            <span class="en">I’m a Video Game Development and Computer Engineering student at UADE in Buenos Aires. I’m interested in every area of game development, especially level design.</span>
-            <span class="es">Estudio la Licenciatura en Desarrollo de Videojuegos y la Ingeniería en Informática en UADE, en Buenos Aires. Me interesan todas las áreas del desarrollo de videojuegos, pero principalmente el diseño de niveles.</span>
+            <span class="en">I’m a Video Game Development and Computer Engineering student at Universidad Argentina de la Empresa (UADE) in Buenos Aires. I’m interested in every area of game development, especially level design.</span>
+            <span class="es">Estudio la Licenciatura en Desarrollo de Videojuegos y la Ingeniería en Informática en la Universidad Argentina de la Empresa (UADE), en Buenos Aires. Me interesan todas las áreas del desarrollo de videojuegos, pero principalmente el diseño de niveles.</span>
           </p>
           <p class="status"><span class="en">Looking for an internship or my first job in the games industry.</span><span class="es">Busco una pasantía o mi primer trabajo en la industria de los videojuegos.</span></p>
-          <div class="row">
-            <a class="btn solid" href="cv-en.pdf" data-es-href="cv.pdf" download="CV_Alexander_Liang_Game_Development.pdf" data-es-download="CV_Alexander_Liang_Videojuegos.pdf" data-cv-link><span class="en">Download CV (PDF)</span><span class="es">Descargar CV (PDF)</span></a>
-          </div>
-          <p class="notice" aria-live="polite" data-notice></p>
+          <p><a class="textlink" href="#contact"><span class="en">Contact and CV →</span><span class="es">Contacto y CV →</span></a></p>
         </div>
         <div class="about-side">
           <div class="tools">
@@ -845,19 +1136,45 @@ p { max-width: 64ch; }
   <!-- ================= CONTACT ================= -->
   <section class="view" data-view="contact" aria-labelledby="contact-h" hidden>
     <div class="wrap">
-      <h1 class="page-title" id="contact-h" tabindex="-1"><span class="en">Let’s talk</span><span class="es">Hablemos</span></h1>
-      <div class="contact">
-        <p class="lead"><span class="en">Reach me by email or on LinkedIn.</span><span class="es">Escribime por mail o por LinkedIn.</span></p>
-        <div class="row">
-          <span class="email" id="email-contact">liangmaximo2@gmail.com</span>
-          <button class="copy" type="button" data-copy="liangmaximo2@gmail.com" id="copy-contact"><span class="en">Copy email</span><span class="es">Copiar mail</span></button>
-        </div>
-        <div class="row">
-          <a class="btn" href="https://www.linkedin.com/in/alexandermaximoliang" target="_blank" rel="noopener">LinkedIn ↗</a>
-          <a class="btn" href="https://yukiliang.itch.io" target="_blank" rel="noopener">itch.io ↗</a>
-          <a class="btn solid" href="cv-en.pdf" data-es-href="cv.pdf" download="CV_Alexander_Liang_Game_Development.pdf" data-es-download="CV_Alexander_Liang_Videojuegos.pdf" data-cv-link><span class="en">Download CV (PDF)</span><span class="es">Descargar CV (PDF)</span></a>
-        </div>
-        <p class="notice" aria-live="polite" data-notice></p>
+      <h1 class="page-title" id="contact-h" tabindex="-1"><span class="en">Contact</span><span class="es">Contacto</span></h1>
+      <div class="contact-grid">
+        <form class="contact-form" id="contact-form">
+          <p class="lead"><span class="en">Send me a message and I’ll get back to you by email.</span><span class="es">Mandame un mensaje y te respondo por email.</span></p>
+          <div class="field">
+            <label for="cf-name"><span class="en">Name</span><span class="es">Nombre</span> <span class="req" aria-hidden="true">*</span></label>
+            <input id="cf-name" name="name" type="text" autocomplete="name" maxlength="100" required placeholder="Your name…" data-es-placeholder="Tu nombre…">
+          </div>
+          <div class="field">
+            <label for="cf-email"><span class="en">Email address</span><span class="es">Email</span> <span class="req" aria-hidden="true">*</span></label>
+            <input id="cf-email" name="email" type="email" autocomplete="email" maxlength="150" required placeholder="Your email address…" data-es-placeholder="Tu email…">
+          </div>
+          <div class="field">
+            <label for="cf-message"><span class="en">Message</span><span class="es">Mensaje</span> <span class="req" aria-hidden="true">*</span></label>
+            <textarea id="cf-message" name="message" rows="7" maxlength="5000" required placeholder="Your message…" data-es-placeholder="Tu mensaje…"></textarea>
+          </div>
+          <div class="hp" aria-hidden="true"><label>Leave this field empty <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
+          <div class="form-foot">
+            <button class="btn solid" type="submit"><span class="en">Send</span><span class="es">Enviar</span></button>
+            <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+          </div>
+        </form>
+
+        <aside class="contact-side">
+          <h2 class="section-label"><span class="en">Or write to me directly</span><span class="es">O escribime directo</span></h2>
+          <div class="row">
+            <span class="email" id="email-contact">liangmaximo2@gmail.com</span>
+            <button class="copy" type="button" data-copy="liangmaximo2@gmail.com" id="copy-contact"><span class="en">Copy email</span><span class="es">Copiar mail</span></button>
+          </div>
+          <div class="row">
+            <a class="btn" href="https://www.linkedin.com/in/alexandermaximoliang" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a class="btn" href="https://yukiliang.itch.io" target="_blank" rel="noopener">itch.io ↗</a>
+          </div>
+          <h2 class="section-label">CV</h2>
+          <div class="row">
+            <a class="btn solid" href="cv-en.pdf" data-es-href="cv.pdf" download="CV_Alexander_Liang_Game_Development.pdf" data-es-download="CV_Alexander_Liang_Videojuegos.pdf" data-cv-link><span class="en">Download CV (PDF)</span><span class="es">Descargar CV (PDF)</span></a>
+          </div>
+          <p class="notice" aria-live="polite" data-notice></p>
+        </aside>
       </div>
     </div>
   </section>
@@ -889,7 +1206,10 @@ p { max-width: 64ch; }
       saved: "CV downloaded.",
       declined: "Download cancelled.",
       busy: "A download is already pending. Try again in a moment.",
-      failed: "The CV couldn’t be downloaded here. Ask me for it by email."
+      failed: "The CV couldn’t be downloaded here. Ask me for it by email.",
+      sending: "Sending…",
+      sent: "Thanks! Your message was sent. I’ll reply to your email soon.",
+      unsent: "The message couldn’t be sent from here. Please write to me at liangmaximo2@gmail.com."
     },
     es: {
       copied: "Mail copiado.",
@@ -897,7 +1217,10 @@ p { max-width: 64ch; }
       saved: "CV descargado.",
       declined: "Descarga cancelada.",
       busy: "Ya hay una descarga pendiente. Probá de nuevo en un momento.",
-      failed: "No se pudo descargar el CV desde acá. Pedímelo por mail."
+      failed: "No se pudo descargar el CV desde acá. Pedímelo por mail.",
+      sending: "Enviando…",
+      sent: "¡Gracias! Tu mensaje se envió. Te respondo a tu email a la brevedad.",
+      unsent: "No se pudo enviar el mensaje desde acá. Escribime a liangmaximo2@gmail.com."
     }
   };
   var CV = {
@@ -906,12 +1229,12 @@ p { max-width: 64ch; }
   };
   var NAMES = {
     work: ["Work", "Trabajos"],
-    about: ["About", "Sobre mí"],
+    about: ["About me", "Sobre mí"],
     contact: ["Contact", "Contacto"],
     "metal-revenant": ["Metal Revenant", "Metal Revenant"],
     blockout: ["House, forest and cave", "Casa, bosque y cueva"],
     "monkey-on-the-loose": ["Monkey on the Loose", "Monkey on the Loose"],
-    characters: ["Characters", "Personajes"]
+    art: ["Art", "Arte"]
   };
 
   var notices = document.querySelectorAll("[data-notice]");
@@ -939,6 +1262,7 @@ p { max-width: 64ch; }
 
   // Views: each project, About and Contact is its own page, opened by a bare #token.
   function show(next, fromUser) {
+    if (next === "characters") next = "art";   // old link
     if (!NAMES.hasOwnProperty(next)) next = "work";
     view = next;
     document.querySelectorAll("[data-view]").forEach(function (s) {
@@ -950,7 +1274,7 @@ p { max-width: 64ch; }
       else a.removeAttribute("aria-current");
     });
     document.querySelectorAll("video").forEach(function (v) {
-      if (v.closest("[hidden]") && !v.paused) v.pause();
+      if (v.closest("[hidden]")) autoPause(v);
     });
     setTitle();
     say("");
@@ -963,12 +1287,41 @@ p { max-width: 64ch; }
   window.addEventListener("hashchange", function () { show(location.hash.slice(1), true); });
   show(location.hash.slice(1), false);
 
+  // Gameplay videos: muted, they play only while on screen. A pause by the viewer sticks,
+  // and nothing starts by itself under reduced motion or Save-Data.
+  function autoPause(v) {
+    if (!v.paused) { v.setAttribute("data-auto-paused", ""); v.pause(); }
+  }
+  var calm = !!((window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) ||
+                (navigator.connection && navigator.connection.saveData));
+  var autos = document.querySelectorAll("video[data-auto]");
+  autos.forEach(function (v) {
+    v.muted = true;
+    v.addEventListener("pause", function () {
+      if (v.hasAttribute("data-auto-paused")) v.removeAttribute("data-auto-paused");
+      else v.setAttribute("data-user-paused", "");
+    });
+    v.addEventListener("play", function () { v.removeAttribute("data-user-paused"); });
+  });
+  if (!calm && "IntersectionObserver" in window) {
+    var onScreen = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (!e.isIntersecting) { autoPause(v); return; }
+        if (v.hasAttribute("data-user-paused")) return;
+        var p = v.play();
+        if (p && p.catch) p.catch(function () {});
+      });
+    }, { threshold: 0.35 });
+    autos.forEach(function (v) { onScreen.observe(v); });
+  }
+
   document.querySelectorAll("[data-top]").forEach(function (b) {
     b.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
   });
 
   // Language switch. The page always opens in English (nothing is remembered between visits).
-  var SWAP = ["alt", "src", "href", "download", "aria-label"];
+  var SWAP = ["alt", "src", "href", "download", "aria-label", "placeholder"];
   function setLang(next) {
     if ((next !== "en" && next !== "es") || next === lang) return;
     lang = next;
@@ -1008,6 +1361,43 @@ p { max-width: 64ch; }
       } else { selectIt(); }
     });
   });
+
+  // Contact form: sent through FormSubmit straight to my inbox, with the sender's address as
+  // reply-to. Where the request can't go out (for example inside the Claude viewer), the
+  // status line says so and gives the address instead.
+  var form = document.getElementById("contact-form");
+  if (form) {
+    var formStatus = form.querySelector("[data-form-status]");
+    var sendBtn = form.querySelector('button[type="submit"]');
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var fd = new FormData(form);
+      if (fd.get("_honey")) { form.reset(); formStatus.textContent = MSG[lang].sent; return; }
+      var name = String(fd.get("name") || "").trim();
+      var email = String(fd.get("email") || "").trim();
+      sendBtn.disabled = true;
+      formStatus.textContent = MSG[lang].sending;
+      fetch("https://formsubmit.co/ajax/liangmaximo2@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          message: String(fd.get("message") || ""),
+          _replyto: email,
+          _subject: "Nuevo mensaje de " + name + " desde el portafolio",
+          _template: "table",
+          _captcha: "false"
+        })
+      }).then(function (r) { return r.json(); }).then(function (res) {
+        if (String(res && res.success) !== "true") throw new Error("not sent");
+        form.reset();
+        formStatus.textContent = MSG[lang].sent;
+      }).catch(function () {
+        formStatus.textContent = MSG[lang].unsent;
+      }).then(function () { sendBtn.disabled = false; });
+    });
+  }
 
 })();
 </script>
