@@ -202,7 +202,7 @@ p { max-width: 64ch; }
   z-index: 2;
   top: 0.75rem;
   right: 0.75rem;
-  width: 92px;
+  width: 76px;
   aspect-ratio: 1;
   border-radius: 50%;
   overflow: hidden;
@@ -217,8 +217,7 @@ p { max-width: 64ch; }
   .banner-art img { aspect-ratio: 21 / 9; object-position: 50% 60%; }
   .banner-art::after { background: linear-gradient(90deg, rgba(8, 10, 14, 0) 38%, rgba(8, 10, 14, 0.8) 100%); }
   .banner-name { top: 50%; bottom: auto; transform: translateY(-38%); }
-  .hero { --av: clamp(150px, 21vw, 270px); margin-top: max(0px, calc(var(--av) / 2 - 64px)); }   /* room above the banner for the photo */
-  .avatar { top: 0; right: clamp(1.5rem, 9vw, 7.5rem); transform: translateY(-50%); width: var(--av); border-width: 6px; }
+  .avatar { top: 0; right: clamp(1.5rem, 6vw, 4.5rem); transform: translateY(-50%); width: clamp(110px, 13vw, 164px); border-width: 5px; }
   .avatar .mono { font-size: clamp(1.3rem, 2.2vw, 1.8rem); }
 }
 .banner-desc { font-size: var(--s1); line-height: 1.5; max-width: 60ch; }
